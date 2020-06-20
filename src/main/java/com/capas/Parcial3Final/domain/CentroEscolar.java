@@ -1,34 +1,55 @@
 package com.capas.Parcial3Final.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@Table(schema="public",name="")
+@Table(schema="public",name="centroEscolar")
 public class CentroEscolar {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="idCentroEscolar")
 	private Integer idCentroEscolar;
 	
+	@Column(name="nombre")
+	//@Size(min="",max="")
+	@NotEmpty(message="No puede ir vacio")
 	private String nombre;
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idMunicipio")
 	private Municipio municipio;
 	
+	@Transient
 	private Integer idMunicipio;
 	
+	@Column(name="descripcion")
+	//@Size(min="",max="")
+	@NotEmpty(message="No puede ir vacio")
 	private String descripcion;
 	
+	@Column(name="estado")
+	//@Size(min="",max="")
+	//@NotEmpty(message="No puede ir vacio")
 	private Boolean estado;
+	
+	@OneToMany(mappedBy="centroEscolar",fetch=FetchType.LAZY)
+	private List<Estudiante> estudiante;
 	
 	
 	public CentroEscolar() {
@@ -82,7 +103,14 @@ public class CentroEscolar {
 	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
-	
+
+	public List<Estudiante> getEstudiante() {
+		return estudiante;
+	}
+
+	public void setEstudiante(List<Estudiante> estudiante) {
+		this.estudiante = estudiante;
+	}
 	
 	
 	

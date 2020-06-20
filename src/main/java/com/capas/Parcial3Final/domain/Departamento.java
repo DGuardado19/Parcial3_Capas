@@ -15,16 +15,22 @@ import javax.validation.constraints.Size;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@Table(schema="public",name="")
+@Table(schema="public",name="departamento")
 public class Departamento {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="idDepartamento")
 	private Integer idDepartamento;
 	
+	@Column(name="nombreDepartamento")
 	private String nombreDepartamento;
 	
+	@OneToMany(mappedBy="departamento",fetch=FetchType.LAZY)
 	private List<Municipio> municipio;
+	
+	@OneToMany(mappedBy="departamento",fetch=FetchType.LAZY)
+	private List<Usuario> usuario;
 	
 	public Departamento() {
 		
@@ -51,5 +57,14 @@ public class Departamento {
 		this.municipio = municipio;
 	}
 
+	public List<Usuario> getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(List<Usuario> usuario) {
+		this.usuario = usuario;
+	}
+
+	
 	
 }

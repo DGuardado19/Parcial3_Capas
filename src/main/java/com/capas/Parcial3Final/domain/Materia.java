@@ -1,5 +1,7 @@
 package com.capas.Parcial3Final.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,19 +15,31 @@ import javax.validation.constraints.Size;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@Table(schema="public",name="")
+@Table(schema="public",name="materia")
 public class Materia {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="idMateria")
 	private Integer idMateria;
 	
+	@Column(name="nombre")
+	//@Size(min="",max="")
+	@NotEmpty(message="No puede ir vacio")
 	private String nombre;
 	
+	@Column(name="descripicion")
+	//@Size(min="",max="")
+	@NotEmpty(message="No puede ir vacio")
 	private String descripicion;
 	
+	@Column(name="estado")
+	//@Size(min="",max="")
+	//@NotEmpty(message="No puede ir vacio")
 	private Boolean estado;
 	
+	@OneToMany(mappedBy="materia",fetch=FetchType.LAZY)
+	private List<MateriaXestudiante> materiaXestudiante;
 	
 	public Materia() {
 		
@@ -69,6 +83,16 @@ public class Materia {
 
 	public void setEstado(Boolean estado) {
 		this.estado = estado;
+	}
+
+
+	public List<MateriaXestudiante> getMateriaXestudiante() {
+		return materiaXestudiante;
+	}
+
+
+	public void setMateriaXestudiante(List<MateriaXestudiante> materiaXestudiante) {
+		this.materiaXestudiante = materiaXestudiante;
 	}
 	
 	

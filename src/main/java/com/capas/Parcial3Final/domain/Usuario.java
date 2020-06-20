@@ -8,42 +8,76 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@Table(schema="public",name="")
+@Table(schema="public",name="usuario")
 public class Usuario {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="idUsuario")
 	private Integer idUsuario;
 	
+	@Column(name="nombre")
+	//@Size(min="",max="")
+	@NotEmpty(message="No puede ir vacio")
 	private String nombre;
 	
+	@Column(name="apellido")
+	//@Size(min="",max="")
+	@NotEmpty(message="No puede ir vacio")
 	private String apellido;
 	
+	@Column(name="fechaNac")
+	//@Size(min="",max="")
+	@NotEmpty(message="No puede ir vacio")
 	private Date fechaNac;
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idMunicipio")
 	private Municipio municipio;
 	
+	@Transient
 	private Integer idMunicipio;
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idDepartamento")
 	private Departamento departamento;
 	
+	@Transient
 	private Integer idDepartamento;
 	
+	@Column(name="direccion")
+	//@Size(min="",max="")
+	@NotEmpty(message="No puede ir vacio")
 	private String direccion;
 	
+	@Column(name="nombreUser")
+	//@Size(min="",max="")
+	@NotEmpty(message="No puede ir vacio")
 	private String nombreUser;
 	
+	@Column(name="contrasenia")
+	//@Size(min="",max="")
+	@NotEmpty(message="No puede ir vacio")
 	private String contrasenia;
 	
+	@Column(name="tipoUsuario")
+	//@Size(min="",max="")
+	//@NotEmpty(message="No puede ir vacio")
 	private Boolean tipoUsuario;
 	
+	@Column(name="sesion")
+	//@Size(min="",max="")
+	//@NotEmpty(message="No puede ir vacio")
 	private Boolean sesion;
 
 	public Usuario() {

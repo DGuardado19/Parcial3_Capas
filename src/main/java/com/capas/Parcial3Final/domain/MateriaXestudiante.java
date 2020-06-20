@@ -6,30 +6,48 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import javax.persistence.SequenceGenerator;
 
 @Entity
-@Table(schema="public",name="")
+@Table(schema="public",name="materiaXestudiante")
 public class MateriaXestudiante {
 	
 	//private Integer idMateriaXestudiante;
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idMateria")
 	private Materia materia;
 	
+	@Transient
 	private Integer idMateria;
 	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idEstudiante")
 	private Estudiante estudiante;
 	
+	@Transient
 	private Integer idEstudiante;
 	
+	@Column(name="anio")
+	//@Size(min="",max="")
+	//@NotEmpty(message="No puede ir vacio")
 	private Integer anio;
 	
+	@Column(name="ciclo")
+	//@Size(min="",max="")
+	//@NotEmpty(message="No puede ir vacio")
 	private Integer ciclo;
 	
+	@Column(name="nota")
+	//@Size(min="",max="")
+	//@NotEmpty(message="No puede ir vacio")
 	private Float nota;
 	
 	public MateriaXestudiante() {
