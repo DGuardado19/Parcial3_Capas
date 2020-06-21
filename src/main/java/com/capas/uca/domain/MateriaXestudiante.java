@@ -1,4 +1,4 @@
-package com.capas.Parcial3Final.domain;
+package com.capas.uca.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
