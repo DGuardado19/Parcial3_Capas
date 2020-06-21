@@ -1,4 +1,4 @@
-package com.capas.uca.domain;
+package com.capas.uca.parcial3.domain;
 
 import java.sql.Date;
 import java.util.List;

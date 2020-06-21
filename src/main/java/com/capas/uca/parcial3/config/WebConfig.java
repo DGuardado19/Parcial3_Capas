@@ -1,4 +1,4 @@
-package com.capas.uca;
+package com.capas.uca.parcial3.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

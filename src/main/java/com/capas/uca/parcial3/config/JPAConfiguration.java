@@ -1,4 +1,4 @@
-package com.capas.uca;
+package com.capas.uca.parcial3.config;
 
 import java.util.Properties;
 
