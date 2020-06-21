@@ -47,7 +47,7 @@ public class JPAConfiguration {
 		dataSource.setUrl("jdbc:postgresql://localhost:5432/BDParcial");
 		
 		dataSource.setUsername("postgres");
-		dataSource.setPassword("eduardo10");
+		dataSource.setPassword("root");
 		
 		return dataSource;
 	}
