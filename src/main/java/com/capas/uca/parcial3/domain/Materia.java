@@ -95,6 +95,9 @@ public class Materia {
 		this.materiaXestudiante = materiaXestudiante;
 	}
 	
+	public String getDelegateEstado() {
+		return estado ? "Activo":"Inactivo";
+	}
 	
 	
 }

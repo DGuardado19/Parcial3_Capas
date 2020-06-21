@@ -112,7 +112,9 @@ public class CentroEscolar {
 		this.estudiante = estudiante;
 	}
 	
-	
+	public String getDelegateEstado() {
+		return estado ? "Activo":"Inactivo";
+	}
 	
 
 }

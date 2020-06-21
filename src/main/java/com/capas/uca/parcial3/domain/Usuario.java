@@ -188,6 +188,8 @@ public class Usuario {
 		this.sesion = sesion;
 	}
 	
-	
+	public String getDelegateSesion() {
+		return sesion ? "Activo":"Inactivo";
+	}
 
 }
