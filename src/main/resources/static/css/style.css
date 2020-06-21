@@ -1,0 +1,64 @@
+.center{
+	text-align: center;
+}
+
+body{
+	background: #011A27;
+}
+
+.container-login{
+	margin-top: 100px;
+	margin-bottom: 100px;
+	width: 40%;
+	background: #063852;
+	padding: 30px;
+	color: #E6DF44;
+}
+
+.color-btnSesion{
+	background: #F0810F;
+}
+
+.formularios{
+	margin-top: 50px;
+	margin-bottom: 50px;
+	background: #063852;
+	padding: 20px;
+	color: #E6DF44;
+	border-radius: 10px;
+	width: 70%;
+}
+
+.btn-center{
+	display: flex;
+  	justify-content: center;
+}
+
+.tablas{
+	margin-top: 50px;
+	margin-bottom: 50px;
+	background: #063852;
+	padding: 20px;
+	color: #E6DF44;
+	border-radius: 10px;
+}
+
+thead{
+	background: white;
+}
+
+tbody{
+	color: white;
+}
+
+.nuevoDato{
+	text-align: left;
+}
+
+.nuevoDato > a{
+	background: #F0810F;
+	margin-bottom: 20px;
+	margin-top: 20px;
+	color: white;
+}
+
