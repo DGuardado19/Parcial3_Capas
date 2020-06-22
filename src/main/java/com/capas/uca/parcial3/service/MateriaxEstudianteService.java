@@ -1,5 +1,5 @@
 package com.capas.uca.parcial3.service;
 
-public interface Departamento {
+public interface MateriaxEstudianteService {
 
 }
