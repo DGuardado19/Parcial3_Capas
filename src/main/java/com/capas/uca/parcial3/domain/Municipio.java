@@ -32,7 +32,7 @@ public class Municipio {
 	private String nombreMunicipio;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idDepartamento")
+	@JoinColumn(name="fkDepartamento")
 	private Departamento departamento;
 	
 	@Transient

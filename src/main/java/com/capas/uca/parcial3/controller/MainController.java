@@ -89,6 +89,7 @@ public class MainController {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		mav.addObject("centro", centroescolar);
 		mav.setViewName("tablaCentroEscolar");
 		return mav;
 	}

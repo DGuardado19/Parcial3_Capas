@@ -44,14 +44,14 @@
 		      <th scope="col">Estado</th>
 		    </tr>
 		  </thead>
-		  <tbody>
+		  <tbody:block th:each="centroE, row:${centro}">
 		    <tr>
-		      <th scope="row">1</th>
-		      <td>Mark</td>
-		      <td>Otto</td>
-		      <td>@mdo</td>
-		      <td>@mdo</td>
-		      <td>@mdo</td>
+		      <td th:text="${centroE.nombre}"/>
+		      <th scope="row" th:text="${centroE.idCentroEscolar}"/>
+		      <td th:text="${centroE.nombre}"/>
+		      <td th:text="${centroE.municipio.nombreMunicipio}"/>
+		      <td th:text="${centroE.descripcion}"/>
+		      <td th:text="${centroE.delegateEstado}"/>
 		    </tr>
 		  </tbody>
 		</table>
