@@ -21,6 +21,11 @@ public class MateriaXestudiante {
 	
 	//private Integer idMateriaXestudiante;
 	
+	@Id
+	@Column(name="idMateriaXestudiante")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="idMateria")
 	private Materia materia;
@@ -33,6 +38,7 @@ public class MateriaXestudiante {
 	private Estudiante estudiante;
 	
 	@Transient
+	@Id
 	private Integer idEstudiante;
 	
 	@Column(name="anio")
@@ -52,6 +58,16 @@ public class MateriaXestudiante {
 	
 	public MateriaXestudiante() {
 		
+	}
+	
+	public Integer getId() {
+		return id;
+	}
+
+
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Materia getMateria() {

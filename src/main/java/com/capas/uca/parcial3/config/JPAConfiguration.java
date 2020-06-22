@@ -16,7 +16,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "com.uca.capas.parcial3.repositories")
+@EnableJpaRepositories(basePackages = "com.capas.uca.parcial3.repositorie")
 @EnableTransactionManagement
 public class JPAConfiguration {
 	
@@ -32,7 +32,7 @@ public class JPAConfiguration {
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(dataSource());
 		em.setPersistenceUnitName("capas2");
-		em.setPackagesToScan("com.uca.capas.parcial3.domain");
+		em.setPackagesToScan("com.capas.uca.parcial3.domain");
 		
 		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		em.setJpaVendorAdapter(vendorAdapter);
@@ -47,7 +47,7 @@ public class JPAConfiguration {
 		dataSource.setUrl("jdbc:postgresql://localhost:5432/BDParcial");
 		
 		dataSource.setUsername("postgres");
-		dataSource.setPassword("root");
+		dataSource.setPassword("eduardo10");
 		
 		return dataSource;
 	}
@@ -56,6 +56,7 @@ public class JPAConfiguration {
 		Properties properties = new Properties();
 		properties.setProperty("hibernate.show_sql", "true");
 		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+		properties.setProperty("hibernate.enable_lazy_load_no_trans","true");
 		return properties;
 	}
 }

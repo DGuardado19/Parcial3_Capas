@@ -14,7 +14,7 @@ public interface MateriaxEstudianteRepo extends JpaRepository<MateriaXestudiante
 	public List<MateriaXestudiante> mostrarTodos() throws DataAccessException;
 	
 	
-	@Query(nativeQuery = true, value = "select * from public.MateriaxEstudiante"
+	@Query(nativeQuery = true, value = "select * from public.materiaXestudiante"
 			+ "where idestudiante = ?1")
 	public List<MateriaXestudiante> mostraruno(Integer code) throws DataAccessException;
 	

@@ -1,10 +1,13 @@
 package com.capas.uca.parcial3.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.capas.uca.parcial3.domain.CentroEscolar;
 import com.capas.uca.parcial3.service.CentroEscolarService;
 import com.capas.uca.parcial3.service.DepartamentoService;
 import com.capas.uca.parcial3.service.EstudianteService;
@@ -71,6 +74,12 @@ public class MainController {
 	@RequestMapping("/tablaCentroEscolar")
 	public ModelAndView tablaCentroEscolar() {
 		ModelAndView mav = new ModelAndView();
+		List<CentroEscolar> centroescolar = null;
+		try {
+			centroescolar = CentroEscolarService.findAll();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		mav.setViewName("tablaCentroEscolar");
 		return mav;
 	}
