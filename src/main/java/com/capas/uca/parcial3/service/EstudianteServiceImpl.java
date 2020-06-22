@@ -28,11 +28,6 @@ public class EstudianteServiceImpl implements EstudianteService {
 		return Repo.mostrarTodos();
 	}
 
-	@Override
-	public List<Estudiante> findByName(String cadena) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return Repo.findByNombre(cadena);
-	}
 
 	@Override
 	public List<Estudiante> findByApel(String cadena) throws DataAccessException {
@@ -58,6 +53,12 @@ public class EstudianteServiceImpl implements EstudianteService {
 		// TODO Auto-generated method stub
 		Repo.save(estudiante);
 		
+	}
+
+	@Override
+	public List<Estudiante> findByName(String cadena) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return Repo.findByNombreStartingWith(cadena);
 	}
 
 	

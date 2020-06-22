@@ -1,11 +1,37 @@
 package com.capas.uca.parcial3.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.capas.uca.parcial3.service.CentroEscolarService;
+import com.capas.uca.parcial3.service.DepartamentoService;
+import com.capas.uca.parcial3.service.EstudianteService;
+import com.capas.uca.parcial3.service.MateriaService;
+import com.capas.uca.parcial3.service.MateriaxEstudianteService;
+import com.capas.uca.parcial3.service.MunicipioService;
+import com.capas.uca.parcial3.service.UsuarioService;
+
 @Controller
 public class MainController {
+	
+	@Autowired
+	private MateriaService MateriaService;
+	@Autowired
+	private CentroEscolarService CentroEscolarService;
+	@Autowired
+	private DepartamentoService departamentoService;
+	@Autowired
+	private EstudianteService estudianteService;
+	@Autowired
+	private MateriaxEstudianteService materiaxEstudianteService;
+	@Autowired
+	private MunicipioService MunicipioService;
+	@Autowired
+	private UsuarioService usuarioService;
+
+	
 	
 	@RequestMapping("/index")
 	public ModelAndView index() {

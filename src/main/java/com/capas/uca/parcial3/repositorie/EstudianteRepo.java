@@ -10,10 +10,10 @@ import com.capas.uca.parcial3.domain.Estudiante;
 
 public interface EstudianteRepo extends JpaRepository<Estudiante, Integer> {
 	
-	List<Estudiante>findByNombre(String nombre) throws DataAccessException;
 	List<Estudiante>findByNombreAndApellido(String nombre, String apellido) throws DataAccessException;
 	List<Estudiante>findByApellidoStartingWith(String nombre) throws DataAccessException;
-	
+	List<Estudiante>findByNombreStartingWith(String nombre) throws DataAccessException;
+
 	@Query(nativeQuery = true, value = "select * from public.estudiante")
 	public List<Estudiante>mostrarTodos() throws DataAccessException;
 }

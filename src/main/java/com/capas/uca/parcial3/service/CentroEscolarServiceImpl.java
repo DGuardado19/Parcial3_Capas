@@ -25,7 +25,7 @@ public class CentroEscolarServiceImpl implements CentroEscolarService{
 	@Override
 	public List<CentroEscolar> findAll() throws DataAccessException {
 		// TODO Auto-generated method stub
-		return Repo.mostrarTodos();
+		return Repo.findAll();
 	}
 
 	@Override

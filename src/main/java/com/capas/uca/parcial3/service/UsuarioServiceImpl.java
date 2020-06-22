@@ -38,4 +38,5 @@ public class UsuarioServiceImpl implements UsuarioService {
 		// TODO Auto-generated method stub
 		Repo.save(usuario);
 	}
+	
 }

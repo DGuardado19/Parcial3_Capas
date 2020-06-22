@@ -9,8 +9,8 @@ import com.capas.uca.parcial3.domain.Estudiante;
 public interface EstudianteService {
 	
 	public List<Estudiante> findAll() throws DataAccessException;
-	public List<Estudiante> findByName(String cadena) throws DataAccessException;
 	public List<Estudiante> findByApel(String cadena) throws DataAccessException;
+	public List<Estudiante> findByName(String cadena) throws DataAccessException;
 	public List<Estudiante> findByNameAndApel(String cadena, String cadena2) throws DataAccessException;
 
 	public Estudiante findOne(Integer code) throws DataAccessException;
