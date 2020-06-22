@@ -43,8 +43,7 @@ public class Estudiante {
 	private String carnet;
 	
 	@Column(name="fechaNac")
-	//@Size(min="",max="")
-	@NotEmpty(message="No puede ir vacio")
+	//@Size(min="",max="")}
 	private Date fechaNac;
 	
 	@Column(name="direccion")

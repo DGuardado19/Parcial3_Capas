@@ -38,7 +38,6 @@ public class Usuario {
 	
 	@Column(name="fechaNac")
 	//@Size(min="",max="")
-	@NotEmpty(message="No puede ir vacio")
 	private Date fechaNac;
 	
 	@ManyToOne(fetch=FetchType.LAZY)

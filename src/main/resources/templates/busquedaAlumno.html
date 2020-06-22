@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Expedientes Alumnos</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+	<div class="container formularios">
+		<h1 class="center">Expedientes de alumnos</h1> 
+		<form action="">
+			<div class="row">
+			    <div class="col-md">
+				  	  <div class="form-group">
+					    <label for="Select1">Buscar Alumno por:</label>
+					    <select class="form-control" id="Select1">
+					      <option value="0">Seleccione una opción</option>
+					      <option value="1">Nombre</option>
+					      <option value="2">Apellido</option>
+					    </select>
+					  </div>
+				  </div>
+			    <div class="col-md">
+				  <div class="form-group">
+					    <label for="Input1">Valor de búsqueda:</label>
+					    <input type="text" class="form-control" id="Input1">
+				  </div>
+			    </div>
+			</div>
+			<button type="submit" class="btn color-btnSesion">Buscar</button>
+		</form>
+		<div class="nuevoDato">
+			<a class="btn bg-dark text-white" href="registroMateria">Agregar Nuevo Expediente</a>
+		</div>
+	</div>
+
+</body>
+</html>

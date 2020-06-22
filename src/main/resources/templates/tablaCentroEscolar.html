@@ -2,16 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Materias</title>
+<title>Centros Escolares</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="tablas-ventana">
 
-	<nav class="navbar navbar-expand-lg navbar-dark bg-menu"> 
-		<a class="navbar-brand" href="#"><img alt="" src="img/logo.jpeg"></a>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-menu">
+	  <a class="navbar-brand" href="#"><img alt="" src="img/logo.jpeg"></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"><img alt="" src="img/logo.jpeg"></span>
+	    <span class="navbar-toggler-icon"></span>
 	  </button>
 	  <div class="collapse navbar-collapse" id="navbarNavDropdown">
 	    <ul class="navbar-nav">
@@ -29,9 +29,9 @@
 	</nav>
 	
 	<div class="container tablas center">
-		<h1>Materias</h1>
+		<h1>Centros Escolares</h1>
 		<div class="nuevoDato">
-			<a class="btn color-linkSesion" href="registroMateria">Nueva Materia</a>
+			<a class="btn color-linkSesion" href="registroCentroEscolar">Nuevo Centro Escolar</a>
 		</div>
 		<table class="table">
 		  <thead>
@@ -39,6 +39,7 @@
 		      <th scope="col">Acción</th>
 		      <th scope="col">Codigo</th>
 		      <th scope="col">Nombre</th>
+		      <th scope="col">Municipio</th>
 		      <th scope="col">Descripción</th>
 		      <th scope="col">Estado</th>
 		    </tr>
@@ -48,6 +49,7 @@
 		      <th scope="row">1</th>
 		      <td>Mark</td>
 		      <td>Otto</td>
+		      <td>@mdo</td>
 		      <td>@mdo</td>
 		      <td>@mdo</td>
 		    </tr>

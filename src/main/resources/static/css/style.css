@@ -3,28 +3,29 @@
 }
 
 body{
-	background: #011A27;
+	background: #1f4e5f;
 }
 
 .container-login{
 	margin-top: 100px;
 	margin-bottom: 100px;
 	width: 40%;
-	background: #063852;
+	background: #79a8a9;
 	padding: 30px;
-	color: #E6DF44;
+	color: #f4f7f7;
 }
 
 .color-btnSesion{
-	background: #F0810F;
+	background: white;
+	color: #79a8a9;
 }
 
 .formularios{
 	margin-top: 50px;
 	margin-bottom: 50px;
-	background: #063852;
+	background: #79a8a9;
 	padding: 20px;
-	color: #E6DF44;
+	color: #f4f7f7;
 	border-radius: 10px;
 	width: 70%;
 }
@@ -37,9 +38,9 @@ body{
 .tablas{
 	margin-top: 50px;
 	margin-bottom: 50px;
-	background: #063852;
+	background: #112d4e;
 	padding: 20px;
-	color: #E6DF44;
+	color: #dbe2ef;
 	border-radius: 10px;
 }
 
@@ -51,14 +52,42 @@ tbody{
 	color: white;
 }
 
+.tablas-ventana{
+	background: #f9f7f7;
+}
+
 .nuevoDato{
 	text-align: left;
 }
 
 .nuevoDato > a{
-	background: #F0810F;
+	background: #f9f7f7;
 	margin-bottom: 20px;
 	margin-top: 20px;
-	color: white;
+	color: #112d4e;
 }
 
+.bg-menu{
+	background: #112d4e;
+}
+
+nav > a > img{
+	width: 150px;
+	height: 75px;
+	border-radius: 20px;
+}
+
+.materiaForm{
+	width: 40%;
+}
+
+.tabla2{
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.alumnoFrm{
+	width: 40%;
+	margin-left: 20px;
+	margin-top: 10px;
+}

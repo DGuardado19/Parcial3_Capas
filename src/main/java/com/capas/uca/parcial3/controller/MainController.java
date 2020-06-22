@@ -28,4 +28,66 @@ public class MainController {
 		return mav;
 	}
 	
+	@RequestMapping("/registroMateria")
+	public ModelAndView registroMateria() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("registroMateria");
+		return mav;
+	}
+	
+	@RequestMapping("/registroCentroEscolar")
+	public ModelAndView registroCentroEscolar() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("registroCentroEscolar");
+		return mav;
+	}
+	
+	@RequestMapping("/tablaCentroEscolar")
+	public ModelAndView tablaCentroEscolar() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("tablaCentroEscolar");
+		return mav;
+	}
+	
+	@RequestMapping("/tablaUsuario")
+	public ModelAndView tablaUsuario() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("tablaUsuario");
+		return mav;
+	}
+	
+	@RequestMapping("/busquedaAlumno")
+	public ModelAndView busquedaAlumno() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("busquedaAlumno");
+		return mav;
+	}
+	
+	@RequestMapping("/tablaExpediente")
+	public ModelAndView tablaExpediente() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("tablaExpediente");
+		return mav;
+	}
+	
+	@RequestMapping("/registroAlumno")
+	public ModelAndView registroAlumno() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("registroAlumno");
+		return mav;
+	}
+	
+	@RequestMapping("/tablaMateriasCursadas")
+	public ModelAndView tablaMateriasCursadas() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("tablaMateriasCursadas");
+		return mav;
+	}
+	
+	@RequestMapping("/registrarMateriaAlumno")
+	public ModelAndView registrarMateriaAlumno() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("registrarMateriaCursada");
+		return mav;
+	}
 }
