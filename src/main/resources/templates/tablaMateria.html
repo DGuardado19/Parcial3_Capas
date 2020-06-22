@@ -36,20 +36,18 @@
 		<table class="table">
 		  <thead>
 		    <tr>
-		      <th scope="col">Acción</th>
 		      <th scope="col">Codigo</th>
 		      <th scope="col">Nombre</th>
 		      <th scope="col">Descripción</th>
 		      <th scope="col">Estado</th>
 		    </tr>
 		  </thead>
-		  <tbody>
+		  <tbody:block th:each="materia, row:${materiaList}">
 		    <tr>
-		      <th scope="row">1</th>
-		      <td>Mark</td>
-		      <td>Otto</td>
-		      <td>@mdo</td>
-		      <td>@mdo</td>
+		      	<th th:text="${materia.idMateria}"/>
+				<th th:text="${materia.nombre}"/>
+				<th th:text="${materia.descripicion}"/>
+				<th th:text="${materia.estado}"/>
 		    </tr>
 		  </tbody>
 		</table>
