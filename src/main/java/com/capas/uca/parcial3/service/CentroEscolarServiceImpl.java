@@ -1,5 +1,5 @@
 package com.capas.uca.parcial3.service;
 
-public class CentroEscolarServiceImpl {
+public class CentroEscolarServiceImpl implements CentroEscolar{
 
 }
