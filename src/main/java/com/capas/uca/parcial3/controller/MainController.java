@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.capas.uca.parcial3.domain.CentroEscolar;
+import com.capas.uca.parcial3.domain.Materia;
 import com.capas.uca.parcial3.service.CentroEscolarService;
 import com.capas.uca.parcial3.service.DepartamentoService;
 import com.capas.uca.parcial3.service.EstudianteService;
@@ -53,6 +54,14 @@ public class MainController {
 	@RequestMapping("/tablaMaterias")
 	public ModelAndView tablaMaterias() {
 		ModelAndView mav = new ModelAndView();
+		List<Materia> materia = null;
+		try {
+			materia = MateriaService.findAll();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		mav.addObject("materiaList", materia);
 		mav.setViewName("tablaMateria");
 		return mav;
 	}

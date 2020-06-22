@@ -28,7 +28,7 @@ public class Materia {
 	@NotEmpty(message="No puede ir vacio")
 	private String nombre;
 	
-	@Column(name="descripicion")
+	@Column(name="descripcion")
 	//@Size(min="",max="")
 	@NotEmpty(message="No puede ir vacio")
 	private String descripicion;
