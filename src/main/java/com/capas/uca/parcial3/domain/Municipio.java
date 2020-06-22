@@ -41,6 +41,10 @@ public class Municipio {
 	@OneToMany(mappedBy="municipio",fetch=FetchType.LAZY)
 	private List<Usuario> usuario;
 	
+	@OneToMany(mappedBy="municipio",fetch=FetchType.LAZY)
+	private List<Estudiante> estudiante;
+	
+	
 	public Municipio() {
 		
 	}
@@ -83,6 +87,14 @@ public class Municipio {
 
 	public void setUsuario(List<Usuario> usuario) {
 		this.usuario = usuario;
+	}
+
+	public List<Estudiante> getEstudiante() {
+		return estudiante;
+	}
+
+	public void setEstudiante(List<Estudiante> estudiante) {
+		this.estudiante = estudiante;
 	}
 	
 	

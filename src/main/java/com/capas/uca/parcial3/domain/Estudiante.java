@@ -50,6 +50,20 @@ public class Estudiante {
 	//@Size(min="",max="")
 	@NotEmpty(message="No puede ir vacio")
 	private String direccion;
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idMunicipio")
+	private Municipio municipio;
+	
+	@Transient
+	private Integer idMunicipio;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="idDepartamento")
+	private Departamento departamento;
+	
+	@Transient
+	private Integer idDepartamento;
 	
 	@Column(name="telefonoFijo")
 	//@Size(min="",max="")
@@ -187,6 +201,38 @@ public class Estudiante {
 
 	public void setMateriaXestudiante(List<MateriaXestudiante> materiaXestudiante) {
 		this.materiaXestudiante = materiaXestudiante;
+	}
+
+	public Municipio getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(Municipio municipio) {
+		this.municipio = municipio;
+	}
+
+	public Integer getIdMunicipio() {
+		return idMunicipio;
+	}
+
+	public void setIdMunicipio(Integer idMunicipio) {
+		this.idMunicipio = idMunicipio;
+	}
+
+	public Departamento getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
+
+	public Integer getIdDepartamento() {
+		return idDepartamento;
+	}
+
+	public void setIdDepartamento(Integer idDepartamento) {
+		this.idDepartamento = idDepartamento;
 	}
 	
 	
