@@ -28,26 +28,25 @@ public class Estudiante {
 	private Integer idEstudiante;
 	
 	@Column(name="nombre")
-	//@Size(min="",max="")
+	@Size(max=20, message="El campo sobrepasa la cantidad de 20 caracteres")
 	@NotEmpty(message="No puede ir vacio")
 	private String nombre;
 	
 	@Column(name="apellido")
-	//@Size(min="",max="")
+	@Size(max=20, message="El campo sobrepasa la cantidad de 20 caracteres")
 	@NotEmpty(message="No puede ir vacio")
 	private String apellido;
 	
 	@Column(name="carnet")
-	//@Size(min="",max="")
+	@Size(max=9, message="El campo sobrepasa la cantidad de 9 caracteres")
 	@NotEmpty(message="No puede ir vacio")
 	private String carnet;
 	
 	@Column(name="fechaNac")
-	//@Size(min="",max="")}
 	private Date fechaNac;
 	
 	@Column(name="direccion")
-	//@Size(min="",max="")
+	@Size(max=100, message="El campo sobrepasa la cantidad de 100 caracteres")
 	@NotEmpty(message="No puede ir vacio")
 	private String direccion;
 
@@ -66,12 +65,12 @@ public class Estudiante {
 	private Integer fkDepartamento;
 	
 	@Column(name="telefonoFijo")
-	//@Size(min="",max="")
+	@Size(max=8, message="El campo sobrepasa la cantidad de 8 caracteres")
 	@NotEmpty(message="No puede ir vacio")
 	private String telefonoFijo;
 	
 	@Column(name="telefonoMovil")
-	//@Size(min="",max="")
+	@Size(max=8, message="El campo sobrepasa la cantidad de 8 caracteres")
 	@NotEmpty(message="No puede ir vacio")
 	private String telefonoMovil;
 	
@@ -83,12 +82,12 @@ public class Estudiante {
 	private Integer fkCentroEscolar;
 	
 	@Column(name="nombrePadre")
-	//@Size(min="",max="")
+	@Size(max=50, message="El campo sobrepasa la cantidad de 50 caracteres")
 	@NotEmpty(message="No puede ir vacio")
 	private String nombrePadre;
 	
 	@Column(name="nombreMadre")
-	//@Size(min="",max="")
+	@Size(max=50, message="El campo sobrepasa la cantidad de 50 caracteres")
 	@NotEmpty(message="No puede ir vacio")
 	private String nombreMadre;
 	

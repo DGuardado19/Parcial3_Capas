@@ -180,15 +180,15 @@ public class MainController {
 		
 		List<Departamento> departamentoLista = null;
 		List<Municipio> municipioLista = null;
-		List<CentroEscolar> centroLista = null;
+		List<CentroEscolar> centroescolar = null;
 		
-		centroLista = CentroEscolarService.findAll();
+		centroescolar = CentroEscolarService.findAll();
 		departamentoLista = departamentoService.findAll();
 		municipioLista = MunicipioService.findAll();
 		
 		mav.addObject("departamentoLista", departamentoLista);
 		mav.addObject("municipioLista", municipioLista);
-		mav.addObject("centroEscolar", centroLista);
+		mav.addObject("centro", centroescolar);
 		
 		mav.setViewName("registroAlumno");
 		
