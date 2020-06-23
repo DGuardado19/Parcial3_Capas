@@ -148,27 +148,13 @@ public class MainController {
 	@RequestMapping("/registroAlumno")
 	public ModelAndView registroAlumno(@ModelAttribute Estudiante estudiante) {
 		ModelAndView mav = new ModelAndView();
-	
-		List<Departamento> departamentoLista = null;
-		List<Municipio> municipioLista = null;
-		List<CentroEscolar> centroLista = null;
 		try {
-			
-			centroLista = CentroEscolarService.findAll();
-			departamentoLista = departamentoService.findAll();
-			municipioLista = MunicipioService.findAll();
-		
-			
+			mostrarComboBox(mav);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-		mav.addObject("departamentoLista", departamentoLista);
-		mav.addObject("municipioLista", municipioLista);
-		mav.addObject("centroEscolar", centroLista);
 		mav.addObject("estudiante", estudiante);
-		
-		mav.setViewName("registroAlumno");
 		return mav;
 	}
 	
