@@ -114,14 +114,14 @@ public class MainController {
 		
 		ModelAndView mav = new ModelAndView();
 		
-		List<Estudiante> listaEstudiante = null;
+		List<Usuario> listaUsuario = null;
 		
 		try {
-			listaEstudiante = estudianteService.findAll();
+			listaUsuario = usuarioService.findAll();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		mav.addObject("estudiante",listaEstudiante);
+		mav.addObject("usuario",listaUsuario);
 		mav.setViewName("tablaUsuario");
 		return mav;
 	}

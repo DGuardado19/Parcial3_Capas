@@ -44,7 +44,7 @@ public class JPAConfiguration {
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("org.postgresql.Driver");
-		dataSource.setUrl("jdbc:postgresql://localhost:5432/BDParcial");//Roberto
+		dataSource.setUrl("jdbc:postgresql://localhost:5432/ParcialTres");//Roberto
 		//dataSource.setUrl("jdbc:postgresql://localhost:5432/BDParcial3");//Eduardo
 		//dataSource.setUrl("jdbc:postgresql://localhost:5432/DBParcial3");//POO
 		

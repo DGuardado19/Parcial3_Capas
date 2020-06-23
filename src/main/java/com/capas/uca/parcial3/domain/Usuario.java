@@ -79,6 +79,9 @@ public class Usuario {
 	//@NotEmpty(message="No puede ir vacio")
 	private Boolean sesion;
 
+	@Column(name="estado")
+	private Boolean estado;
+	
 	public Usuario() {
 		
 	}
@@ -194,4 +197,34 @@ public class Usuario {
 	public String getDelegateTipoUsuario() {
 		return tipoUsuario ? "Administrador":"Coordinador";
 	}
+	
+	public String getDelegateEstado() {
+		return estado ? "Activo":"Inactivo";
+	}
+	
+	public Integer getFkMunicipio() {
+		return fkMunicipio;
+	}
+
+	public void setFkMunicipio(Integer fkMunicipio) {
+		this.fkMunicipio = fkMunicipio;
+	}
+
+	public Integer getFkDepartamento() {
+		return fkDepartamento;
+	}
+
+	public void setFkDepartamento(Integer fkDepartamento) {
+		this.fkDepartamento = fkDepartamento;
+	}
+
+	public Boolean getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Boolean estado) {
+		this.estado = estado;
+	}
+	
+	
 }
