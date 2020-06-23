@@ -2,8 +2,12 @@ package com.capas.uca.parcial3.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -49,11 +53,11 @@ public class MainController {
 		ModelAndView mav = new ModelAndView();
 		List<Departamento> departamentoLista = null;
 		List<Municipio> municipioLista = null;
-		List<Usuario> usuarioLista = null;
+		//List<Usuario> usuarioLista = null;
 		try {
 			departamentoLista = departamentoService.findAll();
 			municipioLista = MunicipioService.findAll();
-			usuarioLista = usuarioService.findAll();
+			//usuarioLista = usuarioService.findAll();
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -61,7 +65,7 @@ public class MainController {
 		
 		mav.addObject("departamentoLista", departamentoLista);
 		mav.addObject("municipioLista", municipioLista);
-		mav.addObject("usuarioLista",usuarioLista);
+		//mav.addObject("usuarioLista",usuarioLista);
 		mav.setViewName("registroUsuario");
 		return mav;
 	}
@@ -141,8 +145,55 @@ public class MainController {
 	}
 	
 	@RequestMapping("/registroAlumno")
-	public ModelAndView registroAlumno() {
+	public ModelAndView registroAlumno(@ModelAttribute Estudiante estudiante) {
 		ModelAndView mav = new ModelAndView();
+	
+		List<Departamento> departamentoLista = null;
+		List<Municipio> municipioLista = null;
+		List<CentroEscolar> centroLista = null;
+		try {
+			
+			centroLista = CentroEscolarService.findAll();
+			departamentoLista = departamentoService.findAll();
+			municipioLista = MunicipioService.findAll();
+		
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		mav.addObject("departamentoLista", departamentoLista);
+		mav.addObject("municipioLista", municipioLista);
+		mav.addObject("centroEscolar", centroLista);
+		mav.addObject("estudiante", estudiante);
+		
+		mav.setViewName("registroAlumno");
+		return mav;
+	}
+	
+	@RequestMapping("/registroEstudiante")
+	public ModelAndView alumno( @ModelAttribute Estudiante estudiante) {
+		ModelAndView mav = new ModelAndView();
+		List<Departamento> departamentoLista = null;
+		List<Municipio> municipioLista = null;
+		List<CentroEscolar> centroLista = null;
+		try {
+			
+			centroLista = CentroEscolarService.findAll();
+			departamentoLista = departamentoService.findAll();
+			municipioLista = MunicipioService.findAll();
+			
+			estudianteService.insertAndUpdate(estudiante);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		mav.addObject("departamentoLista", departamentoLista);
+		mav.addObject("municipioLista", municipioLista);
+		mav.addObject("centroEscolar", centroLista);
+		mav.addObject("estudiante", estudiante);
+
 		mav.setViewName("registroAlumno");
 		return mav;
 	}

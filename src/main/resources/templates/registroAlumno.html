@@ -3,120 +3,120 @@
 <head>
 <meta charset="UTF-8">
 <title>Registro alumno</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 	<div class="container formularios">
-		<h1 class="center">Registrar nuevo Alumno</h1> 
-		<form action="">
+		<h1 class="center">Registrar nuevo Alumno</h1>
+		<form th:action="@{/registroEstudiante}" method="post" th:object="${estudiante}">
 			<div class="row">
-			    <div class="col-md">
-			      <div class="form-group">
-					    <label for="Input1">Nombre</label>
-					    <input type="text" class="form-control" id="Input1">
-				  </div>
-			    </div>
-			    <div class="col-md">
-			      	<div class="form-group">
-					    <label for="Input1">Apellido</label>
-					    <input type="text" class="form-control" id="Input1">
+				<div class="col-md">
+					<div class="form-group">
+						<label for="Input1">Nombre</label> <input type="text" th:field="${estudiante.nombre}"
+							class="form-control" id="Input1"><span th:errors="*{nombre}" style="color: #FF0000"></span>
 					</div>
-			    </div>
+				</div>
+				<div class="col-md">
+					<div class="form-group">
+						<label for="Input1">Apellido</label> <input type="text" th:field="${estudiante.apellido}"
+							class="form-control" id="Input1"><span th:errors="*{apellido}" style="color: #FF0000"></span>
+					</div>
+				</div>
 			</div>
 			<div class="row">
 				<div class="col-md">
-			      	<div class="form-group">
-					    <label for="Input1">Número de carnet</label>
-					    <input type="text" class="form-control" id="Input1">
+					<div class="form-group">
+						<label for="Input1">Número de carnet</label> <input type="text" th:field="${estudiante.carnet}"
+							class="form-control" id="Input1"><span th:errors="*{carnet}" style="color: #FF0000"></span>
 					</div>
-			    </div>
-			    <div class="col-md">
-			      	<div class="form-group">
-					    <label for="Input1">Fecha de nacimiento</label>
-					    <input type="date" class="form-control" id="Input1">
+				</div>
+				<div class="col-md">
+					<div class="form-group">
+						<label for="Input1">Fecha de nacimiento</label> <input type="date" th:field="${estudiante.fechaNac}"
+							class="form-control" id="Input1">
 					</div>
-			    </div>
-			    <div class="col-md">
-			      	<div class="form-group">
-					    <label for="Input1">Edad</label>
-					    <input type="text" class="form-control" id="Input1">
+				</div>
+				<div class="col-md">
+					<div class="form-group">
+						<label for="Input1">Edad</label> <input type="text" 
+							class="form-control" id="Input1">
 					</div>
-			    </div>
+				</div>
 			</div>
 			<div class="form-group">
-				<label for="exampleFormControlTextarea1">Dirección de vivienda</label>
-				<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+				<label for="exampleFormControlTextarea1">Dirección de
+					vivienda</label>
+				<textarea th:field="${estudiante.direccion}" class="form-control" id="exampleFormControlTextarea1" 
+					rows="3"></textarea><span th:errors="*{direccion}" style="color: #FF0000"></span>
 			</div>
 			<div class="row">
 				<div class="col-md">
-			      	<div class="form-group">
-					    <label for="Input1">Télefono fijo</label>
-					    <input type="text" class="form-control" id="Input1">
+					<div class="form-group">
+						<label for="Input1">Télefono fijo</label> <input type="text" th:field="${estudiante.telefonoFijo}"
+							class="form-control" id="Input1"><span th:errors="*{telefonoFijo}" style="color: #FF0000"></span>
 					</div>
-			    </div>
-			    <div class="col-md">
-			      	<div class="form-group">
-					    <label for="Input1">Télefono móvil</label>
-					    <input type="text" class="form-control" id="Input1">
+				</div>
+				<div class="col-md">	
+					<div class="form-group">
+						<label for="Input1">Télefono móvil</label> <input type="text" th:field="${estudiante.telefonoMovil}"
+							class="form-control" id="Input1"><span th:errors="*{telefonoMovil}" style="color: #FF0000"></span>
 					</div>
-			    </div>
+				</div>
 			</div>
 			<div class="row">
-			    <div class="col-md">
-			      	<div class="form-group">
-					    <label for="Select1">Departamento</label>
-					    <select class="form-control" id="Select1">
-					      <option>Seleccione una opción</option>
-					      <option>2</option>
-					      <option>3</option>
-					      <option>4</option>
-					      <option>5</option>
-					    </select>
-					  </div>
-			    </div>
-			    <div class="col-md">
-			      	<div class="form-group">
-					    <label for="Select1">Municipio</label>
-					    <select class="form-control" id="Select1">
-					      <option>Seleccione una opción</option>
-					      <option>2</option>
-					      <option>3</option>
-					      <option>4</option>
-					      <option>5</option>
-					    </select>
-					  </div>
-			    </div>
-			    <div class="col-md">
-			      	<div class="form-group">
-					    <label for="Select1">Centro escolar: </label>
-					    <select class="form-control" id="Select1">
-					      <option>Seleccione una opción</option>
-					      <option>2</option>
-					      <option>3</option>
-					      <option>4</option>
-					      <option>5</option>
-					    </select>
-					  </div>
-			    </div> 
+				<div class="col-md">
+					<div class="form-group">
+						<label for="Select1">Departamento</label> <select th:field="*{departamento.idDepartamento}"
+							class="form-control" id="Select1">
+							<!--  th:field="*{departamento.idDepartamento}"  -->
+							<option th:each=item:${departamentoLista}
+								th:value="${item.idDepartamento}"
+								th:text="${item.nombreDepartamento}">
+						</select>
+					</div>
+				</div>
+				<div class="col-md">
+					<div class="form-group">
+						<label for="Select1">Municipio</label> <select th:field="*{municipio.idMunicipio}"
+							class="form-control" id="Select1">
+							<!--  th:field="*{municipio.idMunicipio}"  -->
+							<option th:each=item:${municipioLista}
+								th:value="${item.idMunicipio}" th:text="${item.nombreMunicipio}">
+						</select>
+					</div>
+				</div>
+				<div class="col-md">
+					<div class="form-group">
+						<label for="Select1">Centro escolar: </label> <select
+							class="form-control" id="Select1">
+							<!--  th:field="*{municipio.idMunicipio}"  -->
+							<option th:each=item:${centroLista}
+								th:value="${item.idCentroEscolar}" th:text="${item.nombre}">
+						</select>
+					</div>
+				</div>
 			</div>
 			<div class="row">
-			    <div class="col-md">
-			      <div class="form-group">
-					    <label for="Input1">Nombre del padre</label>
-					    <input type="text" class="form-control" id="Input1">
-				  </div>
-			    </div>
-			    <div class="col-md">
-			      	<div class="form-group">
-					    <label for="Input1">Nombre de la madre</label>
-					    <input type="text" class="form-control" id="Input1">
+				<div class="col-md">
+					<div class="form-group">
+						<label for="Input1">Nombre del padre</label> <input type="text" th:field="${estudiante.nombrePadre}"
+							class="form-control" id="Input1"><span th:errors="*{nombrePadre}" style="color: #FF0000"></span>
 					</div>
-			    </div>
+				</div>
+				<div class="col-md">
+					<div class="form-group">
+						<label for="Input1">Nombre de la madre</label> <input type="text" th:field="${estudiante.nombreMadre}"
+							class="form-control" id="Input1"><span th:errors="*{nombreMadre}" style="color: #FF0000"></span>
+					</div>
+				</div>
 			</div>
-				  <div class="btn-center">
-				  	<button type="submit" class="btn color-btnSesion">Registrar</button>
-				  </div>
+			<div class="btn-center">
+				<button type="submit" class="btn color-btnSesion">Registrar</button>
+			</div>
 		</form>
 	</div>
 </body>
