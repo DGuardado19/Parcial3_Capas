@@ -27,19 +27,19 @@ public class MateriaXestudiante {
 	private Integer id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idMateria")
+	@JoinColumn(name="fkMateria")
 	private Materia materia;
 	
 	@Transient
-	private Integer idMateria;
+	private Integer fkMateria;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idEstudiante")
+	@JoinColumn(name="fkEstudiante")
 	private Estudiante estudiante;
 	
 	@Transient
 	@Id
-	private Integer idEstudiante;
+	private Integer fkEstudiante;
 	
 	@Column(name="anio")
 	//@Size(min="",max="")
@@ -79,11 +79,11 @@ public class MateriaXestudiante {
 	}
 
 	public Integer getIdMateria() {
-		return idMateria;
+		return fkMateria;
 	}
 
 	public void setIdMateria(Integer idMateria) {
-		this.idMateria = idMateria;
+		this.fkMateria = idMateria;
 	}
 
 	public Estudiante getEstudiante() {
@@ -95,11 +95,11 @@ public class MateriaXestudiante {
 	}
 
 	public Integer getIdEstudiante() {
-		return idEstudiante;
+		return fkEstudiante;
 	}
 
 	public void setIdEstudiante(Integer idEstudiante) {
-		this.idEstudiante = idEstudiante;
+		this.fkEstudiante = idEstudiante;
 	}
 
 	public Integer getAnio() {

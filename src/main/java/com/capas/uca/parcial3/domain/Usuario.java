@@ -41,18 +41,18 @@ public class Usuario {
 	private Date fechaNac;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idMunicipio")
+	@JoinColumn(name="fkMunicipio")
 	private Municipio municipio;
 	
 	@Transient
-	private Integer idMunicipio;
+	private Integer fkMunicipio;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idDepartamento")
+	@JoinColumn(name="fkDepartamento")
 	private Departamento departamento;
 	
 	@Transient
-	private Integer idDepartamento;
+	private Integer fkDepartamento;
 	
 	@Column(name="direccion")
 	//@Size(min="",max="")
@@ -124,11 +124,11 @@ public class Usuario {
 	}
 
 	public Integer getIdMunicipio() {
-		return idMunicipio;
+		return fkMunicipio;
 	}
 
 	public void setIdMunicipio(Integer idMunicipio) {
-		this.idMunicipio = idMunicipio;
+		this.fkMunicipio = idMunicipio;
 	}
 
 	public Departamento getDepartamento() {
@@ -140,11 +140,11 @@ public class Usuario {
 	}
 
 	public Integer getIdDepartamento() {
-		return idDepartamento;
+		return fkDepartamento;
 	}
 
 	public void setIdDepartamento(Integer idDepartamento) {
-		this.idDepartamento = idDepartamento;
+		this.fkDepartamento = idDepartamento;
 	}
 
 	public String getDireccion() {
