@@ -32,7 +32,7 @@ public class Departamento {
 	@OneToMany(mappedBy="departamento",fetch=FetchType.LAZY)
 	private List<Usuario> usuario;
 	
-	@OneToMany(mappedBy="municipio",fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="departamento",fetch=FetchType.LAZY)
 	private List<Estudiante> estudiante;
 	
 

@@ -52,18 +52,18 @@ public class Estudiante {
 	private String direccion;
 
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idMunicipio")
+	@JoinColumn(name="fkMunicipio")
 	private Municipio municipio;
 	
 	@Transient
-	private Integer idMunicipio;
+	private Integer fkMunicipio;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idDepartamento")
+	@JoinColumn(name="fkDepartamento")
 	private Departamento departamento;
 	
 	@Transient
-	private Integer idDepartamento;
+	private Integer fkDepartamento;
 	
 	@Column(name="telefonoFijo")
 	//@Size(min="",max="")
@@ -76,11 +76,11 @@ public class Estudiante {
 	private String telefonoMovil;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idCentroEscolar")
+	@JoinColumn(name="fkCentroEscolar")
 	private CentroEscolar centroEscolar;
 	
 	@Transient
-	private Integer idCentroEscolar;
+	private Integer fkCentroEscolar;
 	
 	@Column(name="nombrePadre")
 	//@Size(min="",max="")
@@ -172,11 +172,11 @@ public class Estudiante {
 	}
 
 	public Integer getIdCentroEscolar() {
-		return idCentroEscolar;
+		return fkCentroEscolar;
 	}
 
 	public void setIdCentroEscolar(Integer idCentroEscolar) {
-		this.idCentroEscolar = idCentroEscolar;
+		this.fkCentroEscolar = idCentroEscolar;
 	}
 
 	public String getNombrePadre() {
@@ -212,11 +212,11 @@ public class Estudiante {
 	}
 
 	public Integer getIdMunicipio() {
-		return idMunicipio;
+		return fkMunicipio;
 	}
 
 	public void setIdMunicipio(Integer idMunicipio) {
-		this.idMunicipio = idMunicipio;
+		this.fkMunicipio = idMunicipio;
 	}
 
 	public Departamento getDepartamento() {
@@ -228,11 +228,11 @@ public class Estudiante {
 	}
 
 	public Integer getIdDepartamento() {
-		return idDepartamento;
+		return fkDepartamento;
 	}
 
 	public void setIdDepartamento(Integer idDepartamento) {
-		this.idDepartamento = idDepartamento;
+		this.fkDepartamento = idDepartamento;
 	}
 	
 	

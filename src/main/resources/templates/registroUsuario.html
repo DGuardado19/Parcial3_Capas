@@ -45,24 +45,20 @@
 				<div class="col-md">
 					<div class="form-group">
 						<label for="Select1">Departamento</label> <select
-							class="form-control" id="Select1">
-							<option>Seleccione una opción</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
+							class="form-control" id="Select1"> <!--  th:field="*{departamento.idDepartamento}"  -->
+							<option th:each=item:${departamentoLista}
+									th:value="${item.idDepartamento}"
+									th:text="${item.nombreDepartamento}">
 						</select>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
 						<label for="Select1">Municipio</label> <select
-							class="form-control" id="Select1">
-							<option>Seleccione una opción</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
+							class="form-control" id="Select1"> <!--  th:field="*{municipio.idMunicipio}"  -->
+							<option th:each=item:${municipioLista}
+									th:value="${item.idMunicipio}"
+									th:text="${item.nombreMunicipio}">
 						</select>
 					</div>
 				</div>
