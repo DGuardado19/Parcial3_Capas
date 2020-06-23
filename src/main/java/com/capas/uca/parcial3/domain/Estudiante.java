@@ -76,11 +76,11 @@ public class Estudiante {
 	private String telefonoMovil;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="idCentroEscolar")
+	@JoinColumn(name="fkCentroEscolar")
 	private CentroEscolar centroEscolar;
 	
 	@Transient
-	private Integer idCentroEscolar;
+	private Integer fkCentroEscolar;
 	
 	@Column(name="nombrePadre")
 	//@Size(min="",max="")
@@ -172,11 +172,11 @@ public class Estudiante {
 	}
 
 	public Integer getIdCentroEscolar() {
-		return idCentroEscolar;
+		return fkCentroEscolar;
 	}
 
 	public void setIdCentroEscolar(Integer idCentroEscolar) {
-		this.idCentroEscolar = idCentroEscolar;
+		this.fkCentroEscolar = idCentroEscolar;
 	}
 
 	public String getNombrePadre() {

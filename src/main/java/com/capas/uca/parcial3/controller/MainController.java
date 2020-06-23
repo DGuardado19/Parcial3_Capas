@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.capas.uca.parcial3.domain.CentroEscolar;
-import com.capas.uca.parcial3.domain.Materia;
+
+import com.capas.uca.parcial3.domain.*;
 import com.capas.uca.parcial3.service.CentroEscolarService;
 import com.capas.uca.parcial3.service.DepartamentoService;
 import com.capas.uca.parcial3.service.EstudianteService;
@@ -47,6 +47,21 @@ public class MainController {
 	@RequestMapping("/registro")
 	public ModelAndView registro() {
 		ModelAndView mav = new ModelAndView();
+		List<Departamento> departamentoLista = null;
+		List<Municipio> municipioLista = null;
+		List<Usuario> usuarioLista = null;
+		try {
+			departamentoLista = departamentoService.findAll();
+			municipioLista = MunicipioService.findAll();
+			usuarioLista = usuarioService.findAll();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		mav.addObject("departamentoLista", departamentoLista);
+		mav.addObject("municipioLista", municipioLista);
+		mav.addObject("usuarioLista",usuarioLista);
 		mav.setViewName("registroUsuario");
 		return mav;
 	}
@@ -96,7 +111,17 @@ public class MainController {
 	
 	@RequestMapping("/tablaUsuario")
 	public ModelAndView tablaUsuario() {
+		
 		ModelAndView mav = new ModelAndView();
+		
+		List<Estudiante> listaEstudiante = null;
+		
+		try {
+			listaEstudiante = estudianteService.findAll();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		mav.addObject("estudiante",listaEstudiante);
 		mav.setViewName("tablaUsuario");
 		return mav;
 	}

@@ -191,4 +191,7 @@ public class Usuario {
 		return sesion ? "Activo":"Inactivo";
 	}
 
+	public String getDelegateTipoUsuario() {
+		return tipoUsuario ? "Administrador":"Coordinador";
+	}
 }

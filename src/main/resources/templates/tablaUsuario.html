@@ -46,16 +46,18 @@
 		      <th scope="col">Centro Escolar</th>
 		    </tr>
 		  </thead>
-		  <tbody>
+		  <tbody:block th:each="e, row:${estudiante}">
 		    <tr>
-		      <th scope="row">1</th>
-		      <td>Mark</td>
-		      <td>Otto</td>
-		      <td>@mdo</td>
-		      <td>@mdo</td>
-		      <td>@mdo</td>
-		      <td>@mdo</td>
-		      <td>@mdo</td>
+		      <td th:text="${e.idEstudiante}"/>
+		      <th scope="row" th:text="${e.idEstudiante}"/>
+		      <td th:text="${e.nombre}"/>
+		      <td th:text="${e.apellido}"/>
+		      <td th:text="${e.carnet}"/>
+		      <td th:text="${e.fechaNac}"/>
+		      <td th:text="${e.telefonoMovil}"/>
+		      <td th:text="${e.centroEscolar.nombre}"/>
+		      
+		      
 		    </tr>
 		  </tbody>
 		</table>
