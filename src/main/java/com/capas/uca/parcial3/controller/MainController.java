@@ -1,5 +1,6 @@
 package com.capas.uca.parcial3.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -172,30 +173,40 @@ public class MainController {
 	}
 	
 	@RequestMapping("/registroEstudiante")
-	public ModelAndView alumno( @ModelAttribute Estudiante estudiante) {
+	public ModelAndView alumno(@Valid @ModelAttribute Estudiante estudiante,BindingResult result) {
 		ModelAndView mav = new ModelAndView();
+		if(result.hasErrors()) {
+			mostrarComboBox(mav);
+		}else {
+			try {
+				mostrarComboBox(mav);
+				estudianteService.insertAndUpdate(estudiante);
+				mav.addObject("estudiante", estudiante);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+			
+		return mav;
+	}
+	
+	
+	public void mostrarComboBox(ModelAndView mav) {
+		
 		List<Departamento> departamentoLista = null;
 		List<Municipio> municipioLista = null;
 		List<CentroEscolar> centroLista = null;
-		try {
-			
-			centroLista = CentroEscolarService.findAll();
-			departamentoLista = departamentoService.findAll();
-			municipioLista = MunicipioService.findAll();
-			
-			estudianteService.insertAndUpdate(estudiante);
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+		
+		centroLista = CentroEscolarService.findAll();
+		departamentoLista = departamentoService.findAll();
+		municipioLista = MunicipioService.findAll();
 		
 		mav.addObject("departamentoLista", departamentoLista);
 		mav.addObject("municipioLista", municipioLista);
 		mav.addObject("centroEscolar", centroLista);
-		mav.addObject("estudiante", estudiante);
-
+		
 		mav.setViewName("registroAlumno");
-		return mav;
+		
 	}
 	
 	@RequestMapping("/tablaMateriasCursadas")

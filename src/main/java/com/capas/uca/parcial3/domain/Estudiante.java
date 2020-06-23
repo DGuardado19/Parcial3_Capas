@@ -29,17 +29,17 @@ public class Estudiante {
 	
 	@Column(name="nombre")
 	//@Size(min="",max="")
-	//@NotEmpty(message="No puede ir vacio")
+	@NotEmpty(message="No puede ir vacio")
 	private String nombre;
 	
 	@Column(name="apellido")
 	//@Size(min="",max="")
-	//@NotEmpty(message="No puede ir vacio")
+	@NotEmpty(message="No puede ir vacio")
 	private String apellido;
 	
 	@Column(name="carnet")
 	//@Size(min="",max="")
-	//@NotEmpty(message="No puede ir vacio")
+	@NotEmpty(message="No puede ir vacio")
 	private String carnet;
 	
 	@Column(name="fechaNac")
@@ -48,7 +48,7 @@ public class Estudiante {
 	
 	@Column(name="direccion")
 	//@Size(min="",max="")
-	//@NotEmpty(message="No puede ir vacio")
+	@NotEmpty(message="No puede ir vacio")
 	private String direccion;
 
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -67,12 +67,12 @@ public class Estudiante {
 	
 	@Column(name="telefonoFijo")
 	//@Size(min="",max="")
-	//@NotEmpty(message="No puede ir vacio")
+	@NotEmpty(message="No puede ir vacio")
 	private String telefonoFijo;
 	
 	@Column(name="telefonoMovil")
 	//@Size(min="",max="")
-	//@NotEmpty(message="No puede ir vacio")
+	@NotEmpty(message="No puede ir vacio")
 	private String telefonoMovil;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -84,12 +84,12 @@ public class Estudiante {
 	
 	@Column(name="nombrePadre")
 	//@Size(min="",max="")
-	//@NotEmpty(message="No puede ir vacio")
+	@NotEmpty(message="No puede ir vacio")
 	private String nombrePadre;
 	
 	@Column(name="nombreMadre")
 	//@Size(min="",max="")
-	//@NotEmpty(message="No puede ir vacio")
+	@NotEmpty(message="No puede ir vacio")
 	private String nombreMadre;
 	
 	@OneToMany(mappedBy="estudiante",fetch=FetchType.LAZY)

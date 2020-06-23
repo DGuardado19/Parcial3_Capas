@@ -91,7 +91,7 @@
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Select1">Centro escolar: </label> <select
+						<label for="Select1">Centro escolar: </label> <select th:field="*{centroEscolar.idCentroEscolar}"
 							class="form-control" id="Select1">
 							<!--  th:field="*{municipio.idMunicipio}"  -->
 							<option th:each=item:${centroLista}
