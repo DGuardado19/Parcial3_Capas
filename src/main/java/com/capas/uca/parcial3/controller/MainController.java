@@ -132,7 +132,7 @@ public class MainController {
 		List<Municipio> municipioLista = null;
 		mav.setViewName("registroCentroEscolar");
 		if(!result.hasErrors()) {
-			mav.addObject("centro", new CentroEscolar());
+			mav.addObject("centroEscolar", new CentroEscolar());
 			try {
 				CentroEscolarService.insertAndUpdate(centroEscolar);
 			} catch(Exception e) {
