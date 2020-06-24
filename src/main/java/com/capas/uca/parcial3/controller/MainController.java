@@ -7,13 +7,20 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.capas.uca.parcial3.domain.*;
+import com.capas.uca.parcial3.dto.MateriaxEstudianteDTO;
 import com.capas.uca.parcial3.service.CentroEscolarService;
 import com.capas.uca.parcial3.service.DepartamentoService;
 import com.capas.uca.parcial3.service.EstudianteService;
@@ -21,6 +28,7 @@ import com.capas.uca.parcial3.service.MateriaService;
 import com.capas.uca.parcial3.service.MateriaxEstudianteService;
 import com.capas.uca.parcial3.service.MunicipioService;
 import com.capas.uca.parcial3.service.UsuarioService;
+
 
 @Controller
 public class MainController {
@@ -39,7 +47,51 @@ public class MainController {
 	private MunicipioService MunicipioService;
 	@Autowired
 	private UsuarioService usuarioService;
-
+	
+	
+	 @RequestMapping("/clientestable")
+	    public String clientesTable(){
+	        return "tablaMateria2";
+	    }
+	 @RequestMapping("/cargarclientes")
+	    public @ResponseBody MateriaxEstudianteDTO cargarUsuario(@RequestParam Integer draw,
+				@RequestParam Integer start, @RequestParam Integer length, 
+				@RequestParam(value="search[value]", required = false) String search) {
+			
+			Page<Materia> materia = MateriaService.findAll(PageRequest.of(start/length, length, Sort.by(Direction.ASC, "idMateria")));
+			
+			List<String[]> data = new ArrayList<>();
+			
+			for(Materia u : materia) {
+				data.add(new String[] {u.getIdMateria().toString(), u.getNombre(), 
+						u.getDescripicion(),u.getDelegateEstado()});
+			}
+			System.out.print(data);
+			MateriaxEstudianteDTO dto = new MateriaxEstudianteDTO();
+			dto.setData(data);
+			dto.setDraw(draw);
+			dto.setRecordsFiltered(MateriaService.countAll().intValue());
+			dto.setRecordsTotal(MateriaService.countAll().intValue());	
+			
+			return dto;
+	    }
+	 @RequestMapping("/editarMateria")
+		public ModelAndView buscar(@RequestParam Integer id) {
+			ModelAndView mav = new ModelAndView();
+			Materia c = MateriaService.findOne(id);
+			mav.addObject("materia", c);
+			mav.setViewName("editarMateria");
+			return mav;
+		}
+	  @RequestMapping("/updateMateria")
+		public ModelAndView guardarCliente(@ModelAttribute Materia materia) {
+			ModelAndView mav = new ModelAndView();
+			//Mando a llamar al servicio encargado de guardar a la entidad
+			MateriaService.insertAndUpdate(materia);
+			mav.setViewName("tablaMateria2");
+			return mav;
+		}
+	
 	@RequestMapping("/index")
 	public ModelAndView index() {
 		ModelAndView mav = new ModelAndView();
