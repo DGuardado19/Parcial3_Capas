@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.persistence.SequenceGenerator;
 
@@ -24,15 +26,16 @@ public class Materia {
 	private Integer idMateria;
 	
 	@Column(name="nombre")
-	//@Size(min="",max="")
-	@NotEmpty(message="No puede ir vacio")
+	@Size(min=1,max=40, message = "El nombre debe tener una longitud de 1 a 40 caracteres")
 	private String nombre;
 	
 	@Column(name="descripcion")
-	//@Size(min="",max="")
-	@NotEmpty(message="No puede ir vacio")
+	@Size(min=1,max=150, message = "Debe agregar una descripcion entre 1 a 150 caracteres")
+	@NotEmpty(message="Debe agregar una descripcion")
 	private String descripicion;
 	
+	
+	@NotNull(message = "Seleccione un campo")
 	@Column(name="estado")
 	//@Size(min="",max="")
 	//@NotEmpty(message="No puede ir vacio")

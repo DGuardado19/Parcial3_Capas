@@ -86,9 +86,28 @@ public class MainController {
 	@RequestMapping("/registroMateria")
 	public ModelAndView registroMateria() {
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("materia", new Materia());
 		mav.setViewName("registroMateria");
 		return mav;
 	}
+	
+	@RequestMapping("/insertarMateria")
+	public ModelAndView insertarMateria(@Valid @ModelAttribute Materia materia, BindingResult result) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("registroMateria");
+		if(!result.hasErrors()) {
+			mav.addObject("materia", new Materia());
+			try {
+				MateriaService.insertAndUpdate(materia);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return mav;
+	}
+	
+	
+	
 
 	@RequestMapping("/registroCentroEscolar")
 	public ModelAndView registroCentroEscolar() {
