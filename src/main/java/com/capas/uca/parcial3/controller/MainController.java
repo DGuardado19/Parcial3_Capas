@@ -51,7 +51,7 @@ public class MainController {
 	
 	 @RequestMapping("/clientestable")
 	    public String clientesTable(){
-	        return "tablaMateria";
+	        return "tablaMateria2";
 	    }
 	 @RequestMapping("/cargarclientes")
 	    public @ResponseBody MateriaxEstudianteDTO cargarUsuario(@RequestParam Integer draw,
@@ -137,7 +137,7 @@ public class MainController {
 	}
 	
 	@RequestMapping("/insertarMateria")
-	public ModelAndView insertarMateria( @Valid @ModelAttribute Materia materia, BindingResult result) {
+	public ModelAndView insertarMateria(@Valid @ModelAttribute Materia materia, BindingResult result) {
 		ModelAndView mav = new ModelAndView();
 		if(!result.hasErrors()) {
 			mav.addObject("materia", new Materia());

@@ -16,6 +16,11 @@
 		<form th:action="@{/insertarMateria}" th:object="${materia}"
 			method="post">
 			<div class="form-group">
+				<input type="hidden"
+					class="form-control" id="Input1" 
+					th:field="*{idMateria}">
+			</div>
+			<div class="form-group">
 				<label for="Input1">Nombre</label> <input type="text"
 					class="form-control" id="Input1" placeholder="N-Capas"
 					th:field="*{nombre}"> <span th:errors="*{nombre}"
