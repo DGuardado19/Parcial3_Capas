@@ -12,32 +12,35 @@
 <body>
 	<div class="container formularios">
 		<h1 class="center">Registrar nuevo usuario</h1>
-		<form action="">
+		<form th:action="@{/ingresarUsuario}" th:object="${usuario}" method="post">
 			<div class="row">
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Nombre</label> <input type="text"
-							class="form-control" id="Input1">
+						<label for="Input1">Nombre</label> 
+						<input type="text" class="form-control" id="Input1" name="nombre">
+						<span th:errors="*{nombre}" style = "color: #BF2121"></span>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Apellido</label> <input type="text"
-							class="form-control" id="Input1">
+						<label for="Input1">Apellido</label> 
+						<input type="text" class="form-control" id="Input1" name="apellido">
+						<span th:errors="*{apellido}" style = "color: #BF2121"></span>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Fecha de nacimiento</label> <input type="date"
-							class="form-control" id="Input1">
+						<label for="Input1">Fecha de nacimiento</label> 
+						<input type="date" class="form-control" id="Input1" name="fechaNac">
+						<span th:errors="*{fechaNac}" style = "color: #BF2121"></span>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Edad</label> <input type="text"
-							class="form-control" id="Input1">
+						<label for="Input1">Edad</label> 
+						<input type="text"	class="form-control" id="Input1">
 					</div>
 				</div>
 			</div>
@@ -45,21 +48,25 @@
 				<div class="col-md">
 					<div class="form-group">
 						<label for="Select1">Departamento</label> <select
-							class="form-control" id="Select1"> <!--  th:field="*{departamento.idDepartamento}"  -->
+							class="form-control" id="Select1" name="departamento"> <!--  th:field="*{departamento.idDepartamento}"  -->
+							<option value="0">Seleccione una opción</option>
 							<option th:each=item:${departamentoLista}
 									th:value="${item.idDepartamento}"
 									th:text="${item.nombreDepartamento}">
 						</select>
+						<span th:if="${resultado == 1}" style = "color: #BF2121">Debe seleccionar un departamento</span>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Select1">Municipio</label> <select
-							class="form-control" id="Select1"> <!--  th:field="*{municipio.idMunicipio}"  -->
+						<label for="Select2">Municipio</label> <select
+							class="form-control" id="Select2" name="municipio"> <!--  th:field="*{municipio.idMunicipio}"  -->
+							<option value="0">Seleccione una opción</option>
 							<option th:each=item:${municipioLista}
 									th:value="${item.idMunicipio}"
 									th:text="${item.nombreMunicipio}">
 						</select>
+						<span th:if="${resultado2 == 1}" style = "color: #BF2121">Debe seleccionar un municipio</span>
 					</div>
 				</div>
 			</div>
@@ -67,25 +74,26 @@
 				<label for="exampleFormControlTextarea1">Dirección de
 					residencia</label>
 				<textarea class="form-control" id="exampleFormControlTextarea1"
-					rows="3"></textarea>
+					rows="3" name="direccion"></textarea>
+				<span th:errors="*{direccion}" style = "color: #BF2121"></span>
 			</div>
 			<div class="row">
 				<div class="col-md">
 					<div class="form-group">
 						<label for="Input1">Nombre de usuario</label> <input type="text"
-							class="form-control" id="Input1">
+							class="form-control" id="Input1" name="nombreUser">
+						<span th:errors="*{nombreUser}" style = "color: #BF2121"></span>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Select1">Tipo de usuario</label> <select
-							class="form-control" id="Select1">
-							<option>Seleccione una opción</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
+						<label for="Select3">Tipo de usuario</label> <select
+							class="form-control" id="Select3" name="tipoUsuario">
+							<option value="3">Seleccione una opción</option>
+							<option value="0">Administrador</option>
+							<option value="1">Coordinador</option>
 						</select>
+						<span th:if="${resultado3 == 1}" style = "color: #BF2121">Debe seleccionar un tipo de usuario</span>
 					</div>
 				</div>
 			</div>
@@ -93,21 +101,24 @@
 				<div class="col-md">
 					<div class="form-group">
 						<label for="Input1">Contraseña</label> <input type="password"
-							class="form-control" id="Input1">
+							class="form-control" id="Input1" name="contrasenia">
+						<span th:errors="*{contrasenia}" style = "color: #BF2121"></span>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
 						<label for="Input1">Confirmas Contraseña</label> <input
-							type="password" class="form-control" id="Input1">
+							type="password" class="form-control" id="Input1" name="pass">
 					</div>
 				</div>
 			</div>
-
+			<span th:if="${resultado4 == 1}" style = "color: #BF2121">Las contraseñas no coinciden!</span>
+	
 			<div class="form-check">
-				<input class="form-check-input" type="checkbox" value=""
-					id="defaultCheck1"> <label class="form-check-label"
-					for="defaultCheck1"> Habilitado </label>
+			  <input class="form-check-input" type="checkbox" th:value="true" id="defaultCheck1" name="estado">
+			  <label class="form-check-label" for="defaultCheck1">
+			    Habilitado
+			  </label>
 			</div>
 
 			<div class="btn-center">
@@ -117,3 +128,37 @@
 	</div>
 </body>
 </html>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+		$(document).ready(function(){
+			$('#Select1').change(function(){
+				var hola = document.getElementById("Select1");
+				alert(hola.options[0].value);
+				for (let i = document.getElementById("Select2").length; i >= 0; i--) {
+					document.getElementById("Select2").remove(i);
+				}
+				for (let i = document.getElementById("Select1").length; i >= 0; i--) {
+					document.getElementById("Select2").options[i]=hola.options[i];
+				}
+			});
+			
+			$('#Select2').change(function(){
+				var hola = document.getElementById("Select2");
+				alert(hola.options[5].value);
+			});
+		})
+	</script>
+	<script type="text/javascript">
+		function recargarLista(){
+			$.ajax({
+				type: "POST",
+	            url:  '/prueba.htm',
+	            dataType: 'json',
+	            data: { idpais : "1" },
+				sucess:function(r){
+					alert('we');
+				}
+			})
+		}
+	</script>-->
+	

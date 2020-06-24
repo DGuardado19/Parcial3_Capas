@@ -39,4 +39,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 		Repo.save(usuario);
 	}
 	
+	@Override
+	public Usuario login(String user, String pass) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return Repo.login(user, pass);
+	}
+	
 }

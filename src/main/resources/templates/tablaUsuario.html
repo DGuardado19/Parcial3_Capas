@@ -46,7 +46,8 @@
 		    </tr>
 		  </thead>
 		  <tbody:block th:each="e, row:${usuario}">
-		    <tr>
+		    <tr> <!-- href="./registro?codigo=${e.idUsuario}" -->
+		      <td/><a th:onclick="alert(${e.idUsuario})">Modificar</a></th>
 		      <td th:text="${e.idUsuario}"/>
 		      <th scope="row" th:text="${e.idUsuario}"/>
 		      <td th:text="${e.nombre}"/>
@@ -54,8 +55,6 @@
 		      <td th:text="${e.fechaNac}"/>
 		      <td th:text="${e.nombreUser}"/>
 		      <td th:text="${e.getDelegateEstado()}"/>
-		      
-		      
 		    </tr>
 		  </tbody>
 		</table>

@@ -14,4 +14,7 @@ public interface UsuarioService {
 	public Usuario findOne(Integer code) throws DataAccessException;
 
 	public void insertAndUpdate(Usuario usuario) throws DataAccessException;
+
+	Usuario login(String user, String pass) throws DataAccessException;
+	
 }

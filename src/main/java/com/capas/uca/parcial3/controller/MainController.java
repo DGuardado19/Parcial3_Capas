@@ -51,7 +51,7 @@ public class MainController {
 	
 	 @RequestMapping("/clientestable")
 	    public String clientesTable(){
-	        return "tablaMateria2";
+	        return "tablaMateria";
 	    }
 	 @RequestMapping("/cargarclientes")
 	    public @ResponseBody MateriaxEstudianteDTO cargarUsuario(@RequestParam Integer draw,
@@ -97,11 +97,10 @@ public class MainController {
 		ModelAndView mav = new ModelAndView();
 		List<Departamento> departamentoLista = null;
 		List<Municipio> municipioLista = null;
-		// List<Usuario> usuarioLista = null;
+		Usuario usuarioLista = new Usuario();
 		try {
 			departamentoLista = departamentoService.findAll();
 			municipioLista = MunicipioService.findAll();
-			// usuarioLista = usuarioService.findAll();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -109,7 +108,7 @@ public class MainController {
 
 		mav.addObject("departamentoLista", departamentoLista);
 		mav.addObject("municipioLista", municipioLista);
-		// mav.addObject("usuarioLista",usuarioLista);
+		mav.addObject("usuario",usuarioLista);
 		mav.setViewName("registroUsuario");
 		return mav;
 	}
@@ -328,6 +327,72 @@ public class MainController {
 	public ModelAndView registrarMateriaAlumno() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("registrarMateriaCursada");
+		return mav;
+	}
+	
+	@RequestMapping("/ingresarUsuario")
+	public ModelAndView ingresarUsuario(@RequestParam("pass") String pass,@Valid @ModelAttribute Usuario usuario, BindingResult result) {
+		ModelAndView mav = new ModelAndView();
+		List<Usuario> listaUsuario = null;
+		List<Departamento> departamentoLista = null;
+		List<Municipio> municipioLista = null;
+		if(result.hasErrors() || usuario.getDepartamento() == null || usuario.getMunicipio() == null || !usuario.getContrasenia().equals(pass)) {
+			if(usuario.getDepartamento() == null) {
+				mav.addObject("resultado", 1);
+			}
+			if(usuario.getMunicipio() == null) {
+				mav.addObject("resultado2", 1);
+			}
+			if(usuario.getTipoUsuario() == null) {
+				mav.addObject("resultado3", 1);
+			}
+			if(pass != usuario.getContrasenia()) {
+				mav.addObject("resultado4", 1);
+			}
+			departamentoLista = departamentoService.findAll();
+			municipioLista = MunicipioService.findAll();
+			mav.addObject("departamentoLista", departamentoLista);
+			mav.addObject("municipioLista", municipioLista);
+			mav.setViewName("registroUsuario");
+		} else {
+			try {
+				usuario.setSesion(false);
+				if(usuario.getEstado()==null) {
+					usuario.setEstado(false);
+	            }
+				usuarioService.insertAndUpdate(usuario);
+				listaUsuario = usuarioService.findAll();
+				mav.addObject("usuario",listaUsuario);
+				System.out.println(usuario.getDepartamento()); 
+				mav.setViewName("tablaUsuario");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} 
+		return mav;
+	}
+	
+	@RequestMapping("/iniciarSesion")
+	public ModelAndView iniciarSesion(@Valid @ModelAttribute Usuario usuario, BindingResult result) {
+		ModelAndView mav = new ModelAndView();
+		Usuario user = null;
+		List<Usuario> listaUsuario = null;
+		try {
+			listaUsuario = usuarioService.findAll();
+			user = usuarioService.login(usuario.getNombreUser(), usuario.getContrasenia()); 
+			if(user == null) {
+				mav.setViewName("index");
+			} else {
+				if(user.getTipoUsuario() == false) {
+					mav.addObject("usuario",listaUsuario);
+					mav.setViewName("tablaUsuario");
+				} else {
+					mav.setViewName("busquedaAlumno");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return mav;
 	}
 }

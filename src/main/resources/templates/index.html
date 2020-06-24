@@ -10,14 +10,14 @@
 	
 	<div class="container container-login">
 		<h1 class="center">Inicio de sesión</h1>
-		<form>
+		<form th:action="@{/iniciarSesion}" th:object="${usuario}" method="post">
 		  <div class="form-group">
 		    <label for="exampleInputEmail1">Nombre de usuario</label>
-		    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+		    <input type="text" class="form-control" id="exampleInputEmail1" name="nombreUser">
 		  </div>
 		  <div class="form-group">
 		    <label for="exampleInputPassword1">Contraseña</label>
-		    <input type="password" class="form-control" id="exampleInputPassword1">
+		    <input type="password" class="form-control" id="exampleInputPassword1" name="contrasenia">
 		  </div>
 		  <p>¿No tienes cuenta? <a href="registro" class="text-dark">Registrate</a></p>
 		  <button type="submit" class="btn color-btnSesion">Iniciar Sesión</button>

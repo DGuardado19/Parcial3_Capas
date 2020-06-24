@@ -12,4 +12,7 @@ public interface UsuarioRepo extends JpaRepository<Usuario, Integer> {
 	
 	@Query(nativeQuery = true, value = "select * from public.Usuario")
 	public List<Usuario>mostrarTodos() throws DataAccessException;
+	
+	@Query(nativeQuery = true, value = "select * from public.Usuario where nombreUser= :user and contrasenia = :pass")
+	public Usuario login(String user, String pass) throws DataAccessException;
 }
