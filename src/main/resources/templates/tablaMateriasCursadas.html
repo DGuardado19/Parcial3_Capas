@@ -37,15 +37,15 @@
 		      <th scope="col">Resultado</th>
 		    </tr>
 		  </thead>
-		  <tbody>
+		  
+		  <tbody:block th:each="cursada, row:${cursadaList}">
 		    <tr>
-		      <th scope="row">1</th>
-		      <td>Mark</td>
-		      <td>Otto</td>
-		      <td>@mdo</td>
-		      <td>@mdo</td>
-		      <td>@mdo</td>
-		    </tr>
+		    	<th> BOTON </th>
+				<th th:text="${cursada.materia.nombre}"/>
+				<th th:text="${cursada.anio}"/>
+				<th th:text="${cursada.ciclo}"/>
+				<th th:text="${cursada.nota}"/>
+				<th th:text="${cursada.getDelegateNota()}"/>
 		  </tbody>
 		</table>
 	</div>

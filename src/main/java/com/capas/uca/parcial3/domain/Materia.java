@@ -99,5 +99,6 @@ public class Materia {
 		return estado ? "Activo":"Inactivo";
 	}
 	
+
 	
 }

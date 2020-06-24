@@ -1,6 +1,7 @@
 package com.capas.uca.parcial3.controller;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -196,6 +197,26 @@ public class MainController {
 	@RequestMapping("/tablaMateriasCursadas")
 	public ModelAndView tablaMateriasCursadas() {
 		ModelAndView mav = new ModelAndView();
+		List<MateriaXestudiante> cursada = null;
+		List<String> aprobada = new ArrayList<>();
+		try {
+			cursada = materiaxEstudianteService.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		for (int i = 0; i < cursada.size(); i++) {
+			if (cursada.get(i).getNota() >= 6) {
+				aprobada.add("aprobada");
+			} else {
+				aprobada.add("reprobada");
+			}
+
+			System.out.println(aprobada.get(i));
+		}
+		System.out.println(aprobada.size());
+
+		mav.addObject("cursadaList", cursada);
+		mav.addObject("aprobadaList", aprobada);
 		mav.setViewName("tablaMateriasCursadas");
 		return mav;
 	}
