@@ -120,18 +120,19 @@ public class MainController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mav.addObject("centro", new CentroEscolar());
+		mav.addObject("centroEscolar", new CentroEscolar());
 		mav.addObject("municipioLista", municipioLista);
 		mav.setViewName("registroCentroEscolar");
 		return mav;
 	}
 	
 	@RequestMapping("/registroCentroEscolarProcesar")
-	public ModelAndView validCentroEscolar(@Valid @ModelAttribute CentroEscolar centroEscolar, BindingResult result) {
+	public ModelAndView insertarCentroEscolar(@Valid @ModelAttribute CentroEscolar centroEscolar, BindingResult result) {
 		ModelAndView mav = new ModelAndView();
 		List<Municipio> municipioLista = null;
+		mav.setViewName("registroCentroEscolar");
 		if(!result.hasErrors()) {
-			mav.addObject("materia", new Materia());
+			mav.addObject("centro", new CentroEscolar());
 			try {
 				CentroEscolarService.insertAndUpdate(centroEscolar);
 			} catch(Exception e) {
@@ -144,9 +145,8 @@ public class MainController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mav.addObject("centro", new CentroEscolar());
+		
 		mav.addObject("municipioLista", municipioLista);
-		mav.setViewName("registroCentroEscolar");
 		return mav;
 	}
 

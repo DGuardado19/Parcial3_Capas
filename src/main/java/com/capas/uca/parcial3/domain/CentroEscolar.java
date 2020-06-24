@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.persistence.SequenceGenerator;
 
@@ -27,8 +28,8 @@ public class CentroEscolar {
 	private Integer idCentroEscolar;
 	
 	@Column(name="nombre")
-	//@Size(min="",max="")
-	@NotEmpty(message="Agrega un nombre")
+	@Size(max=20, message="El campo sobrepasa la cantidad de 20 caracteres")
+	@NotEmpty(message="No puede ir vacio")
 	private String nombre;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -39,13 +40,13 @@ public class CentroEscolar {
 	private Integer fkMunicipio;
 	
 	@Column(name="descripcion")
-	//@Size(min="",max="")
-	@NotEmpty(message="Agrega una descripcion")
+	@Size(max=20, message="El campo sobrepasa la cantidad de 20 caracteres")
+	@NotEmpty(message="No puede ir vacio")
 	private String descripcion;
 	
 	@Column(name="estado")
 	//@Size(min="",max="")
-	@NotEmpty(message="No puede ir vacio")
+	@NotNull(message = "Seleccione un campo")
 	private Boolean estado;
 	
 	@OneToMany(mappedBy="centroEscolar",fetch=FetchType.LAZY)
