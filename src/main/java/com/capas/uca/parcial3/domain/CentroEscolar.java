@@ -28,7 +28,7 @@ public class CentroEscolar {
 	
 	@Column(name="nombre")
 	//@Size(min="",max="")
-	@NotEmpty(message="No puede ir vacio")
+	@NotEmpty(message="Agrega un nombre")
 	private String nombre;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -40,12 +40,12 @@ public class CentroEscolar {
 	
 	@Column(name="descripcion")
 	//@Size(min="",max="")
-	@NotEmpty(message="No puede ir vacio")
+	@NotEmpty(message="Agrega una descripcion")
 	private String descripcion;
 	
 	@Column(name="estado")
 	//@Size(min="",max="")
-	//@NotEmpty(message="No puede ir vacio")
+	@NotEmpty(message="No puede ir vacio")
 	private Boolean estado;
 	
 	@OneToMany(mappedBy="centroEscolar",fetch=FetchType.LAZY)
