@@ -51,7 +51,7 @@ public class MainController {
 	
 	 @RequestMapping("/clientestable")
 	    public String clientesTable(){
-	        return "tablaMateria2";
+	        return "tablaMateria";
 	    }
 	 @RequestMapping("/cargarclientes")
 	    public @ResponseBody MateriaxEstudianteDTO cargarUsuario(@RequestParam Integer draw,
@@ -80,17 +80,10 @@ public class MainController {
 			ModelAndView mav = new ModelAndView();
 			Materia c = MateriaService.findOne(id);
 			mav.addObject("materia", c);
-			mav.setViewName("editarMateria");
+			mav.setViewName("registroMateria");
 			return mav;
 		}
-	  @RequestMapping("/updateMateria")
-		public ModelAndView guardarCliente(@ModelAttribute Materia materia) {
-			ModelAndView mav = new ModelAndView();
-			//Mando a llamar al servicio encargado de guardar a la entidad
-			MateriaService.insertAndUpdate(materia);
-			mav.setViewName("tablaMateria2");
-			return mav;
-		}
+
 	
 	@RequestMapping("/index")
 	public ModelAndView index() {
@@ -144,16 +137,21 @@ public class MainController {
 	}
 	
 	@RequestMapping("/insertarMateria")
-	public ModelAndView insertarMateria(@Valid @ModelAttribute Materia materia, BindingResult result) {
+	public ModelAndView insertarMateria( @Valid @ModelAttribute Materia materia, BindingResult result) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("registroMateria");
 		if(!result.hasErrors()) {
 			mav.addObject("materia", new Materia());
+			mav.setViewName("tablaMateria");
+
 			try {
 				MateriaService.insertAndUpdate(materia);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
+		}
+		else {
+			mav.setViewName("registroMateria");
+
 		}
 		return mav;
 	}
