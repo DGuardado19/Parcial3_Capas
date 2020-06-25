@@ -132,28 +132,29 @@
 <script type="text/javascript">
 		$(document).ready(function(){
 			$('#Select1').change(function(){
-				recargarLista();
+				var pri = document.getElementById("Select1").value;
+				$.ajax({
+					type: "POST",
+					"serverSide": true,
+					url: "./cargarMunicipios",
+		            data: { draw : pri },
+					success:function(r){
+						$('#Select2').empty();
+						alert(r[4][1]);
+						var select = document.getElementById("Select2");
+						$("<option/>").val(0).text("Seleccione una opcion").appendTo("#Select2");
+						$.each(r, function(key, val) {
+							$("<option/>").val(r[key][0]).text(r[key][1]).appendTo("#Select2");
+					    });
+					},
+				    error: function(data) {
+				        alert('error');
+				      }
+				})
+			});
+			
+			$('#Select1').change(function(){
+				
 			});
 		})
-	</script>
-	<script type="text/javascript">
-		function recargarLista(){
-			$.ajax({
-				type: "GET",
-				"serverSide": true,
-				"ajax": "./cargarMunicipios",
-	            data: { draw : 1 },
-				sucess:function(r){
-					alert("sad");
-				},
-			    error: function(data) {
-			        alert('error');
-			      }
-			})
-			
-			
-			
-			
-		}
-	</script>
-	
+	</script>	

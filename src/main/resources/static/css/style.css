@@ -91,3 +91,21 @@ nav > a > img{
 	margin-left: 20px;
 	margin-top: 10px;
 }
+
+#tablaClientes_length{
+	text-align: left;
+	margin-bottom: 20px;
+}
+
+#tablaClientes_length select{
+	float: left;
+}
+
+#tablaClientes_paginate{
+	display: flex;
+	justify-content: flex-end;
+}
+
+.page-item.active .page-link{
+	background: #17a2b8;
+}

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jackson.JsonObjectSerializer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -100,7 +101,6 @@ public class MainController {
 		Usuario usuarioLista = new Usuario();
 		try {
 			departamentoLista = departamentoService.findAll();
-			municipioLista = MunicipioService.findAll();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -395,10 +395,20 @@ public class MainController {
 	}
 	
 	 @RequestMapping("/cargarMunicipios")
-	    public @ResponseBody List<Municipio> cargarMunicipios(@RequestParam Integer draw) {
+	    public @ResponseBody List<String[]> cargarMunicipios(@RequestParam Integer draw) {
+		 List<Municipio> municipio = null;
+			try {
+				municipio = MunicipioService.findDepartamento(draw); 
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			List<String[]> data = new ArrayList<>();
 			
-			List<Municipio> municipio = MunicipioService.findAll();
-			System.out.println("Holi");
-			return municipio;
+			for(Municipio u : municipio) {
+				/*data.add(new String[] {u.getIdMateria().toString(), u.getNombre(), 
+						u.getDescripicion(),u.getDelegateEstado()});*/
+				data.add(new String[] {u.getIdMunicipio().toString(), u.getNombreMunicipio()});
+			}
+			return data;
 	    }
 }

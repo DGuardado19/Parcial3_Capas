@@ -38,4 +38,10 @@ public class MunicipioServiceImpl implements MunicipioService {
 		// TODO Auto-generated method stub
 		Repo.save(municipio);
 	}
+	
+	@Override
+	public List<Municipio> findDepartamento(Integer depa) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return Repo.findD(depa);
+	}
 }

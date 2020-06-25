@@ -13,4 +13,5 @@ public interface MunicipioService {
 	public Municipio findOne(Integer code) throws DataAccessException;
 
 	public void insertAndUpdate(Municipio municipio) throws DataAccessException;
+	List<Municipio> findDepartamento(Integer depa) throws DataAccessException; 
 }
