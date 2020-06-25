@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.capas.uca.parcial3.domain.*;
+import com.capas.uca.parcial3.dto.EstudianteDTO;
 import com.capas.uca.parcial3.dto.MateriaxEstudianteDTO;
 import com.capas.uca.parcial3.service.CentroEscolarService;
 import com.capas.uca.parcial3.service.DepartamentoService;
@@ -56,7 +57,7 @@ public class MainController {
 	        return "tablaMateria";
 	    }
 	 @RequestMapping("/cargarclientes")
-	    public @ResponseBody MateriaxEstudianteDTO cargarUsuario(@RequestParam Integer draw,
+	    public @ResponseBody EstudianteDTO cargarUsuario(@RequestParam Integer draw,
 				@RequestParam Integer start, @RequestParam Integer length, 
 				@RequestParam(value="search[value]", required = false) String search) {
 			
@@ -69,7 +70,7 @@ public class MainController {
 						u.getDescripicion(),u.getDelegateEstado()});
 			}
 			System.out.print(data);
-			MateriaxEstudianteDTO dto = new MateriaxEstudianteDTO();
+			EstudianteDTO dto = new EstudianteDTO();
 			dto.setData(data);
 			dto.setDraw(draw);
 			dto.setRecordsFiltered(MateriaService.countAll().intValue());
@@ -236,21 +237,85 @@ public class MainController {
 		return mav;
 	}
 
+	 @RequestMapping("/editarEstudiante")
+		public ModelAndView buscarEstudiante(@RequestParam Integer id) {
+			ModelAndView mav = new ModelAndView();
+			Estudiante c = estudianteService.findOne(id);
+			mostrarComboBox(mav);
+			mav.addObject("estudiante", c);
+			mav.setViewName("registroAlumno");
+			return mav;
+		}
+	
+	@RequestMapping("/estudiantesTable")
+	public String estudiantesTable(){
+		return "tablaExpediente";
+	}
+	
+	@RequestMapping("/cargarEstudiantes")
+	public @ResponseBody EstudianteDTO cargarEstudiante(@RequestParam Integer draw,
+			@RequestParam Integer start, @RequestParam Integer length,
+			@RequestParam(value="search[value]",required=false)String search) {
+			
+		Page<Estudiante> estudiante = estudianteService.findAll(PageRequest.of(start/length, length,Sort.by(Direction.ASC,"idEstudiante")));
+		
+ 		List<String[]> data = new ArrayList<>();
+ 		
+ 		for(Estudiante u: estudiante) {
+ 			/*data.add(new String[] {u.getIdEstudiante().toString(),
+ 					u.getNombre(),u.getApellido(),u.getCarnet(),u.getFechaNac().toString(),
+ 					u.getDireccion(),u.getMunicipio().toString(),u.getDepartamento().toString(),
+ 					u.getTelefonoFijo(),u.getTelefonoMovil(),u.getCentroEscolar().toString(),
+ 					u.getNombrePadre(),u.getNombreMadre()});*/
+ 			
+ 			data.add(new String[] {u.getIdEstudiante().toString(),
+ 					u.getNombre(),u.getApellido()});
+ 			
+ 			
+ 		}
+ 		System.out.println(data);
+		
+ 		EstudianteDTO dto = new EstudianteDTO();
+ 		dto.setData(data);
+ 		dto.setDraw(draw);
+ 		dto.setRecordsFiltered(estudianteService.countAll().intValue());
+ 		dto.setRecordsTotal(estudianteService.countAll().intValue());
+ 		
+		return dto;
+		
+	}
+	
 	@RequestMapping("/tablaExpediente")
-	public ModelAndView tablaExpediente(@ModelAttribute Estudiante estudiante) {
+	public ModelAndView tablaExpediente() {
 		ModelAndView mav = new ModelAndView();
 		List<Estudiante> listaEstudiante = null;
+		//List<MateriaXestudiante> lista = null;
+		//List<String> lista2 = new ArrayList<>();
 		
 		try {
 			listaEstudiante = estudianteService.findAll();
+			//hola();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		
 		
+		
+		
+		//mav.addObject("lista", lista);
 		mav.addObject("listaEstudiante",listaEstudiante);
 		mav.setViewName("tablaExpediente");
+
 		return mav;
+	}
+	
+	public void hola() {
+		List<MateriaXestudiante> lista = materiaxEstudianteService.findAll();
+		for(int i = 0; i<lista.size();i++) {
+			System.out.println(lista.get(i).getIdMateria());
+			System.out.println(lista.get(i).getMateria());
+			System.out.println(i);
+		}
 	}
 
 	@RequestMapping("/registroAlumno")

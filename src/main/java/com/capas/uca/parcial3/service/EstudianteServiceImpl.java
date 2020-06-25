@@ -7,6 +7,8 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,6 +61,20 @@ public class EstudianteServiceImpl implements EstudianteService {
 	public List<Estudiante> findByName(String cadena) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return Repo.findByNombreStartingWith(cadena);
+	}
+
+
+	@Override
+	public Page<Estudiante> findAll(Pageable page) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return Repo.findAll(page);
+	}
+
+
+	@Override
+	public Long countAll() {
+		// TODO Auto-generated method stub
+		return Repo.count();
 	}
 
 	
