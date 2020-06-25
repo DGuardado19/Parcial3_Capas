@@ -23,7 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.capas.uca.parcial3.domain.*;
 import com.capas.uca.parcial3.dto.EstudianteDTO;
-import com.capas.uca.parcial3.dto.MateriaxEstudianteDTO;
+import com.capas.uca.parcial3.dto.TablaDTO;
 import com.capas.uca.parcial3.service.CentroEscolarService;
 import com.capas.uca.parcial3.service.DepartamentoService;
 import com.capas.uca.parcial3.service.EstudianteService;
@@ -57,7 +57,7 @@ public class MainController {
 	        return "tablaMateria";
 	    }
 	 @RequestMapping("/cargarclientes")
-	    public @ResponseBody EstudianteDTO cargarUsuario(@RequestParam Integer draw,
+	    public @ResponseBody TablaDTO cargarUsuario(@RequestParam Integer draw,
 				@RequestParam Integer start, @RequestParam Integer length, 
 				@RequestParam(value="search[value]", required = false) String search) {
 			
@@ -70,7 +70,7 @@ public class MainController {
 						u.getDescripicion(),u.getDelegateEstado()});
 			}
 			System.out.print(data);
-			EstudianteDTO dto = new EstudianteDTO();
+			TablaDTO dto = new TablaDTO();
 			dto.setData(data);
 			dto.setDraw(draw);
 			dto.setRecordsFiltered(MateriaService.countAll().intValue());
@@ -239,7 +239,7 @@ public class MainController {
 	}
 	
 	@RequestMapping("/cargarEstudiantes")
-	public @ResponseBody EstudianteDTO cargarEstudiante(@RequestParam Integer draw,
+	public @ResponseBody TablaDTO cargarEstudiante(@RequestParam Integer draw,
 			@RequestParam Integer start, @RequestParam Integer length,
 			@RequestParam(value="search[value]",required=false)String search) {
 			
@@ -261,7 +261,7 @@ public class MainController {
  		}
  		System.out.println(data);
 		
- 		EstudianteDTO dto = new EstudianteDTO();
+ 		TablaDTO dto = new TablaDTO();
  		dto.setData(data);
  		dto.setDraw(draw);
  		dto.setRecordsFiltered(estudianteService.countAll().intValue());

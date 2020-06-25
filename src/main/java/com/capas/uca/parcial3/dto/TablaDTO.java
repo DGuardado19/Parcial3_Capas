@@ -2,7 +2,7 @@ package com.capas.uca.parcial3.dto;
 
 import java.util.List;
 
-public class MateriaxEstudianteDTO {
+public class TablaDTO {
 	
 	private Integer draw;
 	
