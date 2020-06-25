@@ -1,5 +1,6 @@
 package com.capas.uca.parcial3.controller;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -236,8 +237,18 @@ public class MainController {
 	}
 
 	@RequestMapping("/tablaExpediente")
-	public ModelAndView tablaExpediente() {
+	public ModelAndView tablaExpediente(@ModelAttribute Estudiante estudiante) {
 		ModelAndView mav = new ModelAndView();
+		List<Estudiante> listaEstudiante = null;
+		
+		try {
+			listaEstudiante = estudianteService.findAll();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		mav.addObject("listaEstudiante",listaEstudiante);
 		mav.setViewName("tablaExpediente");
 		return mav;
 	}

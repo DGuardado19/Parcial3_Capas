@@ -35,14 +35,11 @@
 		      <th scope="col">Promedio</th>
 		    </tr>
 		  </thead>
-		  <tbody>
+		  <tbody:block th:each="expediente,row:${listaEstudiante}">
 		    <tr>
-		      <th scope="row">1</th>
-		      <td>Mark</td>
-		      <td>Otto</td>
-		      <td>@mdo</td>
-		      <td>@mdo</td>
-		      <td>@mdo</td>
+		      <th> Accion</th>
+		      <th th:text="${expediente.nombre}">
+		      <th th:text="${expediente.apellido}">
 		    </tr>
 		  </tbody>
 		</table>
