@@ -12,17 +12,22 @@
 <body>
 	<div class="container formularios">
 		<h1 class="center">Registrar nuevo Alumno</h1>
-		<form th:action="@{/registroEstudiante}" method="post" th:object="${estudiante}">
+		<form th:action="@{/registroEstudiante}" th:object="${estudiante}" method="post">
+			<div class="form-group">
+				<input type="hidden"
+					class="form-control" id="Input1" 
+					th:field="*{idEstudiante}">
+			</div>
 			<div class="row">
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Nombre</label> <input type="text" th:field="${estudiante.nombre}"
+						<label for="Input1">Nombre</label> <input type="text" th:field="*{nombre}"
 							class="form-control" id="Input1"><span th:errors="*{nombre}" style="color: #FF0000"></span>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Apellido</label> <input type="text" th:field="${estudiante.apellido}"
+						<label for="Input1">Apellido</label> <input type="text" th:field="*{apellido}"
 							class="form-control" id="Input1"><span th:errors="*{apellido}" style="color: #FF0000"></span>
 					</div>
 				</div>
@@ -30,13 +35,13 @@
 			<div class="row">
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Número de carnet</label> <input type="text" th:field="${estudiante.carnet}"
+						<label for="Input1">Número de carnet</label> <input type="text" th:field="*{carnet}"
 							class="form-control" id="Input1"><span th:errors="*{carnet}" style="color: #FF0000"></span>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Fecha de nacimiento</label> <input type="date" th:field="${estudiante.fechaNac}"
+						<label for="Input1">Fecha de nacimiento</label> <input type="date" th:field="*{fechaNac}"
 							class="form-control" id="Input1">
 					</div>
 				</div>
@@ -50,19 +55,19 @@
 			<div class="form-group">
 				<label for="exampleFormControlTextarea1">Dirección de
 					vivienda</label>
-				<textarea th:field="${estudiante.direccion}" class="form-control" id="exampleFormControlTextarea1" 
+				<textarea th:field="*{direccion}" class="form-control" id="exampleFormControlTextarea1" 
 					rows="3"></textarea><span th:errors="*{direccion}" style="color: #FF0000"></span>
 			</div>
 			<div class="row">
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Télefono fijo</label> <input type="text" th:field="${estudiante.telefonoFijo}"
+						<label for="Input1">Télefono fijo</label> <input type="text" th:field="*{telefonoFijo}"
 							class="form-control" id="Input1"><span th:errors="*{telefonoFijo}" style="color: #FF0000"></span>
 					</div>
 				</div>
 				<div class="col-md">	
 					<div class="form-group">
-						<label for="Input1">Télefono móvil</label> <input type="text" th:field="${estudiante.telefonoMovil}"
+						<label for="Input1">Télefono móvil</label> <input type="text" th:field="*{telefonoMovil}"
 							class="form-control" id="Input1"><span th:errors="*{telefonoMovil}" style="color: #FF0000"></span>
 					</div>
 				</div>
@@ -91,7 +96,7 @@
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Select1">Centro escolar: </label> <select th:field="*{centroEscolar.idCentroEscolar}"
+						<label for="Select1">Centro escolar: </label> <select th:field="*{idCentroEscolar}"
 							class="form-control" id="Select1">
 							<!--  th:field="*{municipio.idMunicipio}"  -->
 							<option th:each=item:${centro}
@@ -103,13 +108,13 @@
 			<div class="row">
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Nombre del padre</label> <input type="text" th:field="${estudiante.nombrePadre}"
+						<label for="Input1">Nombre del padre</label> <input type="text" th:field="*{nombrePadre}"
 							class="form-control" id="Input1"><span th:errors="*{nombrePadre}" style="color: #FF0000"></span>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Nombre de la madre</label> <input type="text" th:field="${estudiante.nombreMadre}"
+						<label for="Input1">Nombre de la madre</label> <input type="text" th:field="*{nombreMadre}"
 							class="form-control" id="Input1"><span th:errors="*{nombreMadre}" style="color: #FF0000"></span>
 					</div>
 				</div>

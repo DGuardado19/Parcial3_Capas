@@ -2,13 +2,59 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Expedientes</title>
+<title>Materias</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" href="css/style.css">
+ <!-- Bootstrap core JavaScript-->
+   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Page level plugin JavaScript-->
+      <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="js/sb-admin.min.js"></script>
+
+  <!-- Demo scripts for this page-->
+  <script src="js/demo/datatables-demo.js"></script>
 </head>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var table = $('#tablaClientes').DataTable( {
+			"dom": '<"top"l>rt<"bottom"p><"clear">',
+			"ordering": false,
+	        "processing": true,
+	        "serverSide": true,
+	        "ajax": "./cargarEstudiantes",
+	        "language": {
+	            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+	        },
+	        "pageLength": 5,
+	        "columnDefs": [ {
+	            "targets": 0,
+	            "data": null,
+	            "searchable": false,
+	            "defaultContent": "<button class='btn btn-info' title='Editar cliente' id='i'><i class='fa fa-pencil-alt'></i></button> <button class='btn btn-info' title='Editar cliente' id='i2'><i class='fas fa-search'></i></button>"
+	        }]
+	    });
+		$('#tablaClientes tbody').on( 'click', '#i', function () {
+	        var data = table.row( $(this).parents('tr') ).data();
+	        	location.href = './editarEstudiante?id=' + data[0];
+	    } );
+		/*$('#tablaClientes tbody').on( 'click', '#i2', function () {
+	        var data = table.row( $(this).parents('tr') ).data();
+	        	location.href = './editarEstudiante';
+	    } );*/
+	});
+</script>
 <body class="tablas-ventana">
 
-	<nav class="navbar navbar-expand-lg navbar-dark bg-menu">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-menu">
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
@@ -20,33 +66,21 @@
 	    </ul>
 	  </div>
 	</nav>
-	
 	<div class="container tablas center">
 		<h1>Expedientes</h1>
-		<br>
-		<table class="table">
+		<table class="table" id="tablaClientes">
 		  <thead>
 		    <tr>
-		      <th scope="col">Acción</th>
+		    <th style="width: 130px">Acci&oacute;n</th>
 		      <th scope="col">Nombre</th>
 		      <th scope="col">Apellido</th>
-		      <th scope="col">Materias Aprobadas</th>
-		      <th scope="col">Materias Reprobadas</th>
-		      <th scope="col">Promedio</th>
+			  <th scope="col">Materias Aprobadas</th>
+			  <th scope="col">Materias Reprobadas</th>
+			  <th scope="col">Promedio</th>
 		    </tr>
 		  </thead>
-		  <tbody:block th:each="expediente,row:${listaEstudiante}">
-		    <tr>
-		      <th> Accion</th>
-		      <th th:text="${expediente.nombre}">
-		      <th th:text="${expediente.apellido}">
-		    </tr>
-		  </tbody>
 		</table>
 	</div>
 
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </body>
 </html>
