@@ -7,6 +7,8 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.capas.uca.parcial3.domain.CentroEscolar;
@@ -38,5 +40,17 @@ public class CentroEscolarServiceImpl implements CentroEscolarService{
 	public void insertAndUpdate(CentroEscolar centroEscolar) throws DataAccessException {
 		// TODO Auto-generated method stub
 		Repo.save(centroEscolar);
+	}
+
+	@Override
+	public Page<CentroEscolar> findAll(Pageable page) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long countAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

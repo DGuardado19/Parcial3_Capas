@@ -65,7 +65,7 @@ public class MainController {
 			List<String[]> data = new ArrayList<>();
 			
 			for(Materia u : materia) {
-				data.add(new String[] {u.getIdMateria().toString(), u.getNombre(), 
+				data.add(new String[] {u.getIdMateria().toString(), u.getIdMateria().toString(), u.getNombre(), 
 						u.getDescripicion(),u.getDelegateEstado()});
 			}
 			System.out.print(data);
@@ -195,20 +195,6 @@ public class MainController {
 		}
 		
 		mav.addObject("municipioLista", municipioLista);
-		return mav;
-	}
-
-	@RequestMapping("/tablaCentroEscolar")
-	public ModelAndView tablaCentroEscolar() {
-		ModelAndView mav = new ModelAndView();
-		List<CentroEscolar> centroescolar = null;
-		try {
-			centroescolar = CentroEscolarService.findAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		mav.addObject("centro", centroescolar);
-		mav.setViewName("tablaCentroEscolar");
 		return mav;
 	}
 

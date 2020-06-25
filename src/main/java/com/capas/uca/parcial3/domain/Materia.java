@@ -25,7 +25,6 @@ public class Materia {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="idMateria")
 	private Integer idMateria;
-	
 	@Column(name="nombre")
 	@Size(min=1,max=40, message = "El nombre debe tener una longitud de 1 a 40 caracteres")
 	private String nombre;
