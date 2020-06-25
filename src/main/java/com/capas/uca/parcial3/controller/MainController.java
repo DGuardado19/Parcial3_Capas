@@ -153,9 +153,7 @@ public class MainController {
 
 		}
 		return mav;
-	}
-	
-	
+	}	
 
 	@RequestMapping("/registroCentroEscolar")
 	public ModelAndView registroCentroEscolar() {
@@ -395,4 +393,12 @@ public class MainController {
 		}
 		return mav;
 	}
+	
+	 @RequestMapping("/cargarMunicipios")
+	    public @ResponseBody List<Municipio> cargarMunicipios(@RequestParam Integer draw) {
+			
+			List<Municipio> municipio = MunicipioService.findAll();
+			System.out.println("Holi");
+			return municipio;
+	    }
 }

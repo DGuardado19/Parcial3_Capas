@@ -128,37 +128,32 @@
 	</div>
 </body>
 </html>
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 		$(document).ready(function(){
 			$('#Select1').change(function(){
-				var hola = document.getElementById("Select1");
-				alert(hola.options[0].value);
-				for (let i = document.getElementById("Select2").length; i >= 0; i--) {
-					document.getElementById("Select2").remove(i);
-				}
-				for (let i = document.getElementById("Select1").length; i >= 0; i--) {
-					document.getElementById("Select2").options[i]=hola.options[i];
-				}
-			});
-			
-			$('#Select2').change(function(){
-				var hola = document.getElementById("Select2");
-				alert(hola.options[5].value);
+				recargarLista();
 			});
 		})
 	</script>
 	<script type="text/javascript">
 		function recargarLista(){
 			$.ajax({
-				type: "POST",
-	            url:  '/prueba.htm',
-	            dataType: 'json',
-	            data: { idpais : "1" },
+				type: "GET",
+				"serverSide": true,
+				"ajax": "./cargarMunicipios",
+	            data: { draw : 1 },
 				sucess:function(r){
-					alert('we');
-				}
+					alert("sad");
+				},
+			    error: function(data) {
+			        alert('error');
+			      }
 			})
+			
+			
+			
+			
 		}
-	</script>-->
+	</script>
 	
