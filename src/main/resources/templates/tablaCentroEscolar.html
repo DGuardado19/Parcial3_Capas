@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -30,7 +31,7 @@
 			"ordering": false,
 	        "processing": true,
 	        "serverSide": true,
-	        "ajax": "./cargarclientes",
+	        "ajax": "./cargarCentrosEscolares",
 	        "language": {
 	            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
 	        },
@@ -42,9 +43,9 @@
 	            "defaultContent": "<button class='btn btn-info' title='Editar cliente' id='i'><i class='fa fa-pencil-alt'></i></button> "
 	        }]
 	    });
-		$('#tablaClientes tbody').on( 'click', '#i', function () {
+		$('#tablaCentrosEscolares tbody').on( 'click', 'button', function () {
 	        var data = table.row( $(this).parents('tr') ).data();
-	        	location.href = './editarMateria?id=' + data[0];
+	        	location.href = './editarCentroEscolar?id=' + data[0];
 	    } );
 	});
 </script>
@@ -73,7 +74,7 @@
 	<div class="container tablas center">
 		<h1>Centros Escolares</h1>
 		<div class="nuevoDato">
-			<a class="btn color-linkSesion" href="registroMateria">Nuevo Centro Escolar</a>
+			<a class="btn color-linkSesion" href="registroCentroEscolar">Nuevo Centro Escolar</a>
 		</div>
 		<table class="table" id="tablaCentrosEscolares">
 		  <thead>

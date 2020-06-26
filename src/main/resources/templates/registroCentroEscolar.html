@@ -14,6 +14,11 @@
 	<div class="container formularios materiaForm">
 		<h1 class="center">Registrar nuevo Centro Escolar</h1>
 		<form th:action="@{/registroCentroEscolarProcesar}" th:object="${centroEscolar}" method="post">
+		<div class="form-group">
+				<input type="hidden"
+					class="form-control" id="Input1" 
+					th:field="*{idCentroEscolar}">
+			</div>
 			<div class="form-group">
 				<label for="Input1">Nombre</label> 
 				<input type="text"

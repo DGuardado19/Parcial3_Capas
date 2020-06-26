@@ -45,12 +45,12 @@ public class CentroEscolarServiceImpl implements CentroEscolarService{
 	@Override
 	public Page<CentroEscolar> findAll(Pageable page) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return null;
+		return Repo.findAll(page);
 	}
 
 	@Override
 	public Long countAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return Repo.count();
 	}
 }

@@ -58,7 +58,8 @@ public class MainController {
 	    }
 	 @RequestMapping("/cargarclientes")
 	    public @ResponseBody TablaDTO cargarUsuario(@RequestParam Integer draw,
-				@RequestParam Integer start, @RequestParam Integer length, 
+
+			@RequestParam Integer start, @RequestParam Integer length, 
 				@RequestParam(value="search[value]", required = false) String search) {
 			
 			Page<Materia> materia = MateriaService.findAll(PageRequest.of(start/length, length, Sort.by(Direction.ASC, "idMateria")));
@@ -70,7 +71,9 @@ public class MainController {
 						u.getDescripicion(),u.getDelegateEstado()});
 			}
 			System.out.print(data);
+
 			TablaDTO dto = new TablaDTO();
+
 			dto.setData(data);
 			dto.setDraw(draw);
 			dto.setRecordsFiltered(MateriaService.countAll().intValue());
@@ -115,19 +118,50 @@ public class MainController {
 		return mav;
 	}
 
-	@RequestMapping("/tablaMaterias")
-	public ModelAndView tablaMaterias() {
-		ModelAndView mav = new ModelAndView();
-		List<Materia> materia = null;
-		try {
-			materia = MateriaService.findAll();
-		} catch (Exception e) {
-			e.printStackTrace();
+	 @RequestMapping("/tablaCentroEscolar")
+	    public String tablaCentroEscolar(){
+	        return "tablaCentroEscolar";
+	    }
+	 @RequestMapping("/cargarCentrosEscolares")
+	    public @ResponseBody EstudianteDTO cargar(@RequestParam Integer draw,
+				@RequestParam Integer start, @RequestParam Integer length, 
+				@RequestParam(value="search[value]", required = false) String search) {
+			
+			Page<CentroEscolar> centroEscolar= CentroEscolarService.findAll(PageRequest.of(start/length, length, Sort.by(Direction.ASC, "idCentroEscolar")));
+			
+			List<String[]> data = new ArrayList<>();
+			
+			for(CentroEscolar u : centroEscolar) {
+				data.add(new String[] {u.getIdCentroEscolar().toString(), u.getIdCentroEscolar().toString(),
+						u.getNombre(), u.getMunicipio().getNombreMunicipio(), u.getDescripcion(),u.getDelegateEstado()});
+			}
+			System.out.print(data);
+			EstudianteDTO dto = new EstudianteDTO();
+			dto.setData(data);
+			dto.setDraw(draw);
+			dto.setRecordsFiltered(MateriaService.countAll().intValue());
+			dto.setRecordsTotal(MateriaService.countAll().intValue());	
+			
+			return dto;
+	    }
+	 @RequestMapping("/editarCentroEscolar")
+		public ModelAndView editarCentroEscolar(@RequestParam Integer id) {
+			ModelAndView mav = new ModelAndView();
+			List<Municipio> municipioLista = null;
+			// List<Usuario> usuarioLista = null;
+			try {
+				municipioLista = MunicipioService.findAll();
+				// usuarioLista = usuarioService.findAll();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			CentroEscolar c = CentroEscolarService.findOne(id);
+			mav.addObject("centroEscolar", c);
+			mav.addObject("municipioLista", municipioLista);
+			mav.setViewName("registroCentroEscolar");
+			return mav;
 		}
-		mav.addObject("materiaList", materia);
-		mav.setViewName("tablaMateria");
-		return mav;
-	}
 
 	@RequestMapping("/registroMateria")
 	public ModelAndView registroMateria() {
@@ -155,7 +189,8 @@ public class MainController {
 
 		}
 		return mav;
-	}	
+	}
+	
 
 	@RequestMapping("/registroCentroEscolar")
 	public ModelAndView registroCentroEscolar() {
