@@ -14,8 +14,16 @@ public interface MateriaxEstudianteRepo extends JpaRepository<MateriaXestudiante
 	public List<MateriaXestudiante> mostrarTodos() throws DataAccessException;
 	
 	
-	@Query(nativeQuery = true, value = "select * from public.materiaXestudiante"
-			+ "where idestudiante = ?1")
-	public List<MateriaXestudiante> mostraruno(Integer code) throws DataAccessException;
+	@Query(nativeQuery = true, value = "select * from public.materiaXestudiante where "
+			+ "     fkestudiante = ?1 ")
+	public List<MateriaXestudiante> mostrarUno(Integer code) throws DataAccessException;
+	
+	@Query(nativeQuery=true,value="select mat.fkestudiante, "
+			+ "es.nombre, es.apellido  from public.materiaXestudiante mat, public.estudiante es, public.materia mate" + 
+			" where mat.fkestudiante = es.idestudiante " + 
+			" and mat.fkmateria = mate.idmateria and es.nombre LIKE ?1%   "
+			+ "    and es.apellido LIKE ?2% "
+			+ "  group by es.nombre, mat.fkestudiante, es.apellido  ")
+	public List<Object[]> pruebaDTO(String nombre, String apellido) throws DataAccessException;
 	
 }

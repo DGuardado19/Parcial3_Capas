@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.capas.uca.parcial3.domain.*;
 import com.capas.uca.parcial3.dto.EstudianteDTO;
+import com.capas.uca.parcial3.dto.ResutDTO;
 import com.capas.uca.parcial3.dto.TablaDTO;
 import com.capas.uca.parcial3.service.CentroEscolarService;
 import com.capas.uca.parcial3.service.DepartamentoService;
@@ -238,16 +239,18 @@ public class MainController {
 	public ModelAndView tablaUsuario() {
 
 		ModelAndView mav = new ModelAndView();
-
-		List<Usuario> listaUsuario = null;
+		List<ResutDTO> k= materiaxEstudianteService.dtoPrueba("", "d");
+		
+		/*List<Usuario> listaUsuario = null;
 
 		try {
 			listaUsuario = usuarioService.findAll();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		mav.addObject("usuario", listaUsuario);
-		mav.setViewName("tablaUsuario");
+		}*/
+		System.out.print(k.get(0).getApellido());
+		mav.addObject("usuario", k);
+		mav.setViewName("probando");
 		return mav;
 	}
 
