@@ -92,16 +92,16 @@ nav > a > img{
 	margin-top: 10px;
 }
 
-#tablaClientes_length{
+.dataTables_length{
 	text-align: left;
 	margin-bottom: 20px;
 }
 
-#tablaClientes_length select{
+.dataTables_length select{
 	float: left;
 }
 
-#tablaClientes_paginate{
+.dataTables_paginate{
 	display: flex;
 	justify-content: flex-end;
 }
