@@ -101,6 +101,11 @@ nav > a > img{
 	float: left;
 }
 
+.dataTables_filter{
+	float: right;
+	text-align: left;
+}
+
 .dataTables_paginate{
 	display: flex;
 	justify-content: flex-end;

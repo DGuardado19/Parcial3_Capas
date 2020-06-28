@@ -48,8 +48,8 @@ public class MateriaServiceImpl implements MateriaService {
 	}
 
 	@Override
-	public Long countAll() {
+	public Integer countAll(String search) {
 		// TODO Auto-generated method stub
-		return Repo.count();
+		return Repo.countM(search);
 	}
 }

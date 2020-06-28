@@ -50,17 +50,16 @@ public class MateriaController {
 		List<String[]> data = new ArrayList<>();
 
 		for(Materia u : materia) {
-			data.add(new String[] {u.getIdMateria().toString(), u.getIdMateria().toString(), u.getNombre(), 
-					u.getDescripicion(),u.getDelegateEstado()});
+			if(u.getNombre().toLowerCase().startsWith(search.toLowerCase())) {
+				data.add(new String[] {u.getIdMateria().toString(), u.getIdMateria().toString(), u.getNombre(), 
+						u.getDescripicion(),u.getDelegateEstado()});
+			}
 		}
-		System.out.print(data);
-
 		TablaDTO dto = new TablaDTO();
-
 		dto.setData(data);
 		dto.setDraw(draw);
-		dto.setRecordsFiltered(MateriaService.countAll().intValue());
-		dto.setRecordsTotal(MateriaService.countAll().intValue());	
+		dto.setRecordsFiltered(MateriaService.countAll(search.toLowerCase()));
+		dto.setRecordsTotal(MateriaService.countAll(search.toLowerCase()));	
 
 		return dto;
     }

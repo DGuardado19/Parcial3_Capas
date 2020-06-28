@@ -58,8 +58,8 @@ public class CentroEscolarController {
 		TablaDTO dto = new TablaDTO();
 		dto.setData(data);
 		dto.setDraw(draw);
-		dto.setRecordsFiltered(MateriaService.countAll().intValue());
-		dto.setRecordsTotal(MateriaService.countAll().intValue());	
+		dto.setRecordsFiltered(MateriaService.countAll(search).intValue());
+		dto.setRecordsTotal(MateriaService.countAll(search).intValue());	
 		
 		return dto;
     }
