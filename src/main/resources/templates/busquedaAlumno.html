@@ -6,26 +6,27 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
 
 	<div class="container formularios">
 		<h1 class="center">Expedientes de alumnos</h1> 
-		<form action="">
+		<form action="post" th:action="@{/busquedaAlumno}" th:object="${usuario}">
 			<div class="row">
 			    <div class="col-md">
 				  	  <div class="form-group">
 					    <label for="Select1">Buscar Alumno por:</label>
 					    <select class="form-control" id="Select1">
 					      <option value="0">Seleccione una opción</option>
-					      <option value="1">Nombre</option>
-					      <option value="2">Apellido</option>
+					      <option id="valor1" value="1">Nombre</option>
+					      <option id="valor2" value="2">Apellido</option>
 					    </select>
 					  </div>
 				  </div>
 			    <div class="col-md">
 				  <div class="form-group">
 					    <label for="Input1">Valor de búsqueda:</label>
-					    <input type="text" class="form-control" id="Input1">
+					    <input type="text" id="busqueda" class="form-control" id="Input1">
 				  </div>
 			    </div>
 			</div>

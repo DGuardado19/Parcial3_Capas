@@ -23,10 +23,12 @@ import com.capas.uca.parcial3.domain.Departamento;
 import com.capas.uca.parcial3.domain.Estudiante;
 import com.capas.uca.parcial3.domain.MateriaXestudiante;
 import com.capas.uca.parcial3.domain.Municipio;
+import com.capas.uca.parcial3.dto.ResutDTO;
 import com.capas.uca.parcial3.dto.TablaDTO;
 import com.capas.uca.parcial3.service.CentroEscolarService;
 import com.capas.uca.parcial3.service.DepartamentoService;
 import com.capas.uca.parcial3.service.EstudianteService;
+import com.capas.uca.parcial3.service.MateriaService;
 import com.capas.uca.parcial3.service.MateriaxEstudianteService;
 import com.capas.uca.parcial3.service.MunicipioService;
 
@@ -35,88 +37,93 @@ public class EstudianteController {
 
 	@Autowired
 	private EstudianteService estudianteService;
-	
+
 	@Autowired
 	private MunicipioService MunicipioService;
-	
+
 	@Autowired
 	private DepartamentoService departamentoService;
-	
+
 	@Autowired
 	private MateriaxEstudianteService materiaxEstudianteService;
-	
+
 	@Autowired
 	private CentroEscolarService CentroEscolarService;
+
+	@Autowired
+	private MateriaService MateriaService;
+
 	
-	@RequestMapping("/busquedaAlumno")
-	public ModelAndView busquedaAlumno() {
+
+	@RequestMapping("/editarEstudiante")
+	public ModelAndView buscarEstudiante(@RequestParam Integer id) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("busquedaAlumno");
+		Estudiante c = estudianteService.findOne(id);
+		mostrarComboBox(mav);
+		mav.addObject("estudiante", c);
+		mav.setViewName("registroAlumno");
 		return mav;
 	}
 
-	 @RequestMapping("/editarEstudiante")
-		public ModelAndView buscarEstudiante(@RequestParam Integer id) {
-			ModelAndView mav = new ModelAndView();
-			Estudiante c = estudianteService.findOne(id);
-			mostrarComboBox(mav);
-			mav.addObject("estudiante", c);
-			mav.setViewName("registroAlumno");
-			return mav;
-		}
-	
 	@RequestMapping("/estudiantesTable")
-	public String estudiantesTable(){
+	public String estudiantesTable() {
 		return "tablaExpediente";
 	}
-	
-	@RequestMapping("/cargarEstudiantes")
-	public @ResponseBody TablaDTO cargarEstudiante(@RequestParam Integer draw,
-			@RequestParam Integer start, @RequestParam Integer length,
-			@RequestParam(value="search[value]",required=false)String search) {
-			
-		Page<Estudiante> estudiante = estudianteService.findAll(PageRequest.of(start/length, length,Sort.by(Direction.ASC,"idEstudiante")));
+
+	@RequestMapping("/busquedaAlumno")
+	public ModelAndView busquedaAlumno(@RequestParam("busqueda")String hola) {
+		ModelAndView mav = new ModelAndView();
 		
- 		List<String[]> data = new ArrayList<>();
- 		
- 		for(Estudiante u: estudiante) {
- 			/*data.add(new String[] {u.getIdEstudiante().toString(),
- 					u.getNombre(),u.getApellido(),u.getCarnet(),u.getFechaNac().toString(),
- 					u.getDireccion(),u.getMunicipio().toString(),u.getDepartamento().toString(),
- 					u.getTelefonoFijo(),u.getTelefonoMovil(),u.getCentroEscolar().toString(),
- 					u.getNombrePadre(),u.getNombreMadre()});*/
- 			
- 			data.add(new String[] {u.getIdEstudiante().toString(),
- 					u.getNombre(),u.getApellido()});
- 			
- 			
- 		}
- 		
- 		TablaDTO dto = new TablaDTO();
- 		dto.setData(data);
- 		dto.setDraw(draw);
- 		dto.setRecordsFiltered(estudianteService.countAll().intValue());
- 		dto.setRecordsTotal(estudianteService.countAll().intValue());
- 		
-		return dto;
 		
+		
+		mav.setViewName("busquedaAlumno");
+		return mav;
 	}
+	////////////////// FUNCION
+
+	@RequestMapping("/cargarEstudiantes")
+	public @ResponseBody TablaDTO cargarEstudiante(@RequestParam Integer draw, @RequestParam Integer start,
+			@RequestParam Integer length, @RequestParam(value = "search[value]", required = false) String search) {
+
+		Page<ResutDTO> materia = materiaxEstudianteService.dtoPrueba("ro", "",
+				PageRequest.of(start / length, length, Sort.by(Direction.ASC, "fkestudiante")));
+
+		List<String[]> data = new ArrayList<>();
+
+		for (ResutDTO u : materia) {
+			if (u.getNombre().toLowerCase().startsWith(search.toLowerCase())) {
+				data.add(new String[] { u.getNombre().toString(), u.getNombre().toString(), u.getApellido().toString(),
+						u.getAprobadas().toString(), u.getReprobadas().toString(), String.valueOf(u.getProm()) });
+			}
+		}
+		System.out.print("HOLAAAAAAAA       " + data);
+
+		TablaDTO dto = new TablaDTO();
+
+		dto.setData(data);
+		dto.setDraw(draw);
+		dto.setRecordsFiltered(MateriaService.countAll2().intValue());
+		dto.setRecordsTotal(MateriaService.countAll2().intValue());
+
+		return dto;
+	}
+
 	
 	@RequestMapping("/tablaExpediente")
 	public ModelAndView tablaExpediente() {
 		ModelAndView mav = new ModelAndView();
 		List<Estudiante> listaEstudiante = null;
-		//List<MateriaXestudiante> lista = null;
-		//List<String> lista2 = new ArrayList<>();
-		
+		// List<MateriaXestudiante> lista = null;
+		// List<String> lista2 = new ArrayList<>();
+
 		try {
 			listaEstudiante = estudianteService.findAll();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		//mav.addObject("lista", lista);
-		mav.addObject("listaEstudiante",listaEstudiante);
+
+		// mav.addObject("lista", lista);
+		mav.addObject("listaEstudiante", listaEstudiante);
 		mav.setViewName("tablaExpediente");
 
 		return mav;
@@ -198,4 +205,22 @@ public class EstudianteController {
 		return mav;
 	}
 	
+
+
+	@RequestMapping("/cargarCentroEscolar")
+    public @ResponseBody List<String[]> cargarCentroEscolar(@RequestParam Integer draw) {
+	 List<CentroEscolar> centro = null;
+		try {
+			centro =  CentroEscolarService.findCentroEscolar(draw);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		List<String[]> data = new ArrayList<>();
+		
+		for(CentroEscolar u : centro) {
+			data.add(new String[] {u.getIdCentroEscolar().toString(),u.getNombre()});
+		}
+		return data;
+ }
 }

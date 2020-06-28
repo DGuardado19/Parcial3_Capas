@@ -86,8 +86,8 @@
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Select1">Municipio</label> <select th:field="*{municipio.idMunicipio}"
-							class="form-control" id="Select1">
+						<label for="Select2">Municipio</label> <select th:field="*{municipio.idMunicipio}"
+							class="form-control" id="Select2">
 							<!--  th:field="*{municipio.idMunicipio}"  -->
 							<option th:each=item:${municipioLista}
 								th:value="${item.idMunicipio}" th:text="${item.nombreMunicipio}">
@@ -96,8 +96,8 @@
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Select1">Centro escolar: </label> <select th:field="*{idCentroEscolar}"
-							class="form-control" id="Select1">
+						<label for="Select3">Centro escolar: </label> <select th:field="*{idCentroEscolar}"
+							class="form-control" id="Select3">
 							<!--  th:field="*{municipio.idMunicipio}"  -->
 							<option th:each=item:${centro}
 								th:value="${item.idCentroEscolar}" th:text="${item.nombre}">
@@ -126,3 +126,53 @@
 	</div>
 </body>
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+		$(document).ready(function(){
+			$('#Select1').change(function(){
+				var pri = document.getElementById("Select1").value;
+				$.ajax({
+					type: "POST",
+					"serverSide": true,
+					url: "./cargarMunicipios",
+		            data: { draw : pri },
+					success:function(r){
+						$('#Select2').empty();
+						var select = document.getElementById("Select2");
+						$("<option/>").val(0).text("Seleccione una opcion").appendTo("#Select2");
+						$.each(r, function(key, val) {
+							$("<option/>").val(r[key][0]).text(r[key][1]).appendTo("#Select2");
+					    });
+					},
+				    error: function(data) {
+				        alert('error');
+				      }
+				})
+			});
+		})
+		
+		$(document).ready(function(){
+			$('#Select2').change(function(){
+				var pri = document.getElementById("Select2").value;
+				$.ajax({
+					type: "POST",
+					"serverSide": true,
+					url: "./cargarCentroEscolar",
+		            data: { draw : pri },
+					success:function(r){
+						$('#Select3').empty();
+						var select = document.getElementById("Select3");
+						$("<option/>").val(0).text("Seleccione una opcion").appendTo("#Select3");
+						$.each(r, function(key, val) {
+							$("<option/>").val(r[key][0]).text(r[key][1]).appendTo("#Select3");
+					    });
+					},
+				    error: function(data) {
+				        alert('error');
+				      }
+				})
+			});
+		})
+		
+		
+</script>	

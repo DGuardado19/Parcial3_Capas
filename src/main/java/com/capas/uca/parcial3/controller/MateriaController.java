@@ -64,33 +64,6 @@ public class MateriaController {
 		return dto;
     }
 	
- /*@RequestMapping("/cargarclientes")
-    public @ResponseBody TablaDTO cargarUsuario(@RequestParam Integer draw,
-		@RequestParam Integer start, @RequestParam Integer length, 
-			@RequestParam(value="search[value]", required = false) String search) {
-		
-		Page<ResutDTO> materia = MateriaxE.dtoPrueba("", "j",PageRequest.of(start/length, length, Sort.by(Direction.ASC, "fkestudiante")));
-		
-		List<String[]> data = new ArrayList<>();
-		
-		for(ResutDTO u : materia) {
-			data.add(new String[] {u.getNombre().toString() ,u.getNombre().toString(), u.getApellido().toString(), u.getAprobadas().toString(),
-					u.getReprobadas().toString(), String.valueOf(u.getProm())});
-		}
-		System.out.print(data);
-
-		TablaDTO dto = new TablaDTO();
-
-		dto.setData(data);
-		dto.setDraw(draw);
-		dto.setRecordsFiltered(MateriaService.countAll().intValue());
-		dto.setRecordsTotal(MateriaService.countAll().intValue());	
-		
-		return dto;
-    }*/
-	
-	
-	
  
  @RequestMapping("/editarMateria")
 	public ModelAndView buscar(@RequestParam Integer id) {

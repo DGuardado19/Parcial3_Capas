@@ -17,4 +17,5 @@ public interface CentroEscolarService {
 	public void insertAndUpdate(CentroEscolar centroEscolar) throws DataAccessException;
 	public Page<CentroEscolar> findAll(Pageable page) throws DataAccessException;
 	public Long countAll();
+	List<CentroEscolar> findCentroEscolar(Integer centro) throws DataAccessException;
 }

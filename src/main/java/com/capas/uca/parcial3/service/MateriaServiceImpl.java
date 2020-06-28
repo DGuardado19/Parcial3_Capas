@@ -52,4 +52,12 @@ public class MateriaServiceImpl implements MateriaService {
 		// TODO Auto-generated method stub
 		return Repo.countM(search);
 	}
+
+	@Override
+	public Long countAll2() {
+		// TODO Auto-generated method stub
+		return Repo.count();
+	}
+	
+	
 }
