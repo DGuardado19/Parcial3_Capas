@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.capas.uca.parcial3.domain.CentroEscolar;
 import com.capas.uca.parcial3.domain.Municipio;
-import com.capas.uca.parcial3.dto.EstudianteDTO;
+import com.capas.uca.parcial3.dto.TablaDTO;
 import com.capas.uca.parcial3.service.CentroEscolarService;
 import com.capas.uca.parcial3.service.MateriaService;
 import com.capas.uca.parcial3.service.MunicipioService;
@@ -42,7 +42,7 @@ public class CentroEscolarController {
         return "tablaCentroEscolar";
     }
  @RequestMapping("/cargarCentrosEscolares")
-    public @ResponseBody EstudianteDTO cargar(@RequestParam Integer draw,
+    public @ResponseBody TablaDTO cargar(@RequestParam Integer draw,
 			@RequestParam Integer start, @RequestParam Integer length, 
 			@RequestParam(value="search[value]", required = false) String search) {
 		
@@ -55,7 +55,7 @@ public class CentroEscolarController {
 					u.getNombre(), u.getMunicipio().getNombreMunicipio(), u.getDescripcion(),u.getDelegateEstado()});
 		}
 		System.out.print(data);
-		EstudianteDTO dto = new EstudianteDTO();
+		TablaDTO dto = new TablaDTO();
 		dto.setData(data);
 		dto.setDraw(draw);
 		dto.setRecordsFiltered(MateriaService.countAll().intValue());
