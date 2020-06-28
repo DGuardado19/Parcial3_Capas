@@ -8,6 +8,9 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.capas.uca.parcial3.domain.Estudiante;
@@ -41,9 +44,9 @@ public class MateriaxEstudianteServiceImpl implements MateriaxEstudianteService 
 	}
 
 	@Override
-	public List<ResutDTO> dtoPrueba(String nombre, String apellido) throws DataAccessException {
+	public Page<ResutDTO> dtoPrueba(String nombre, String apellido, Pageable page) throws DataAccessException {
 		// TODO Auto-generated method stub
-		List<ResutDTO> estudiantes = Repo.pruebaDTO(nombre, apellido).stream().map(obj -> {
+		List<ResutDTO> estudiantes = Repo.pruebaDTO(nombre, apellido, page).stream().map(obj -> {
 			ResutDTO e = new ResutDTO();
 			List<MateriaXestudiante> k = null;
 			k= Repo.mostrarUno(Integer.parseInt(obj[0].toString()));
@@ -66,7 +69,8 @@ public class MateriaxEstudianteServiceImpl implements MateriaxEstudianteService 
 			e.setProm(promedio/(aprobado+reprobado));
 			return e;
 		}).collect(Collectors.toList());
-		return estudiantes;
+		Page<ResutDTO> page2 = new PageImpl<>(estudiantes);
+		return page2; 
 	}
 	
 	/*String x= "probando kk";

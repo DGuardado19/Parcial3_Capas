@@ -126,7 +126,6 @@ public class MateriaXestudiante {
 		this.nota = nota;
 	}
 	
-	
 	public String getDelegateNota() {
 		Boolean estado;
 		if(nota >= 6) {

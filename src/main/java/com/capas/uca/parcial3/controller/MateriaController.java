@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.capas.uca.parcial3.domain.Materia;
+import com.capas.uca.parcial3.domain.MateriaXestudiante;
+import com.capas.uca.parcial3.dto.ResutDTO;
 import com.capas.uca.parcial3.dto.TablaDTO;
 import com.capas.uca.parcial3.service.MateriaService;
+import com.capas.uca.parcial3.service.MateriaxEstudianteService;
 
 @Controller
 public class MateriaController {
@@ -28,23 +31,24 @@ public class MateriaController {
 	@Autowired
 	private MateriaService MateriaService;	
 	
+	@Autowired
+	private MateriaxEstudianteService MateriaxE;	
+	
 	@RequestMapping("/tablaMaterias")
     public String clientesTable(){
         return "tablaMateria";
     }
  @RequestMapping("/cargarclientes")
     public @ResponseBody TablaDTO cargarUsuario(@RequestParam Integer draw,
-
 		@RequestParam Integer start, @RequestParam Integer length, 
 			@RequestParam(value="search[value]", required = false) String search) {
 		
-		Page<Materia> materia = MateriaService.findAll(PageRequest.of(start/length, length, Sort.by(Direction.ASC, "idMateria")));
+		Page<ResutDTO> materia = MateriaxE.dtoPrueba("", "",PageRequest.of(start/length, length, Sort.by(Direction.ASC, "fkestudiante")));
 		
 		List<String[]> data = new ArrayList<>();
 		
-		for(Materia u : materia) {
-			data.add(new String[] {u.getIdMateria().toString(), u.getIdMateria().toString(), u.getNombre(), 
-					u.getDescripicion(),u.getDelegateEstado()});
+		for(ResutDTO u : materia) {
+			data.add(new String[] {u.getNombre().toString(), u.getApellido().toString(), u.getAprobadas().toString()});
 		}
 		System.out.print(data);
 

@@ -3,6 +3,8 @@ package com.capas.uca.parcial3.repositorie;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -24,6 +26,6 @@ public interface MateriaxEstudianteRepo extends JpaRepository<MateriaXestudiante
 			" and mat.fkmateria = mate.idmateria and es.nombre LIKE ?1%   "
 			+ "    and es.apellido LIKE ?2% "
 			+ "  group by es.nombre, mat.fkestudiante, es.apellido  ")
-	public List<Object[]> pruebaDTO(String nombre, String apellido) throws DataAccessException;
+	public List<Object[]> pruebaDTO(String nombre, String apellido, Pageable page) throws DataAccessException; 
 	
 }
