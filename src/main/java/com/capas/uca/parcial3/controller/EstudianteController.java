@@ -59,9 +59,9 @@ public class EstudianteController {
 	public ModelAndView buscarEstudiante(@RequestParam Integer id) {
 		ModelAndView mav = new ModelAndView();
 		Estudiante c = estudianteService.findOne(id);
-		mostrarComboBox(mav);
+		mostrarComboBoxRegistro(mav);
 		mav.addObject("estudiante", c);
-		mav.setViewName("registroAlumno");
+		//mav.setViewName("registroAlumno");
 		return mav;
 	}
 
@@ -71,33 +71,39 @@ public class EstudianteController {
 	}
 
 	@RequestMapping("/busquedaAlumno")
-	public ModelAndView busquedaAlumno(@RequestParam("busqueda")String hola) {
+	public ModelAndView busquedaAlumno() {
 		ModelAndView mav = new ModelAndView();
-		
-		
-		
 		mav.setViewName("busquedaAlumno");
 		return mav;
 	}
+	
+	
 	////////////////// FUNCION
 
 	@RequestMapping("/cargarEstudiantes")
 	public @ResponseBody TablaDTO cargarEstudiante(@RequestParam Integer draw, @RequestParam Integer start,
-			@RequestParam Integer length, @RequestParam(value = "search[value]", required = false) String search) {
-
-		Page<ResutDTO> materia = materiaxEstudianteService.dtoPrueba("ro", "",
+			@RequestParam Integer length, @RequestParam(value = "search[value]", required = false) String search,@RequestParam String variable,
+			@RequestParam String criterio) {
+		
+		String val1="", val2="";
+		
+		if(criterio.equals("1")){
+			val1=variable;
+		}else {
+			val2=variable;
+		}
+		
+		Page<ResutDTO> materia = materiaxEstudianteService.dtoPrueba(val1, val2,
 				PageRequest.of(start / length, length, Sort.by(Direction.ASC, "fkestudiante")));
 
 		List<String[]> data = new ArrayList<>();
 
 		for (ResutDTO u : materia) {
 			if (u.getNombre().toLowerCase().startsWith(search.toLowerCase())) {
-				data.add(new String[] { u.getNombre().toString(), u.getNombre().toString(), u.getApellido().toString(),
+				data.add(new String[] { u.getId().toString(), u.getNombre().toString(), u.getApellido().toString(),
 						u.getAprobadas().toString(), u.getReprobadas().toString(), String.valueOf(u.getProm()) });
 			}
 		}
-		System.out.print("HOLAAAAAAAA       " + data);
-
 		TablaDTO dto = new TablaDTO();
 
 		dto.setData(data);
@@ -110,20 +116,11 @@ public class EstudianteController {
 
 	
 	@RequestMapping("/tablaExpediente")
-	public ModelAndView tablaExpediente() {
+	public ModelAndView tablaExpediente(@RequestParam String busqueda,@RequestParam String criterio) {
 		ModelAndView mav = new ModelAndView();
-		List<Estudiante> listaEstudiante = null;
-		// List<MateriaXestudiante> lista = null;
-		// List<String> lista2 = new ArrayList<>();
-
-		try {
-			listaEstudiante = estudianteService.findAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		// mav.addObject("lista", lista);
-		mav.addObject("listaEstudiante", listaEstudiante);
+		
+		mav.addObject("busqueda", busqueda);
+		mav.addObject("busqueda2", criterio);
 		mav.setViewName("tablaExpediente");
 
 		return mav;
@@ -133,7 +130,7 @@ public class EstudianteController {
 	public ModelAndView registroAlumno(@ModelAttribute Estudiante estudiante) {
 		ModelAndView mav = new ModelAndView();
 		try {
-			mostrarComboBox(mav);
+			mostrarComboBoxRegistro(mav);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -145,11 +142,14 @@ public class EstudianteController {
 	@RequestMapping("/registroEstudiante")
 	public ModelAndView alumno(@Valid @ModelAttribute Estudiante estudiante, BindingResult result) {
 		ModelAndView mav = new ModelAndView();
-		if (result.hasErrors()) {
-			mostrarComboBox(mav);
-		} else {
+		if (result.hasErrors() || estudiante.getMunicipio()==null || 
+				estudiante.getDepartamento()==null || estudiante.getCentroEscolar()==null) {
+			erroraxo(estudiante,mav);
+			mostrarComboBoxRegistro(mav);
+			} 
+		else {
 			try {
-				mostrarComboBox(mav);
+				mostrarComboBoxBusqueda(mav);
 				estudianteService.insertAndUpdate(estudiante);
 				mav.addObject("estudiante", estudiante);
 			} catch (Exception e) {
@@ -158,8 +158,44 @@ public class EstudianteController {
 		}
 		return mav;
 	}
+	
+	public void erroraxo(@ModelAttribute Estudiante estudiante, ModelAndView mav) {
+		if(estudiante.getDepartamento()==null) {
+			mav.addObject("resultado", 1);
+			System.out.println("HOLAAA");
+		}
+		if(estudiante.getMunicipio()==null) {
+			mav.addObject("resultado1", 1);
+		}
+		if(estudiante.getCentroEscolar()==null) {
+			mav.addObject("resultado2", 1);
+			
+		}
+	}
+	
+	public void mostrarComboBoxBusqueda(ModelAndView mav) {
 
-	public void mostrarComboBox(ModelAndView mav) {
+		List<Departamento> departamentoLista = null;
+		List<Municipio> municipioLista = null;
+		List<CentroEscolar> centroescolar = null;
+
+		try {
+			centroescolar = CentroEscolarService.findAll();
+			departamentoLista = departamentoService.findAll();
+			municipioLista = MunicipioService.findAll();
+
+			mav.addObject("departamentoLista", departamentoLista);
+			mav.addObject("municipioLista", municipioLista);
+			mav.addObject("centro", centroescolar);
+
+			mav.setViewName("busquedaAlumno");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void mostrarComboBoxRegistro(ModelAndView mav) {
 
 		List<Departamento> departamentoLista = null;
 		List<Municipio> municipioLista = null;

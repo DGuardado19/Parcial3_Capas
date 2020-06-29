@@ -75,33 +75,39 @@
 			<div class="row">
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Select1">Departamento</label> <select th:field="*{departamento.idDepartamento}"
+						<label for="Select1">Departamento</label> <select th:field="*{departamento}"
 							class="form-control" id="Select1">
 							<!--  th:field="*{departamento.idDepartamento}"  -->
+							<option value="0">Seleccione una opción</option>
 							<option th:each=item:${departamentoLista}
 								th:value="${item.idDepartamento}"
 								th:text="${item.nombreDepartamento}">
 						</select>
+						<span th:if="${resultado == 1}" style = "color: #BF2121">Debe seleccionar un departamento</span>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Select2">Municipio</label> <select th:field="*{municipio.idMunicipio}"
+						<label for="Select2">Municipio</label> <select th:field="*{municipio}"
 							class="form-control" id="Select2">
 							<!--  th:field="*{municipio.idMunicipio}"  -->
+							<option value="0">Seleccione una opción</option>
 							<option th:each=item:${municipioLista}
 								th:value="${item.idMunicipio}" th:text="${item.nombreMunicipio}">
 						</select>
+						<span th:if="${resultado1 == 1}" style = "color: #BF2121">Debe seleccionar un municipio</span>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Select3">Centro escolar: </label> <select th:field="*{idCentroEscolar}"
+						<label for="Select3">Centro escolar: </label> <select th:field="*{centroEscolar}"
 							class="form-control" id="Select3">
 							<!--  th:field="*{municipio.idMunicipio}"  -->
+							<option value="0">Seleccione una opción</option>
 							<option th:each=item:${centro}
 								th:value="${item.idCentroEscolar}" th:text="${item.nombre}">
 						</select>
+						<span th:if="${resultado2 == 1}" style = "color: #BF2121">Debe seleccionar un centro escolar</span>
 					</div>
 				</div>
 			</div>

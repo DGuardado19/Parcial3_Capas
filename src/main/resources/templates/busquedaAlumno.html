@@ -11,12 +11,12 @@
 
 	<div class="container formularios">
 		<h1 class="center">Expedientes de alumnos</h1> 
-		<form action="post" th:action="@{/busquedaAlumno}" th:object="${usuario}">
+		<form action="post" th:action="@{/tablaExpediente}">
 			<div class="row">
 			    <div class="col-md">
 				  	  <div class="form-group">
 					    <label for="Select1">Buscar Alumno por:</label>
-					    <select class="form-control" id="Select1">
+					    <select class="form-control" id="Select1" name="criterio">
 					      <option value="0">Seleccione una opción</option>
 					      <option id="valor1" value="1">Nombre</option>
 					      <option id="valor2" value="2">Apellido</option>
@@ -26,7 +26,7 @@
 			    <div class="col-md">
 				  <div class="form-group">
 					    <label for="Input1">Valor de búsqueda:</label>
-					    <input type="text" id="busqueda" class="form-control" id="Input1">
+					    <input type="text" name="busqueda" class="form-control" id="Input1">
 				  </div>
 			    </div>
 			</div>
