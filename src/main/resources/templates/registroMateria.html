@@ -17,39 +17,51 @@
 			method="post">
 			<div class="form-group">
 				<input type="hidden"
-					class="form-control" id="Input1" 
+					class="form-control" id="id" 
 					th:field="*{idMateria}">
 			</div>
 			<div class="form-group">
-				<label for="Input1">Nombre</label> <input type="text"
-					class="form-control" id="Input1" placeholder="N-Capas"
+				<label for="nombre">Nombre</label> <input type="text"
+					class="form-control" id="nombre"
 					th:field="*{nombre}"> <span th:errors="*{nombre}"
-					style="color: #EDF625;"></span>
+					style="color: yellow;"></span>
 			</div>
 			<div class="form-group">
-				<label for="Textarea1">Descripción</label>
-				<textarea class="form-control" id="Textarea1" rows="3"
-					placeholder="Materia entretenida" th:field="*{descripicion}"></textarea>
-				<span th:errors="*{descripicion}" style="color: #EDF625;"></span>
+				<label for="descripcion">Descripción</label>
+				<textarea class="form-control" id="descripcion" rows="3"
+					 th:field="*{descripicion}"></textarea>
+				<span th:errors="*{descripicion}" style="color: yellow;"></span>
 			</div>
-			<div class="row">
-				<div class="col-md">
-					<div class="form-check">
-						<input class="form-check-input" type="radio" name="exampleRadios"
-							id="exampleRadios2"  th:field="*{estado}" th:value="${true}"> <label
-							class="form-check-label" for="exampleRadios2"> Activa </label>
-					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="radio" name="exampleRadios"
-							id="exampleRadios3" th:field="*{estado}" th:value="${false}"> <label
-							class="form-check-label" for="exampleRadios3" > Inactiva </label>
-					</div>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" th:value="true"
+						id="estado" th:field="*{estado}"> <label
+						class="form-check-label" for="defaultCheck1"> Activado </label>
 				</div>
 				<div class="btn-center">
-					<button type="submit" class="btn color-btnSesion">Registrar</button>
+					<a href="/tablaMaterias" class="btn color-btnSesion">Regresar</a>
+					<button type="submit" class="btn color-btnSesion btnAceptar">Registrar</button>
+					<a id="limpiar" class="btn color-btnSesion">Limpiar</a>
 				</div>
 		</form>
 	</div>
 
 </body>
+
+	<script type="text/javascript">
+		var a = document.getElementById("limpiar");
+	
+		/* Se agrega el evento al elemento */
+		a.onclick = limpiar
+		
+		if(document.getElementById("id").value != ""){
+			document.getElementById("limpiar").style.display="none";	
+		}
+		
+		function limpiar(){
+			document.getElementById("nombre").value = "";
+			document.getElementById("descripcion").value = "";
+			document.getElementById("estado").checked=0;
+		}
+	</script>
+
 </html>

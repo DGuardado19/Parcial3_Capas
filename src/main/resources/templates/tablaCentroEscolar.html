@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Materias</title>
+<title>Centro Escolar</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" href="css/style.css">
  <!-- Bootstrap core JavaScript-->
@@ -27,7 +27,6 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		var table = $('#tablaCentrosEscolares').DataTable( {
-			"dom": '<"top"l>rt<"bottom"p><"clear">',
 			"ordering": false,
 	        "processing": true,
 	        "serverSide": true,
@@ -40,7 +39,7 @@
 	            "targets": 0,
 	            "data": null,
 	            "searchable": false,
-	            "defaultContent": "<button class='btn btn-info' title='Editar cliente' id='i'><i class='fa fa-pencil-alt'></i></button> "
+	            "defaultContent": "<button class='btn btn-info' title='Editar Centro Escolar' id='i'><i class='fa fa-pencil-alt'></i></button> "
 	        }]
 	    });
 		$('#tablaCentrosEscolares tbody').on( 'click', 'button', function () {
@@ -80,7 +79,7 @@
 		  <thead>
 		    <tr>
 		    <th style="width: 130px">Acci&oacute;n</th>
-		      <th scope="col">id</th>
+		      <th scope="col">Codigo</th>
 		      <th scope="col">Nombre</th>
 		      <th scope="col">Municipio</th>
 		      <th scope="col">Descripción</th>

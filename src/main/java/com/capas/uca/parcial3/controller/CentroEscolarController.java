@@ -32,9 +32,6 @@ public class CentroEscolarController {
 	private CentroEscolarService CentroEscolarService;
 	
 	@Autowired
-	private MateriaService MateriaService;
-	
-	@Autowired
 	private MunicipioService MunicipioService;
 	
 	@RequestMapping("/tablaCentroEscolar")
@@ -45,21 +42,20 @@ public class CentroEscolarController {
     public @ResponseBody TablaDTO cargar(@RequestParam Integer draw,
 			@RequestParam Integer start, @RequestParam Integer length, 
 			@RequestParam(value="search[value]", required = false) String search) {
-		
-		Page<CentroEscolar> centroEscolar= CentroEscolarService.findAll(PageRequest.of(start/length, length, Sort.by(Direction.ASC, "idCentroEscolar")));
+		Page<CentroEscolar> centroEscolar= CentroEscolarService.findAll(search.toLowerCase(), PageRequest.of(start/length, length, Sort.by(Direction.ASC, "idCentroEscolar")));
 		
 		List<String[]> data = new ArrayList<>();
 		
 		for(CentroEscolar u : centroEscolar) {
-			data.add(new String[] {u.getIdCentroEscolar().toString(), u.getIdCentroEscolar().toString(),
-					u.getNombre(), u.getMunicipio().getNombreMunicipio(), u.getDescripcion(),u.getDelegateEstado()});
+				data.add(new String[] {u.getIdCentroEscolar().toString(), u.getIdCentroEscolar().toString(),
+						u.getNombre(), u.getMunicipio().getNombreMunicipio(), u.getDescripcion(),u.getDelegateEstado()});
 		}
 		System.out.print(data);
 		TablaDTO dto = new TablaDTO();
 		dto.setData(data);
 		dto.setDraw(draw);
-		dto.setRecordsFiltered(MateriaService.countAll(search).intValue());
-		dto.setRecordsTotal(MateriaService.countAll(search).intValue());	
+		dto.setRecordsFiltered(CentroEscolarService.countCE(search.toLowerCase()).intValue());
+		dto.setRecordsTotal(CentroEscolarService.countCE(search.toLowerCase()).intValue());	
 		
 		return dto;
     }
@@ -71,7 +67,6 @@ public class CentroEscolarController {
 		// List<Usuario> usuarioLista = null;
 		try {
 			municipioLista = MunicipioService.findAll();
-			// usuarioLista = usuarioService.findAll();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -107,17 +102,20 @@ public ModelAndView insertarCentroEscolar(@Valid @ModelAttribute CentroEscolar c
 	ModelAndView mav = new ModelAndView();
 	List<Municipio> municipioLista = null;
 	mav.setViewName("registroCentroEscolar");
-	if(!result.hasErrors()) {
+	if(!result.hasErrors() && centroEscolar.getMunicipio() != null) {
 		mav.addObject("centroEscolar", new CentroEscolar());
 		try {
 			CentroEscolarService.insertAndUpdate(centroEscolar);
+			mav.setViewName("tablaCentroEscolar");
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	} else {
+		mav.addObject("centroEscolar", centroEscolar);
+		mav.addObject("resultado", 1);
 	}
 	try {
 		municipioLista = MunicipioService.findAll();
-		// usuarioLista = usuarioService.findAll();
 	} catch (Exception e) {
 		e.printStackTrace();
 	}

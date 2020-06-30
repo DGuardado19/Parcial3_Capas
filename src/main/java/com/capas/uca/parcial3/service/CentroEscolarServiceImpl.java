@@ -43,9 +43,9 @@ public class CentroEscolarServiceImpl implements CentroEscolarService{
 	}
 
 	@Override
-	public Page<CentroEscolar> findAll(Pageable page) throws DataAccessException {
+	public Page<CentroEscolar> findAll(String search, Pageable page) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return Repo.findAll(page);
+		return Repo.mostrarTodos(search, page);
 	}
 
 	@Override
@@ -58,5 +58,11 @@ public class CentroEscolarServiceImpl implements CentroEscolarService{
 	public List<CentroEscolar> findCentroEscolar(Integer centro) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return Repo.findD(centro);
+	}
+
+	@Override
+	public Integer countCE(String search) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return Repo.countCE(search);
 	}
 }

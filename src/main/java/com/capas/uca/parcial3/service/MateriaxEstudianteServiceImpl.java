@@ -72,16 +72,5 @@ public class MateriaxEstudianteServiceImpl implements MateriaxEstudianteService 
 		Page<ResutDTO> page2 = new PageImpl<>(estudiantes);
 		return page2; 
 	}
-	
-	/*String x= "probando kk";
-	int y =1;
-	List<EstudianteDTO> estudiantes = estudianteRepo.pruebaDTO().stream().map(obj->{
-		EstudianteDTO e = new EstudianteDTO();
-		e.setNombre(obj[0].toString());
-		e.setApellido(x);
-		e.setCalculando(y);
-		return e;
-	}).collect(Collectors.toList());
-	return estudiantes;*/
 
 }

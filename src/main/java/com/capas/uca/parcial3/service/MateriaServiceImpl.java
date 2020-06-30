@@ -24,9 +24,9 @@ public class MateriaServiceImpl implements MateriaService {
 	EntityManager entityManager;
 
 	@Override
-	public List<Materia> findAll() throws DataAccessException {
+	public Page<Materia> findAll(String search, Pageable page) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return Repo.mostrarTodos();
+		return Repo.mostrarTodos(search, page);
 	}
 
 	@Override

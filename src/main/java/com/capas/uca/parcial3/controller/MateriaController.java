@@ -41,19 +41,16 @@ public class MateriaController {
 	
 	@RequestMapping("/cargarclientes")
     public @ResponseBody TablaDTO cargarUsuario(@RequestParam Integer draw,
-
 		@RequestParam Integer start, @RequestParam Integer length, 
 			@RequestParam(value="search[value]", required = false) String search) {
 
-		Page<Materia> materia = MateriaService.findAll(PageRequest.of(start/length, length, Sort.by(Direction.ASC, "idMateria")));
+		Page<Materia> materia = MateriaService.findAll(search.toLowerCase(), PageRequest.of(start/length, length, Sort.by(Direction.ASC, "idMateria")));
 
 		List<String[]> data = new ArrayList<>();
 
 		for(Materia u : materia) {
-			if(u.getNombre().toLowerCase().startsWith(search.toLowerCase())) {
 				data.add(new String[] {u.getIdMateria().toString(), u.getIdMateria().toString(), u.getNombre(), 
 						u.getDescripicion(),u.getDelegateEstado()});
-			}
 		}
 		TablaDTO dto = new TablaDTO();
 		dto.setData(data);
@@ -86,14 +83,12 @@ public class MateriaController {
 	public ModelAndView insertarMateria(@Valid @ModelAttribute Materia materia, BindingResult result) {
 		ModelAndView mav = new ModelAndView();
 		if(!result.hasErrors()) {
-			mav.addObject("materia", new Materia());
-			mav.setViewName("tablaMateria");
-
 			try {
 				MateriaService.insertAndUpdate(materia);
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
+			mav.setViewName("tablaMateria");
 		}
 		else {
 			mav.setViewName("registroMateria");

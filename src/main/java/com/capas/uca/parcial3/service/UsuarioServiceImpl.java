@@ -1,5 +1,7 @@
 package com.capas.uca.parcial3.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -22,9 +24,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 	EntityManager entityManager;
 
 	@Override
-	public List<Usuario> findAll() throws DataAccessException {
+	public Page<Usuario> findAll(Pageable page) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return Repo.mostrarTodos();
+		return Repo.findAll(page); 
 	}
 
 	@Override
@@ -43,6 +45,16 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public Usuario login(String user, String pass) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return Repo.login(user, pass);
+	}
+
+	@Override
+	public Integer countUser(String search) throws DataAccessException {
+		return Repo.countUser(search);
+	}
+
+	@Override
+	public Page<Usuario> mostrarTodo(String search, Pageable page) throws DataAccessException {
+		return Repo.mostrarTodo(search, page);
 	}
 	
 }

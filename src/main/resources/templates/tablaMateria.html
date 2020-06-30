@@ -38,16 +38,12 @@
 	            "targets": 0,
 	            "data": null,
 	            "searchable": false,
-	            "defaultContent": "<button class='btn btn-info' title='Editar cliente' id='i'><i class='fa fa-pencil-alt'></i></button> <button class='btn btn-info' title='Editar cliente' id='i2'><i class='fas fa-search'></i></button>"
+	            "defaultContent": "<button class='btn btn-info' title='Editar Materia' id='i'><i class='fa fa-pencil-alt'></i></button>"
 	        }]
 	    });
 		$('#tablaClientes tbody').on( 'click', '#i', function () {
 	        var data = table.row( $(this).parents('tr') ).data();
 	        	location.href = './editarMateria?id=' + data[0];
-	    } );
-		$('#tablaClientes tbody').on( 'click', '#i2', function () {
-	        var data = table.row( $(this).parents('tr') ).data();
-	        	location.href = './registroMateria';
 	    } );
 	});
 </script>
@@ -82,7 +78,7 @@
 		  <thead>
 		    <tr>
 		    <th style="width: 130px">Acci&oacute;n</th>
-		      <th scope="col">id</th>
+		      <th scope="col">Codigo</th>
 		      <th scope="col">Nombre</th>
 		      <th scope="col">Descripción</th>
 		      <th scope="col">Estado</th>

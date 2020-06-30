@@ -16,50 +16,63 @@
 		<form th:action="@{/registroCentroEscolarProcesar}" th:object="${centroEscolar}" method="post">
 		<div class="form-group">
 				<input type="hidden"
-					class="form-control" id="Input1" 
+					class="form-control" id="id" 
 					th:field="*{idCentroEscolar}">
 			</div>
 			<div class="form-group">
-				<label for="Input1">Nombre</label> 
+				<label for="nombre">Nombre</label> 
 				<input type="text"
-					class="form-control" id="Input1" placeholder="N-Capas"
+					class="form-control" id="nombre"
 					th:field="*{nombre}"> 
 				 
-				 <span th:errors="*{nombre}" style="color: #EDF625;"></span>
+				 <span th:errors="*{nombre}" style="color: yellow;"></span>
 			</div>
 			<div class="form-group">
 				<label for="Select1">Municipio</label> 
 				<select class="form-control" id="Select1" th:field="*{municipio.idMunicipio}"> <!--  th:field="*{municipio.idMunicipio}"  -->
+					<option value="0">Seleccione una opción</option>
 					<option th:each=item:${municipioLista}
 									th:value="${item.idMunicipio}"
 									th:text="${item.nombreMunicipio}">
 				</select>
-				<span th:errors="*{municipio.idMunicipio}" style="color: #EDF625;"></span>
-				
+				<span th:if="${resultado == 1}" style="color: yellow ">Debe
+							seleccionar un municipio</span>
 			</div>
 			<div class="form-group">
 				<label for="Textarea1">Descripción</label>
-				<textarea class="form-control" id="Textarea1" rows="3" placeholder="Colegio de valores"
+				<textarea class="form-control" id="descripcion" rows="3"
 					th:field="*{descripcion}"></textarea>
-					<span th:errors="*{descripcion}" style="color: #EDF625;"></span>
+					<span th:errors="*{descripcion}" style="color: yellow;"></span>
 			</div>
 			<div class="form-check">
-				<div class="form-check">
-						<input class="form-check-input" type="radio" name="exampleRadios"
-							id="exampleRadios2"  th:field="*{estado}" th:value="${true}"> <label
-							class="form-check-label" for="exampleRadios2"> Activa </label>
-					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="radio" name="exampleRadios"
-							id="exampleRadios3" th:field="*{estado}" th:value="${false}"> <label
-							class="form-check-label" for="exampleRadios3" > Inactiva </label>
-					</div>
-			</div>
+					<input class="form-check-input" type="checkbox" th:value="true"
+						id="estado" th:field="*{estado}"> <label
+						class="form-check-label" for="defaultCheck1"> Activado </label>
+				</div>
 			<div class="btn-center">
-				<button type="submit" class="btn color-btnSesion">Registrar</button>
+				<a href="/tablaCentroEscolar" class="btn color-btnSesion">Regresar</a>
+				<button type="submit" class="btn color-btnSesion btnAceptar">Registrar</button>
+				<a id="limpiar" class="btn color-btnSesion">Limpiar</a>
 			</div>
 		</form>
 	</div>
 
 </body>
+
+	<script type="text/javascript">
+		var a = document.getElementById("limpiar");
+	
+		/* Se agrega el evento al elemento */
+		a.onclick = limpiar
+		if(document.getElementById("id").value != ""){
+			document.getElementById("limpiar").style.display="none";	
+		}
+		function limpiar(){
+			document.getElementById("Select1").options[0].selected = true;
+			document.getElementById("nombre").value = "";
+			document.getElementById("descripcion").value = "";
+			document.getElementById("estado").checked=0;
+		}
+	</script>
+
 </html>

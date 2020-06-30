@@ -16,8 +16,13 @@ body{
 }
 
 .color-btnSesion{
-	background: white;
-	color: #79a8a9;
+	background: #1f4e5f;
+	color: White;
+}
+
+.color-btnSesion:hover{
+	background: #29657B;
+	color: White;
 }
 
 .formularios{
@@ -113,4 +118,9 @@ nav > a > img{
 
 .page-item.active .page-link{
 	background: #17a2b8;
+}
+
+.btnAceptar{
+	margin-left: 20px;
+	margin-right: 20px;
 }

@@ -64,7 +64,7 @@ public class MainController {
 		Usuario user = null;
 		List<Usuario> listaUsuario = null;
 		try {
-			listaUsuario = usuarioService.findAll();
+			//listaUsuario = usuarioService.findAll();
 			user = usuarioService.login(usuario.getNombreUser(), usuario.getContrasenia()); 
 			if(user == null) {
 				mav.setViewName("index");

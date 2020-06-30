@@ -10,7 +10,7 @@ import com.capas.uca.parcial3.domain.Materia;
 
 public interface MateriaService {
 	
-	public List<Materia> findAll() throws DataAccessException;
+	public Page<Materia> findAll(String search, Pageable page) throws DataAccessException;
 	public Materia findOne(Integer code) throws DataAccessException;
 	public void insertAndUpdate(Materia materia) throws DataAccessException;
 	public Page<Materia> findAll(Pageable page) throws DataAccessException;

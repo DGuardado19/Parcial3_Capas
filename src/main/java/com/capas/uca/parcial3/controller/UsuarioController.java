@@ -1,20 +1,30 @@
 package com.capas.uca.parcial3.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.capas.uca.parcial3.domain.Departamento;
+import com.capas.uca.parcial3.domain.Materia;
 import com.capas.uca.parcial3.domain.Municipio;
 import com.capas.uca.parcial3.domain.Usuario;
+import com.capas.uca.parcial3.dto.TablaDTO;
 import com.capas.uca.parcial3.service.DepartamentoService;
 import com.capas.uca.parcial3.service.MunicipioService;
 import com.capas.uca.parcial3.service.UsuarioService;
@@ -29,23 +39,44 @@ public class UsuarioController {
 	@Autowired
 	private DepartamentoService departamentoService;
 	
+	@RequestMapping("/index2")
+	public ModelAndView index2(HttpSession request) {
+		ModelAndView mav = new ModelAndView(); 
+		String cart = (String)request.getAttribute("Hola");
+		System.out.println(cart); 
+		mav.setViewName("tablaUsuario");
+		return mav;
+	}
+		
 	@RequestMapping("/tablaUsuario")
 	public ModelAndView tablaUsuario() {
 		ModelAndView mav = new ModelAndView();		
-		List<Usuario> listaUsuario = null;
-
-		try {
-			listaUsuario = usuarioService.findAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		mav.addObject("usuario", listaUsuario);
 		mav.setViewName("tablaUsuario");
 		return mav;
 	}
 	
+	@RequestMapping("/cargarUsuario")
+    public @ResponseBody TablaDTO cargarUsuario(@RequestParam Integer draw,
+		@RequestParam Integer start, @RequestParam Integer length, 
+			@RequestParam(value="search[value]", required = false) String search) {
+		Page<Usuario> Usuario = usuarioService.mostrarTodo(search.toLowerCase(), PageRequest.of(start/length, length, Sort.by(Direction.ASC, "idUsuario")));
+		List<String[]> data = new ArrayList<>();
+
+		for(Usuario u : Usuario) {
+			data.add(new String[] {u.getIdUsuario().toString(), u.getIdUsuario().toString(), u.getNombre(), u.getApellido(), 
+					u.getFechaNac().toString(), u.getNombreUser(), u.getDelegateEstado()});
+		}
+		TablaDTO dto = new TablaDTO();
+		dto.setData(data);
+		dto.setDraw(draw);
+		dto.setRecordsFiltered(usuarioService.countUser(search.toLowerCase()));
+		dto.setRecordsTotal(usuarioService.countUser(search.toLowerCase()));	
+
+		return dto;
+    }
+	
 	@RequestMapping("/registro")
-	public ModelAndView registro() {
+	public ModelAndView registro(@RequestParam Integer tipo, HttpSession request) {
 		ModelAndView mav = new ModelAndView();
 		List<Departamento> departamentoLista = null;
 		List<Municipio> municipioLista = null;
@@ -55,11 +86,35 @@ public class UsuarioController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} 
+		String cart = (String)request.getAttribute("Hola");
+		System.out.println(cart); 
+		mav.addObject("departamentoLista", departamentoLista);
+		mav.addObject("municipioLista", municipioLista);
+		mav.addObject("usuario",usuarioLista);
+		mav.addObject("tipo", tipo);
+		mav.setViewName("registroUsuario");
+		return mav;
+	}
+	
+	@RequestMapping("/editarUsuario")
+	public ModelAndView editarUsuario(@RequestParam Integer tipo, @RequestParam Integer id) {
+		ModelAndView mav = new ModelAndView();
+		List<Departamento> departamentoLista = null;
+		List<Municipio> municipioLista = null;
+		Usuario usuarioLista = usuarioService.findOne(id);
+		
+		try {
+			departamentoLista = departamentoService.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		mav.addObject("departamentoLista", departamentoLista);
 		mav.addObject("municipioLista", municipioLista);
 		mav.addObject("usuario",usuarioLista);
+		mav.addObject("tipo", tipo);
+		mav.addObject("id", id);
 		mav.setViewName("registroUsuario");
 		return mav;
 	}
@@ -95,8 +150,6 @@ public class UsuarioController {
 					usuario.setEstado(false);
 	            }
 				usuarioService.insertAndUpdate(usuario);
-				listaUsuario = usuarioService.findAll();
-				mav.addObject("usuario",listaUsuario);
 				System.out.println(usuario.getDepartamento()); 
 				mav.setViewName("tablaUsuario");
 			} catch (Exception e) {

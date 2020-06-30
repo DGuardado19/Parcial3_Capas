@@ -7,149 +7,193 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
+
+	
 <link rel="stylesheet" href="css/style.css">
+
 </head>
 <body>
 	<div class="container formularios">
 		<h1 class="center">Registrar nuevo usuario</h1>
 		<form th:action="@{/ingresarUsuario}" th:object="${usuario}" method="post">
+			<div class="form-group">
+				<input type="text" class="form-control" id="id" th:value="${id}" name="idusuario"> 
+			</div>
 			<div class="row">
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Nombre</label> 
-						<input type="text" class="form-control" id="Input1" name="nombre">
-						<span th:errors="*{nombre}" style = "color: #BF2121"></span>
+						<label for="nombre">Nombre</label> <input type="text"
+							class="form-control" id="nombre" th:field="*{nombre}"> <span
+							th:errors="*{nombre}" style="color: #BF2121"></span>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Apellido</label> 
-						<input type="text" class="form-control" id="Input1" name="apellido">
-						<span th:errors="*{apellido}" style = "color: #BF2121"></span>
+						<label for="apellido">Apellido</label> <input type="text"
+							class="form-control" id="apellido" name="apellido"> <span
+							th:errors="*{apellido}" style="color: #BF2121"></span>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Fecha de nacimiento</label> 
-						<input type="date" class="form-control" id="Input1" name="fechaNac">
-						<span th:errors="*{fechaNac}" style = "color: #BF2121"></span>
+						<label for="fecha">Fecha de nacimiento</label> <input type="date"
+							id="fecha" class="form-control" name="fechaNac"> <span
+							th:errors="*{fechaNac}" style="color: #BF2121"></span>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Edad</label> 
-						<input type="text"	class="form-control" id="Input1">
+						<label for="edad">Edad</label> <input type="text"
+							class="form-control" id="edad">
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Select1">Departamento</label> <select
-							class="form-control" id="Select1" name="departamento"> <!--  th:field="*{departamento.idDepartamento}"  -->
+						<label for="departamento">Departamento</label> <select
+							class="form-control" id="departamento" name="departamento">
+							<!--  th:field="*{departamento.idDepartamento}"  -->
 							<option value="0">Seleccione una opción</option>
 							<option th:each=item:${departamentoLista}
-									th:value="${item.idDepartamento}"
-									th:text="${item.nombreDepartamento}">
-						</select>
-						<span th:if="${resultado == 1}" style = "color: #BF2121">Debe seleccionar un departamento</span>
+								th:value="${item.idDepartamento}"
+								th:text="${item.nombreDepartamento}">
+						</select> <span th:if="${resultado == 1}" style="color: #BF2121">Debe
+							seleccionar un departamento</span>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Select2">Municipio</label> <select
-							class="form-control" id="Select2" name="municipio"> <!--  th:field="*{municipio.idMunicipio}"  -->
+						<label for="municipio">Municipio</label> <select
+							class="form-control" id="municipio" name="municipio">
+							<!--  th:field="*{municipio.idMunicipio}"  -->
 							<option value="0">Seleccione una opción</option>
 							<option th:each=item:${municipioLista}
-									th:value="${item.idMunicipio}"
-									th:text="${item.nombreMunicipio}">
-						</select>
-						<span th:if="${resultado2 == 1}" style = "color: #BF2121">Debe seleccionar un municipio</span>
+								th:value="${item.idMunicipio}" th:text="${item.nombreMunicipio}">
+						</select> <span th:if="${resultado2 == 1}" style="color: #BF2121">Debe
+							seleccionar un municipio</span>
 					</div>
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="exampleFormControlTextarea1">Dirección de
+				<label for="direccion">Dirección de
 					residencia</label>
-				<textarea class="form-control" id="exampleFormControlTextarea1"
+				<textarea class="form-control" id="direccion"
 					rows="3" name="direccion"></textarea>
-				<span th:errors="*{direccion}" style = "color: #BF2121"></span>
+				<span th:errors="*{direccion}" style="color: #BF2121"></span>
 			</div>
 			<div class="row">
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Nombre de usuario</label> <input type="text"
-							class="form-control" id="Input1" name="nombreUser">
-						<span th:errors="*{nombreUser}" style = "color: #BF2121"></span>
+						<label for="nombreUser">Nombre de usuario</label> <input type="text"
+							class="form-control" id="nombreUser" name="nombreUser"> <span
+							th:errors="*{nombreUser}" style="color: #BF2121"></span>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Select3">Tipo de usuario</label> <select
-							class="form-control" id="Select3" name="tipoUsuario">
+						<label for="tipo">Tipo de usuario</label> <select
+							class="form-control" id="tipo" name="tipoUsuario">
 							<option value="3">Seleccione una opción</option>
 							<option value="0">Administrador</option>
 							<option value="1">Coordinador</option>
-						</select>
-						<span th:if="${resultado3 == 1}" style = "color: #BF2121">Debe seleccionar un tipo de usuario</span>
+						</select> <span th:if="${resultado3 == 1}" style="color: #BF2121">Debe
+							seleccionar un tipo de usuario</span>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Contraseña</label> <input type="password"
-							class="form-control" id="Input1" name="contrasenia">
-						<span th:errors="*{contrasenia}" style = "color: #BF2121"></span>
+						<label for="contra">Contraseña</label> <input type="password"
+							class="form-control" id="contra" name="contrasenia"> <span
+							th:errors="*{contrasenia}" style="color: #BF2121"></span>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Confirmas Contraseña</label> <input
-							type="password" class="form-control" id="Input1" name="pass">
+						<label for="contra2">Confirmas Contraseña</label> <input
+							type="password" class="form-control" id="contra2" name="pass">
 					</div>
 				</div>
 			</div>
-			<span th:if="${resultado4 == 1}" style = "color: #BF2121">Las contraseñas no coinciden!</span>
-	
-			<div class="form-check">
-			  <input class="form-check-input" type="checkbox" th:value="true" id="defaultCheck1" name="estado">
-			  <label class="form-check-label" for="defaultCheck1">
-			    Habilitado
-			  </label>
+			<span th:if="${resultado4 == 1}" style="color: #BF2121">Las
+				contraseñas no coinciden!</span>
+
+			<div class="form-check" th:if="${tipo == 1}">
+				<input class="form-check-input" type="checkbox" th:value="true"
+					id="estado" name="estado"> <label
+					class="form-check-label" for="estado"> Activado </label>
 			</div>
 
 			<div class="btn-center">
-				<button type="submit" class="btn color-btnSesion">Registrar</button>
-			</div>
+					<a href="/tablaUsuario" class="btn color-btnSesion">Regresar</a>
+					<button type="submit" class="btn color-btnSesion btnAceptar">Registrar</button>
+					<a id="limpiar" class="btn color-btnSesion">Limpiar</a>
+				</div>
 		</form>
 	</div>
 </body>
-</html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+	<script type="text/javascript">
+		var a = document.getElementById("limpiar");
+	
+		/* Se agrega el evento al elemento */
+		a.onclick = limpiar
+		
+		if(document.getElementById("id").value != ""){
+			document.getElementById("limpiar").style.display="none";	
+		}
+		
+		function limpiar(){
+			document.getElementById("nombre").value = "";
+			document.getElementById("apellido").value = "";
+			document.getElementById("edad").value = "";
+			document.getElementById("nombreUser").value = "";
+			document.getElementById("contra").value = "";
+			document.getElementById("contra2").value = "";
+			document.getElementById("estado").checked=0;
+			document.getElementById("departamento").options[0].selected = true;
+			document.getElementById("municipio").options[0].selected = true;
+			document.getElementById("tipo").options[0].selected = true;
+		}
+	</script>
+
 <script type="text/javascript">
-		$(document).ready(function(){
-			$('#Select1').change(function(){
-				var pri = document.getElementById("Select1").value;
-				$.ajax({
-					type: "POST",
-					"serverSide": true,
-					url: "./cargarMunicipios",
-		            data: { draw : pri },
-					success:function(r){
-						$('#Select2').empty();
-						var select = document.getElementById("Select2");
-						$("<option/>").val(0).text("Seleccione una opcion").appendTo("#Select2");
-						$.each(r, function(key, val) {
-							$("<option/>").val(r[key][0]).text(r[key][1]).appendTo("#Select2");
-					    });
-					},
-				    error: function(data) {
-				        alert('error');
-				      }
-				})
-			});
-		})
-	</script>	
+	$(document).ready(
+			function() {
+				$('#departamento').change(
+						function() {
+							var pri = document.getElementById("departamento").value;
+							$.ajax({
+								type : "POST",
+								"serverSide" : true,
+								url : "./cargarMunicipios",
+								data : {
+									draw : pri
+								},
+								success : function(r) {
+									$('#municipio').empty();
+									var select = document
+											.getElementById("municipio");
+									$("<option/>").val(0).text(
+											"Seleccione una opcion").appendTo(
+											"#municipio");
+									$.each(r,
+											function(key, val) {
+												$("<option/>").val(r[key][0])
+														.text(r[key][1])
+														.appendTo("#municipio");
+											});
+								},
+								error : function(data) {
+									alert('error');
+								}
+							})
+						});
+			})
+</script>
+</html>
