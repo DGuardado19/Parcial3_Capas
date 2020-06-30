@@ -45,6 +45,11 @@ public class Estudiante {
 	@Column(name="fechaNac")
 	private Date fechaNac;
 	
+	//Campo nuevo
+	@Column(name="edad")
+	@NotEmpty(message="No puede ir vacio")
+	private Integer edad;
+	
 	@Column(name="direccion")
 	@Size(max=100, message="El campo sobrepasa la cantidad de 100 caracteres")
 	@NotEmpty(message="No puede ir vacio")
@@ -232,6 +237,38 @@ public class Estudiante {
 
 	public void setIdDepartamento(Integer idDepartamento) {
 		this.fkDepartamento = idDepartamento;
+	}
+
+	public Integer getEdad() {
+		return edad;
+	}
+
+	public void setEdad(Integer edad) {
+		this.edad = edad;
+	}
+
+	public Integer getFkMunicipio() {
+		return fkMunicipio;
+	}
+
+	public void setFkMunicipio(Integer fkMunicipio) {
+		this.fkMunicipio = fkMunicipio;
+	}
+
+	public Integer getFkDepartamento() {
+		return fkDepartamento;
+	}
+
+	public void setFkDepartamento(Integer fkDepartamento) {
+		this.fkDepartamento = fkDepartamento;
+	}
+
+	public Integer getFkCentroEscolar() {
+		return fkCentroEscolar;
+	}
+
+	public void setFkCentroEscolar(Integer fkCentroEscolar) {
+		this.fkCentroEscolar = fkCentroEscolar;
 	}
 	
 	

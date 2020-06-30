@@ -19,7 +19,6 @@ import javax.persistence.SequenceGenerator;
 @Table(schema="public",name="materiaXestudiante")
 public class MateriaXestudiante {
 	
-	//private Integer idMateriaXestudiante;
 	
 	@Id
 	@Column(name="idMateriaXestudiante")
@@ -42,18 +41,12 @@ public class MateriaXestudiante {
 	private Integer idEstudiante;
 	
 	@Column(name="anio")
-	//@Size(min="",max="")
-	//@NotEmpty(message="No puede ir vacio")
 	private Integer anio;
 	
 	@Column(name="ciclo")
-	//@Size(min="",max="")
-	//@NotEmpty(message="No puede ir vacio")
 	private Integer ciclo;
 	
 	@Column(name="nota")
-	//@Size(min="",max="")
-	//@NotEmpty(message="No puede ir vacio")
 	private Float nota;
 	
 	public MateriaXestudiante() {

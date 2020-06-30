@@ -40,12 +40,11 @@ public class CentroEscolar {
 	private Integer fkMunicipio;
 	
 	@Column(name="descripcion")
-	@Size(max=20, message="El campo sobrepasa la cantidad de 20 caracteres")
+	@Size(max=100, message="El campo sobrepasa la cantidad de 1000 caracteres")
 	@NotEmpty(message="No puede ir vacio")
 	private String descripcion;
 	
 	@Column(name="estado")
-	//@Size(min="",max="")
 	@NotNull(message = "Seleccione un campo")
 	private Boolean estado;
 	

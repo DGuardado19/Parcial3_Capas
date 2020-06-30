@@ -27,18 +27,22 @@ public class Usuario {
 	private Integer idUsuario;
 	
 	@Column(name="nombre")
-	//@Size(min="",max="")
+	@Size(max=25, message="El campo sobrepasa la cantidad de 25 caracteres")
 	@NotEmpty(message="No puede ir vacio")
 	private String nombre;
 	
 	@Column(name="apellido")
-	//@Size(min="",max="")
+	@Size(max=25, message="El campo sobrepasa la cantidad de 25 caracteres")
 	@NotEmpty(message="No puede ir vacio")
 	private String apellido;
 	
 	@Column(name="fechaNac")
-	//@Size(min="",max="")
 	private Date fechaNac;
+	
+	//Campo nuevo
+	@Column(name="edad")
+	@NotEmpty(message="No puede ir vacio")
+	private Integer edad;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="fkMunicipio")
@@ -55,28 +59,24 @@ public class Usuario {
 	private Integer fkDepartamento;
 	
 	@Column(name="direccion")
-	//@Size(min="",max="")
+	@Size(max=100, message="El campo sobrepasa la cantidad de 100 caracteres")
 	@NotEmpty(message="No puede ir vacio")
 	private String direccion;
 	
 	@Column(name="nombreUser")
-	//@Size(min="",max="")
+	@Size(max=25, message="El campo sobrepasa la cantidad de 25 caracteres")
 	@NotEmpty(message="No puede ir vacio")
 	private String nombreUser;
 	
 	@Column(name="contrasenia")
-	//@Size(min="",max="")
+	@Size(max=25, message="El campo sobrepasa la cantidad de 25 caracteres")
 	@NotEmpty(message="No puede ir vacio")
 	private String contrasenia;
 	
 	@Column(name="tipoUsuario")
-	//@Size(min="",max="")
-	//@NotEmpty(message="No puede ir vacio")
 	private Boolean tipoUsuario;
 	
 	@Column(name="sesion")
-	//@Size(min="",max="")
-	//@NotEmpty(message="No puede ir vacio")
 	private Boolean sesion;
 
 	@Column(name="estado")
@@ -225,6 +225,15 @@ public class Usuario {
 	public void setEstado(Boolean estado) {
 		this.estado = estado;
 	}
+
+	public Integer getEdad() {
+		return edad;
+	}
+
+	public void setEdad(Integer edad) {
+		this.edad = edad;
+	}
+	
 	
 	
 }

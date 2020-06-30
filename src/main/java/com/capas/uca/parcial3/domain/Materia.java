@@ -26,19 +26,18 @@ public class Materia {
 	@Column(name="idMateria")
 	private Integer idMateria;
 	@Column(name="nombre")
-	@Size(min=1,max=40, message = "El nombre debe tener una longitud de 1 a 40 caracteres")
+	@Size(max=40, message="El campo sobrepasa la cantidad de 40 caracteres")
+	@NotEmpty(message="No puede ir vacio")
 	private String nombre;
 	
 	@Column(name="descripcion")
-	@Size(min=1,max=150, message = "Debe agregar una descripcion entre 1 a 150 caracteres")
-	@NotEmpty(message="Debe agregar una descripcion")
+	@Size(max=150, message="El campo sobrepasa la cantidad de 150 caracteres")
+	@NotEmpty(message="No puede ir vacio")
 	private String descripicion;
 	
 	
 	@NotNull(message = "Seleccione un campo")
 	@Column(name="estado")
-	//@Size(min="",max="")
-	//@NotEmpty(message="No puede ir vacio")
 	private Boolean estado;
 	
 	@OneToMany(mappedBy="materia",fetch=FetchType.LAZY)

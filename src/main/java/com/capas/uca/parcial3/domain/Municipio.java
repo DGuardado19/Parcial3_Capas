@@ -27,8 +27,6 @@ public class Municipio {
 	private Integer idMunicipio;
 	
 	@Column(name="nombreMunicipio")
-	//@Size(min="",max="")
-	//@NotEmpty(message="No puede ir vacio")
 	private String nombreMunicipio;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
