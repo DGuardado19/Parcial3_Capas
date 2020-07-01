@@ -56,5 +56,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public Page<Usuario> mostrarTodo(String search, Pageable page) throws DataAccessException {
 		return Repo.mostrarTodo(search, page);
 	}
+
+	@Override
+	public Usuario obtenerOne(Integer id) throws DataAccessException {
+		return Repo.getOne(id);
+	}
 	
 }

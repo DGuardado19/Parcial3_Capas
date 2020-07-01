@@ -11,6 +11,18 @@
 </head>
 <body>
 
+	<nav class="navbar navbar-expand-lg navbar-dark bg-menu2"> 
+		<a class="navbar-brand" href="#"><img alt="" src="img/logo.jpeg"></a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"><img alt="" src="img/logo.jpeg"></span>
+	  </button>
+	  <div style="width: 100%;text-align: right">
+            <a class="btn btn-secondary btn-light" type="button" aria-haspopup="true" aria-expanded="false" href="/logout"> 
+                    Cerrar Sesión
+                  </a>
+	  </div>
+	 </nav>
+
 	<div class="container formularios materiaForm">
 		<h1 class="center">Registrar nuevo Centro Escolar</h1>
 		<form th:action="@{/registroCentroEscolarProcesar}" th:object="${centroEscolar}" method="post">

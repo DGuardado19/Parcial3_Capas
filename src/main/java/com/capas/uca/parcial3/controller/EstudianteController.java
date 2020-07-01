@@ -3,6 +3,7 @@ package com.capas.uca.parcial3.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import com.capas.uca.parcial3.domain.Departamento;
 import com.capas.uca.parcial3.domain.Estudiante;
 import com.capas.uca.parcial3.domain.MateriaXestudiante;
 import com.capas.uca.parcial3.domain.Municipio;
+import com.capas.uca.parcial3.domain.Usuario;
 import com.capas.uca.parcial3.dto.ResutDTO;
 import com.capas.uca.parcial3.dto.TablaDTO;
 import com.capas.uca.parcial3.service.CentroEscolarService;
@@ -71,15 +73,20 @@ public class EstudianteController {
 	}
 
 	@RequestMapping("/busquedaAlumno")
-	public ModelAndView busquedaAlumno() {
+	public ModelAndView busquedaAlumno(HttpSession request) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("busquedaAlumno");
+		Usuario user = null;
+		if(request.getAttribute("user") != null) {
+			user = (Usuario) request.getAttribute("user");
+			if(user.getTipoUsuario() == false) {
+				mav.setViewName("redirect:/tablaUsuario");
+			}
+		} else {
+			mav.setViewName("redirect:/index");
+		}
 		return mav;
 	}
 	
-	
-	////////////////// FUNCION
-
 	@RequestMapping("/cargarEstudiantes")
 	public @ResponseBody TablaDTO cargarEstudiante(@RequestParam Integer draw, @RequestParam Integer start,
 			@RequestParam Integer length, @RequestParam(value = "search[value]", required = false) String search,@RequestParam String variable,
@@ -116,26 +123,44 @@ public class EstudianteController {
 
 	
 	@RequestMapping("/tablaExpediente")
-	public ModelAndView tablaExpediente(@RequestParam String busqueda,@RequestParam String criterio) {
+	public ModelAndView tablaExpediente(@RequestParam String busqueda,@RequestParam String criterio, HttpSession request) {
 		ModelAndView mav = new ModelAndView();
-		
-		mav.addObject("busqueda", busqueda);
-		mav.addObject("busqueda2", criterio);
-		mav.setViewName("tablaExpediente");
-
+		Usuario user = null;
+		if(request.getAttribute("user") != null) {
+			user = (Usuario) request.getAttribute("user");
+			if(user.getTipoUsuario() == true) {
+				mav.addObject("busqueda", busqueda);
+				mav.addObject("busqueda2", criterio);
+				mav.setViewName("tablaExpediente");
+			} else {
+				mav.setViewName("redirect:/tablaUsuario");
+			}
+		} else {
+			mav.setViewName("index");
+		}		
 		return mav;
 	}
 
 	@RequestMapping("/registroAlumno")
-	public ModelAndView registroAlumno(@ModelAttribute Estudiante estudiante) {
+	public ModelAndView registroAlumno(@ModelAttribute Estudiante estudiante, HttpSession request) {
 		ModelAndView mav = new ModelAndView();
-		try {
-			mostrarComboBoxRegistro(mav);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Usuario user = null;
+		if(request.getAttribute("user") != null) {
+			user = (Usuario) request.getAttribute("user");
+			if(user.getTipoUsuario() == true) {
+				try {
+					mostrarComboBoxRegistro(mav);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
-		mav.addObject("estudiante", estudiante);
+				mav.addObject("estudiante", estudiante);
+			} else {
+				mav.setViewName("redirect:/tablaUsuario");
+			}
+		} else {
+			mav.setViewName("redirect:/index");
+		}		
 		return mav;
 	}
 
@@ -218,26 +243,46 @@ public class EstudianteController {
 	}
 
 	@RequestMapping("/tablaMateriasCursadas")
-	public ModelAndView tablaMateriasCursadas() {
+	public ModelAndView tablaMateriasCursadas(HttpSession request) {
 		ModelAndView mav = new ModelAndView();
-		List<MateriaXestudiante> cursada = null;
-		List<String> aprobada = new ArrayList<>();
-		try {
-			cursada = materiaxEstudianteService.findAll();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		Usuario user = null;
+		if(request.getAttribute("user") != null) {
+			user = (Usuario) request.getAttribute("user");
+			if(user.getTipoUsuario() == true) {
+				List<MateriaXestudiante> cursada = null;
+				List<String> aprobada = new ArrayList<>();
+				try {
+					cursada = materiaxEstudianteService.findAll();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
-		mav.addObject("cursadaList", cursada);
-		mav.addObject("aprobadaList", aprobada);
-		mav.setViewName("tablaMateriasCursadas");
+				mav.addObject("cursadaList", cursada);
+				mav.addObject("aprobadaList", aprobada);
+				mav.setViewName("tablaMateriasCursadas");
+			} else {
+				mav.setViewName("redirect:/tablaUsuario");
+			}
+		} else {
+			mav.setViewName("redirect:/index");
+		}		
 		return mav;
 	}
 
 	@RequestMapping("/registrarMateriaAlumno")
-	public ModelAndView registrarMateriaAlumno() {
+	public ModelAndView registrarMateriaAlumno(HttpSession request) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("registrarMateriaCursada");
+		Usuario user = null;
+		if(request.getAttribute("user") != null) {
+			user = (Usuario) request.getAttribute("user");
+			if(user.getTipoUsuario() == true) {
+				mav.setViewName("registrarMateriaCursada");
+			} else {
+				mav.setViewName("redirect:/tablaUsuario");
+			}
+		} else {
+			mav.setViewName("redirect:/index");
+		}
 		return mav;
 	}
 	

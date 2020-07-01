@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.capas.uca.parcial3.domain.CentroEscolar;
 import com.capas.uca.parcial3.domain.Departamento;
 import com.capas.uca.parcial3.domain.Materia;
 import com.capas.uca.parcial3.domain.Municipio;
@@ -38,20 +39,19 @@ public class UsuarioController {
 	private MunicipioService MunicipioService;
 	@Autowired
 	private DepartamentoService departamentoService;
-	
-	@RequestMapping("/index2")
-	public ModelAndView index2(HttpSession request) {
-		ModelAndView mav = new ModelAndView(); 
-		String cart = (String)request.getAttribute("Hola");
-		System.out.println(cart); 
-		mav.setViewName("tablaUsuario");
-		return mav;
-	}
 		
 	@RequestMapping("/tablaUsuario")
-	public ModelAndView tablaUsuario() {
+	public ModelAndView tablaUsuario(HttpSession request) {
 		ModelAndView mav = new ModelAndView();		
-		mav.setViewName("tablaUsuario");
+		Usuario user = null;
+		if(request.getAttribute("user") != null) {
+			user = (Usuario) request.getAttribute("user");
+			if(user.getTipoUsuario() == true) {
+				mav.setViewName("redirect:/busquedaAlumno");
+			} 
+		} else {
+			mav.setViewName("redirect:/index");
+		}
 		return mav;
 	}
 	
@@ -77,7 +77,7 @@ public class UsuarioController {
 	
 	@RequestMapping("/registro")
 	public ModelAndView registro(@RequestParam Integer tipo, HttpSession request) {
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView();		
 		List<Departamento> departamentoLista = null;
 		List<Municipio> municipioLista = null;
 		Usuario usuarioLista = new Usuario();
@@ -94,6 +94,17 @@ public class UsuarioController {
 		mav.addObject("usuario",usuarioLista);
 		mav.addObject("tipo", tipo);
 		mav.setViewName("registroUsuario");
+		/*if(tipo == 1) {
+			Usuario user = null;
+			if(request.getAttribute("user") != null) {
+				user = (Usuario) request.getAttribute("user");
+				if(user.getTipoUsuario() == true) {
+					mav.setViewName("redirect:/busquedaAlumno");
+				} 
+			} else {
+				mav.setViewName("redirect:/index");
+			}
+		} */
 		return mav;
 	}
 	
@@ -151,7 +162,7 @@ public class UsuarioController {
 	            }
 				usuarioService.insertAndUpdate(usuario);
 				System.out.println(usuario.getDepartamento()); 
-				mav.setViewName("tablaUsuario");
+				mav.setViewName("redirect:/tablaUsuario");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

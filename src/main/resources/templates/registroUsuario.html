@@ -13,11 +13,24 @@
 
 </head>
 <body>
+	
+	<nav class="navbar navbar-expand-lg navbar-dark bg-menu2"> 
+		<a class="navbar-brand" href="#"><img alt="" src="img/logo.jpeg"></a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"><img alt="" src="img/logo.jpeg"></span>
+	  </button>
+	  <div style="width: 100%;text-align: right" th:if="${tipo == 1}">
+            <a class="btn btn-secondary btn-light" type="button" aria-haspopup="true" aria-expanded="false" href="/logout"> 
+                    Cerrar Sesión
+                  </a>
+	  </div>
+	 </nav>
+	
 	<div class="container formularios">
 		<h1 class="center">Registrar nuevo usuario</h1>
 		<form th:action="@{/ingresarUsuario}" th:object="${usuario}" method="post">
 			<div class="form-group">
-				<input type="text" class="form-control" id="id" th:value="${id}" name="idusuario"> 
+				<input type="hidden" class="form-control" id="id" th:value="${id}" name="idusuario"> 
 			</div>
 			<div class="row">
 				<div class="col-md">
@@ -30,7 +43,7 @@
 				<div class="col-md">
 					<div class="form-group">
 						<label for="apellido">Apellido</label> <input type="text"
-							class="form-control" id="apellido" name="apellido"> <span
+							class="form-control" id="apellido" th:field="*{apellido}"> <span
 							th:errors="*{apellido}" style="color: #BF2121"></span>
 					</div>
 				</div>
@@ -46,7 +59,7 @@
 				<div class="col-md">
 					<div class="form-group">
 						<label for="edad">Edad</label> <input type="text"
-							class="form-control" id="edad">
+							class="form-control" id="edad" th:field="*{edad}" readonly="readonly">
 					</div>
 				</div>
 			</div>
@@ -54,7 +67,7 @@
 				<div class="col-md">
 					<div class="form-group">
 						<label for="departamento">Departamento</label> <select
-							class="form-control" id="departamento" name="departamento">
+							class="form-control" id="departamento" th:field="*{departamento}">
 							<!--  th:field="*{departamento.idDepartamento}"  -->
 							<option value="0">Seleccione una opción</option>
 							<option th:each=item:${departamentoLista}
@@ -67,7 +80,7 @@
 				<div class="col-md">
 					<div class="form-group">
 						<label for="municipio">Municipio</label> <select
-							class="form-control" id="municipio" name="municipio">
+							class="form-control" id="municipio" th:field="*{municipio}">
 							<!--  th:field="*{municipio.idMunicipio}"  -->
 							<option value="0">Seleccione una opción</option>
 							<option th:each=item:${municipioLista}
@@ -81,22 +94,22 @@
 				<label for="direccion">Dirección de
 					residencia</label>
 				<textarea class="form-control" id="direccion"
-					rows="3" name="direccion"></textarea>
+					rows="3" th:field="*{direccion}"></textarea>
 				<span th:errors="*{direccion}" style="color: #BF2121"></span>
 			</div>
 			<div class="row">
 				<div class="col-md">
 					<div class="form-group">
 						<label for="nombreUser">Nombre de usuario</label> <input type="text"
-							class="form-control" id="nombreUser" name="nombreUser"> <span
+							class="form-control" id="nombreUser" th:field="*{nombreUser}"> <span
 							th:errors="*{nombreUser}" style="color: #BF2121"></span>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
 						<label for="tipo">Tipo de usuario</label> <select
-							class="form-control" id="tipo" name="tipoUsuario">
-							<option value="3">Seleccione una opción</option>
+							class="form-control" id="tipo" th:field="*{tipoUsuario}">
+							<option value="">Seleccione una opción</option>
 							<option value="0">Administrador</option>
 							<option value="1">Coordinador</option>
 						</select> <span th:if="${resultado3 == 1}" style="color: #BF2121">Debe
@@ -124,7 +137,7 @@
 
 			<div class="form-check" th:if="${tipo == 1}">
 				<input class="form-check-input" type="checkbox" th:value="true"
-					id="estado" name="estado"> <label
+					id="estado" th:field="*{estado}"> <label
 					class="form-check-label" for="estado"> Activado </label>
 			</div>
 
@@ -137,6 +150,25 @@
 	</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	
+	<script type="text/javascript">
+		function calcularEdad(fecha) {
+		    var hoy = new Date();
+		    var cumpleanos = new Date(fecha);
+		    var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+		    var m = hoy.getMonth() - cumpleanos.getMonth();
+	
+		    if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+		        edad--;
+		    }
+	
+		    return edad;
+		}
+		
+		$('#fecha').change(function() {
+			document.querySelector("#edad").value = calcularEdad(document.querySelector("#fecha").value);
+		});
+	</script>	
 	
 	<script type="text/javascript">
 		var a = document.getElementById("limpiar");
@@ -154,11 +186,16 @@
 			document.getElementById("edad").value = "";
 			document.getElementById("nombreUser").value = "";
 			document.getElementById("contra").value = "";
+			document.getElementById("direccion").value = "";
 			document.getElementById("contra2").value = "";
 			document.getElementById("estado").checked=0;
 			document.getElementById("departamento").options[0].selected = true;
 			document.getElementById("municipio").options[0].selected = true;
 			document.getElementById("tipo").options[0].selected = true;
+			document.querySelector("#fecha").value = "dd/mm/aaaa"
+			$('#municipio').empty();
+			var select = document.getElementById("municipio");
+			$("<option/>").val(0).text("Seleccione una opción").appendTo("#municipio");
 		}
 	</script>
 
@@ -180,7 +217,7 @@
 									var select = document
 											.getElementById("municipio");
 									$("<option/>").val(0).text(
-											"Seleccione una opcion").appendTo(
+											"Seleccione una opción").appendTo(
 											"#municipio");
 									$.each(r,
 											function(key, val) {

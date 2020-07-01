@@ -3,6 +3,7 @@ package com.capas.uca.parcial3.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.capas.uca.parcial3.domain.Materia;
 import com.capas.uca.parcial3.domain.MateriaXestudiante;
+import com.capas.uca.parcial3.domain.Usuario;
 import com.capas.uca.parcial3.dto.ResutDTO;
 import com.capas.uca.parcial3.dto.TablaDTO;
 import com.capas.uca.parcial3.service.MateriaService;
@@ -35,8 +37,20 @@ public class MateriaController {
 	private MateriaxEstudianteService MateriaxE;	
 	
 	@RequestMapping("/tablaMaterias")
-    public String clientesTable(){
-        return "tablaMateria";
+    public ModelAndView clientesTable(HttpSession request){
+		ModelAndView mav = new ModelAndView();
+		Usuario user = null;
+		if(request.getAttribute("user") != null) {
+			user = (Usuario) request.getAttribute("user");
+			if(user.getTipoUsuario() == false) {
+				mav.setViewName("tablaMateria");
+			} else {
+				mav.setViewName("redirect:/busquedaAlumno");
+			}
+		} else {
+			mav.setViewName("index");
+		}
+        return mav;
     }
 	
 	@RequestMapping("/cargarclientes")
@@ -72,10 +86,20 @@ public class MateriaController {
 	}
  
  @RequestMapping("/registroMateria")
-	public ModelAndView registroMateria() {
+	public ModelAndView registroMateria(HttpSession request) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("materia", new Materia());
-		mav.setViewName("registroMateria");
+		Usuario user = null;
+		if(request.getAttribute("user") != null) {
+			user = (Usuario) request.getAttribute("user");
+			if(user.getTipoUsuario() == false) {
+				mav.addObject("materia", new Materia());
+				mav.setViewName("registroMateria");
+			} else {
+				mav.setViewName("redirect:/busquedaAlumno");
+			}
+		} else {
+			mav.setViewName("redirect:/index");
+		}
 		return mav;
 	}
 	
@@ -88,7 +112,7 @@ public class MateriaController {
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
-			mav.setViewName("tablaMateria");
+			mav.setViewName("redirect:/tablaMateria");
 		}
 		else {
 			mav.setViewName("registroMateria");

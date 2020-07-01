@@ -76,6 +76,14 @@ tbody{
 	background: #112d4e;
 }
 
+.bg-menu2{
+	background: #79a8a9;
+}
+
+.bg-menu2 .navbar-dark .navbar-nav .nav-link{
+	color: white;
+}
+
 nav > a > img{
 	width: 150px;
 	height: 75px;

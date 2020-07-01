@@ -41,7 +41,6 @@ public class Usuario {
 	
 	//Campo nuevo
 	@Column(name="edad")
-	@NotEmpty(message="No puede ir vacio")
 	private Integer edad;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
