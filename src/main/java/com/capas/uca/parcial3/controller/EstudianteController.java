@@ -25,6 +25,7 @@ import com.capas.uca.parcial3.domain.Estudiante;
 import com.capas.uca.parcial3.domain.MateriaXestudiante;
 import com.capas.uca.parcial3.domain.Municipio;
 import com.capas.uca.parcial3.domain.Usuario;
+import com.capas.uca.parcial3.dto.CursadasDTO;
 import com.capas.uca.parcial3.dto.ResutDTO;
 import com.capas.uca.parcial3.dto.TablaDTO;
 import com.capas.uca.parcial3.service.CentroEscolarService;
@@ -241,8 +242,77 @@ public class EstudianteController {
 		}
 
 	}
+	
+	
+	///////////////////////////////adaptando /////////////////////////////
+	@RequestMapping("/materiasCursadas")
+	public ModelAndView materiasCursadasTable(@RequestParam Integer id) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("id", id);
+		mav.setViewName("tablaMateriasCursadas");
+		return mav;
+	}
+	@RequestMapping("/materiasCursada")
+	public String materiasCursadasTable2() {
+		return "registrarMateriaCursada";
+	}
+	
+	@RequestMapping("/cargarTablaMateriasCursadas")
+	public ModelAndView cargartablaMateriasCursadas() {
+		ModelAndView mav = new ModelAndView();
+		List<MateriaXestudiante> cursada = null;
+		List<String> aprobada = new ArrayList<>();
+		try {
+			cursada = materiaxEstudianteService.findAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-	@RequestMapping("/tablaMateriasCursadas")
+		mav.addObject("cursadaList", cursada);
+		mav.addObject("aprobadaList", aprobada);
+		mav.setViewName("tablaMateriasCursadas");
+		return mav;
+	}
+
+
+	
+	/*@RequestMapping("/registrarMateriaAlumno")
+	public ModelAndView registrarMateriaAlumno() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("registrarMateriaCursada");
+		return mav;
+	}*/
+	@RequestMapping("/cargarMateriasCursadas")
+	public @ResponseBody TablaDTO cargartablaMateriasCursadas(@RequestParam Integer draw,
+		@RequestParam Integer start, @RequestParam Integer length, 
+			@RequestParam(value="search[value]", required = false) String search, @RequestParam Integer id) {
+		
+		Page<CursadasDTO> materia = materiaxEstudianteService.dtoCursadas(id,
+				PageRequest.of(start / length, length, Sort.by(Direction.ASC, "nota")));
+
+		List<String[]> data = new ArrayList<>();
+
+		for (CursadasDTO u : materia) {
+			if (u.getNombremateria().toLowerCase().startsWith(search.toLowerCase())) {
+				data.add(new String[] {u.getIdmateria().toString(), u.getNombremateria().toString(), u.getCiclo().toString(), 
+						u.getAnio().toString(), String.valueOf(u.getNota()), u.getDelegateNota(),u.getIdestudiante().toString()});
+			}
+		}
+		TablaDTO dto = new TablaDTO();
+
+		dto.setData(data);
+		dto.setDraw(draw);
+		dto.setRecordsFiltered(MateriaService.countAll2().intValue());
+		dto.setRecordsTotal(MateriaService.countAll2().intValue());
+
+		return dto;
+	}
+	
+	
+	////////////////////////////////////////////////////////////////////
+	
+	
+	/*@RequestMapping("/tablaMateriasCursadas")
 	public ModelAndView tablaMateriasCursadas(HttpSession request) {
 		ModelAndView mav = new ModelAndView();
 		Usuario user = null;
@@ -267,7 +337,7 @@ public class EstudianteController {
 			mav.setViewName("redirect:/index");
 		}		
 		return mav;
-	}
+	}*/
 
 	@RequestMapping("/registrarMateriaAlumno")
 	public ModelAndView registrarMateriaAlumno(HttpSession request) {

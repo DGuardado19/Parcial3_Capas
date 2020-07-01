@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.capas.uca.parcial3.domain.Estudiante;
 import com.capas.uca.parcial3.domain.MateriaXestudiante;
+import com.capas.uca.parcial3.dto.CursadasDTO;
 import com.capas.uca.parcial3.dto.ResutDTO;
 import com.capas.uca.parcial3.repositorie.EstudianteRepo;
 import com.capas.uca.parcial3.repositorie.MateriaxEstudianteRepo;
@@ -72,5 +73,24 @@ public class MateriaxEstudianteServiceImpl implements MateriaxEstudianteService 
 		Page<ResutDTO> page2 = new PageImpl<>(estudiantes);
 		return page2; 
 	}
+	@Override
+	public Page<CursadasDTO> dtoCursadas(Integer code, Pageable page) throws DataAccessException {
+		// TODO Auto-generated method stub
+		List<CursadasDTO> cursadas = Repo.nombreMateria(code, page).stream().map(obj -> {
+			CursadasDTO e = new CursadasDTO();
+			List<MateriaXestudiante> k = null;
+			k= Repo.mostrarUno(Integer.parseInt(obj[0].toString()));
+			
+			e.setIdestudiante(Integer.parseInt(obj[0].toString()));
+			e.setIdmateria(Integer.parseInt(obj[1].toString()));
+			e.setNombremateria(obj[2].toString());
+			e.setCiclo(Integer.parseInt(obj[3].toString()));
+			e.setAnio(Integer.parseInt(obj[4].toString()));
+			e.setNota(Float.parseFloat(obj[5].toString()));
+			return e;
+		}).collect(Collectors.toList());
+		Page<CursadasDTO> page2 = new PageImpl<>(cursadas);
+		return page2;
+	} 
 
 }
