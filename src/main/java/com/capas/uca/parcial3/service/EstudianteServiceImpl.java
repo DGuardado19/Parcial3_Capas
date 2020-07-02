@@ -77,6 +77,13 @@ public class EstudianteServiceImpl implements EstudianteService {
 		return Repo.count();
 	}
 
+
+	@Override
+	public Estudiante findByName2(Integer id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return Repo.getOne(id);
+	}
+
 	
 
 

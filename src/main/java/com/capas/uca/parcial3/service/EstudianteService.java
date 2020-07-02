@@ -23,4 +23,6 @@ public interface EstudianteService {
 	public Page<Estudiante> findAll(Pageable page) throws DataAccessException;
 	
 	public Long countAll();
+	
+	public Estudiante findByName2(Integer id) throws DataAccessException;
 }

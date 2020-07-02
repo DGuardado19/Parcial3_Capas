@@ -58,6 +58,12 @@ public class MateriaServiceImpl implements MateriaService {
 		// TODO Auto-generated method stub
 		return Repo.count();
 	}
+
+	@Override
+	public List<Materia> showSubjects() throws DataAccessException {
+		// TODO Auto-generated method stub
+		return Repo.mostrarMaterias();
+	}
 	
 	
 }

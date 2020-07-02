@@ -33,6 +33,6 @@ public interface MateriaxEstudianteRepo extends JpaRepository<MateriaXestudiante
 			value = " select m.fkestudiante, m.fkmateria ,ma.nombre, m.ciclo, m.anio, m.nota  from public.materiaxestudiante m, materia ma, estudiante e  "
 					+ " where m.fkmateria = ma.idmateria and e.idestudiante = m.fkestudiante and  "
 					+ " fkestudiante = ?1 ")
-	public List<Object[]> nombreMateria(Integer code, Pageable page) throws DataAccessException;
+	public List<Object[]> nombreMateria(Integer code,Pageable page) throws DataAccessException;
 	
 }

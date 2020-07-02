@@ -16,4 +16,5 @@ public interface MateriaService {
 	public Page<Materia> findAll(Pageable page) throws DataAccessException;
 	public Integer countAll(String search);
 	public Long countAll2();
+	public List<Materia> showSubjects() throws DataAccessException;
 }

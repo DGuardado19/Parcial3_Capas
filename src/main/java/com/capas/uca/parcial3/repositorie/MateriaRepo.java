@@ -15,4 +15,6 @@ public interface MateriaRepo extends JpaRepository<Materia, Integer> {
 	public Integer countM(String search) throws DataAccessException;
 	@Query(nativeQuery = true, value = "select * from materia where LOWER(nombre) like ?1%")
 	public Page<Materia> mostrarTodos(String search, Pageable page) throws DataAccessException;
+	@Query(nativeQuery=true,value="select * from public.materia")
+	public List<Materia> mostrarMaterias() throws DataAccessException;
 }

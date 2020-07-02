@@ -15,5 +15,7 @@ public interface MateriaxEstudianteService {
 	public List<MateriaXestudiante> findAll() throws DataAccessException;
 	public List<MateriaXestudiante> findcode(Integer code) throws DataAccessException;
 	Page<ResutDTO> dtoPrueba(String nombre, String apellido, Pageable page) throws DataAccessException;
-	Page<CursadasDTO> dtoCursadas(Integer code, Pageable page) throws DataAccessException;
+	Page<CursadasDTO> dtoCursadas(Integer code,Pageable page) throws DataAccessException;
+	 
+	public void insertAndUpdate(MateriaXestudiante materiaAlumno) throws DataAccessException;
 }

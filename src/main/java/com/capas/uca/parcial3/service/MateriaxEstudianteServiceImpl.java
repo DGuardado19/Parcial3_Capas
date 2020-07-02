@@ -74,7 +74,7 @@ public class MateriaxEstudianteServiceImpl implements MateriaxEstudianteService 
 		return page2; 
 	}
 	@Override
-	public Page<CursadasDTO> dtoCursadas(Integer code, Pageable page) throws DataAccessException {
+	public Page<CursadasDTO> dtoCursadas(Integer code,Pageable page) throws DataAccessException {
 		// TODO Auto-generated method stub
 		List<CursadasDTO> cursadas = Repo.nombreMateria(code, page).stream().map(obj -> {
 			CursadasDTO e = new CursadasDTO();
@@ -91,6 +91,13 @@ public class MateriaxEstudianteServiceImpl implements MateriaxEstudianteService 
 		}).collect(Collectors.toList());
 		Page<CursadasDTO> page2 = new PageImpl<>(cursadas);
 		return page2;
+	}
+
+	@Override
+	public void insertAndUpdate(MateriaXestudiante materiaAlumno) throws DataAccessException {
+		// TODO Auto-generated method stub
+		Repo.save(materiaAlumno);
+		
 	} 
 
 }

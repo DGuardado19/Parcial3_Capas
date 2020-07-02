@@ -23,8 +23,14 @@
   <!-- Demo scripts for this page-->
   <script src="js/demo/datatables-demo.js"></script>
 </head>
-<script type="text/javascript">
+<script type="text/javascript">	
+
 	$(document).ready(function(){
+		var val1 = document.getElementById("boton").value;
+		var val2 = document.getElementById("boton2");
+		
+		val2.href = "/registrarMateriaCursada?id=" + val1;
+		
 		var table = $('#tablaClientes').DataTable( {
 			"ordering": false,
 	        "processing": true,
@@ -46,6 +52,7 @@
 	        	location.href = './registrarMateriaAlumno?id=' + data[0];
 	    } );
 	});
+	
 </script>
 <body class="tablas-ventana">
 
@@ -65,9 +72,9 @@
 	
 	<div class="container tablas center">
 		<h1>Materias Cursadas</h1>
-		<input type="hidden" th:value="${id}" id="boton">
+			<input type="hidden" th:value="${id}" id="boton">
 		<div class="nuevoDato">
-			<a class="btn color-linkSesion" href="registrarMateriaCursada">Agregar Nueva Materia</a>
+			<a class="btn color-linkSesion" id="boton2">Agregar Nueva Materia</a>
 		</div>
 		<table class="table" id="tablaClientes">
 		  <thead>

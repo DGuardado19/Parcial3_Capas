@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.capas.uca.parcial3.domain.CentroEscolar;
 import com.capas.uca.parcial3.domain.Departamento;
 import com.capas.uca.parcial3.domain.Estudiante;
+import com.capas.uca.parcial3.domain.Materia;
 import com.capas.uca.parcial3.domain.MateriaXestudiante;
 import com.capas.uca.parcial3.domain.Municipio;
 import com.capas.uca.parcial3.domain.Usuario;
@@ -248,6 +249,8 @@ public class EstudianteController {
 	@RequestMapping("/materiasCursadas")
 	public ModelAndView materiasCursadasTable(@RequestParam Integer id) {
 		ModelAndView mav = new ModelAndView();
+		
+		//mav.addObject("busqueda", busqueda);
 		mav.addObject("id", id);
 		mav.setViewName("tablaMateriasCursadas");
 		return mav;
@@ -274,14 +277,53 @@ public class EstudianteController {
 		return mav;
 	}
 
-
 	
-	/*@RequestMapping("/registrarMateriaAlumno")
-	public ModelAndView registrarMateriaAlumno() {
+	@RequestMapping("/registrarMateriaCursada")
+	public ModelAndView registrarMateriaAlumnos(@ModelAttribute MateriaXestudiante materiaAlumno,@RequestParam Integer id) {
 		ModelAndView mav = new ModelAndView();
+		
+		List<Materia> materiaLista = null;
+		Estudiante estu = null;
+		try {
+			
+			materiaLista = MateriaService.showSubjects();
+			estu = estudianteService.findByName2(id);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		mav.addObject("estu", estu);
+		mav.addObject("materiaLista", materiaLista);
+		mav.addObject("materiaAlumno", materiaAlumno);
 		mav.setViewName("registrarMateriaCursada");
 		return mav;
-	}*/
+	}
+	
+	@RequestMapping("/insertarMateriaAlumno")
+	public ModelAndView insertarMateriaAlumno(@ModelAttribute MateriaXestudiante materiaAlumno,@RequestParam Integer id) {
+		ModelAndView mav = new ModelAndView();
+		
+		List<Materia> materiaLista = null;
+		Estudiante estu = null;
+		
+		try {
+			materiaLista=MateriaService.showSubjects();
+			estu = estudianteService.findOne(id);
+			materiaAlumno.setEstudiante(estu);
+			materiaxEstudianteService.insertAndUpdate(materiaAlumno);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		mav.addObject("materiaLista", materiaLista);
+		mav.addObject("materiaAlumno", materiaAlumno);
+		mav.setViewName("busquedaAlumno");
+		return mav;
+	}
+	
 	@RequestMapping("/cargarMateriasCursadas")
 	public @ResponseBody TablaDTO cargartablaMateriasCursadas(@RequestParam Integer draw,
 		@RequestParam Integer start, @RequestParam Integer length, 
@@ -340,7 +382,7 @@ public class EstudianteController {
 	}*/
 
 	@RequestMapping("/registrarMateriaAlumno")
-	public ModelAndView registrarMateriaAlumno(HttpSession request) {
+	public ModelAndView registrarMateriaAlumno(HttpSession request,@RequestParam String id) {
 		ModelAndView mav = new ModelAndView();
 		Usuario user = null;
 		if(request.getAttribute("user") != null) {
@@ -353,6 +395,8 @@ public class EstudianteController {
 		} else {
 			mav.setViewName("redirect:/index");
 		}
+		
+		mav.addObject("id", id);
 		return mav;
 	}
 	
