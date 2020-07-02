@@ -34,14 +34,17 @@
 			<div class="form-group">
 				<label for="Input1">Año</label>
 				<input type="number" class="form-control" th:field="*{anio}" id="Input1">
+				<span th:errors="*{anio}" style="color: #FF0000"></span>
 			</div>
 			<div class="form-group">
 				<label for="Input1">Ciclo</label>
 				<input type="number" class="form-control" th:field="*{ciclo}" id="Input1">
+				<span th:errors="*{ciclo}" style="color: #FF0000"></span>
 			</div>
 			<div class="form-group">
 				<label for="Input1">Nota</label>
 				<input type="number" class="form-control" th:field="*{nota}" id="Input1">
+				<span th:errors="*{nota}" style="color: #FF0000"></span>
 			</div>
 			<div class="btn-center">
 				<button type="submit" class="btn color-btnSesion">Registrar</button>

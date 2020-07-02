@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.persistence.SequenceGenerator;
 
@@ -41,12 +42,15 @@ public class MateriaXestudiante {
 	private Integer idEstudiante;
 	
 	@Column(name="anio")
+	@NotNull(message="No puede ir vacio")
 	private Integer anio;
 	
 	@Column(name="ciclo")
+	@NotNull(message="No puede ir vacio")
 	private Integer ciclo;
 	
 	@Column(name="nota")
+	@NotNull(message="No puede ir vacio")
 	private Float nota;
 	
 	public MateriaXestudiante() {
