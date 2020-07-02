@@ -42,14 +42,15 @@
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Fecha de nacimiento</label> <input type="date" th:field="*{fechaNac}"
-							class="form-control" id="Input1">
+						<label for="fecha">Fecha de nacimiento</label> <input type="date"
+							id="fecha" class="form-control" name="fechaNac"> <span
+							th:errors="*{fechaNac}" style="color: #BF2121"></span>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
-						<label for="Input1">Edad</label> <input type="text" th:field="*{edad}"
-							class="form-control" id="Input1">
+						<label for="edad">Edad</label> <input type="text"
+							class="form-control" id="edad" th:field="*{edad}" readonly="readonly">
 					</div>
 				</div>
 			</div>
@@ -132,7 +133,6 @@
 		</form>
 	</div>
 </body>
-</html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
 		$(document).ready(function(){
@@ -180,6 +180,29 @@
 				})
 			});
 		})
+				
+</script>
+
+	
+	<script type="text/javascript">
+		function calcularEdad(fecha) {
+		    var hoy = new Date();
+		    var cumpleanos = new Date(fecha);
+		    var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+		    var m = hoy.getMonth() - cumpleanos.getMonth();
+	
+		    if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+		        edad--;
+		    }
+	
+		    return edad;
+		}
 		
-		
-</script>	
+		$('#fecha').change(function() {
+			document.querySelector("#edad").value = calcularEdad(document.querySelector("#fecha").value);
+		});
+	</script>	
+	
+
+
+</html>
