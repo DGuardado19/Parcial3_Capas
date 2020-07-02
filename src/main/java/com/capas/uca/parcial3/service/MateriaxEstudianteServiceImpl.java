@@ -98,6 +98,12 @@ public class MateriaxEstudianteServiceImpl implements MateriaxEstudianteService 
 		// TODO Auto-generated method stub
 		Repo.save(materiaAlumno);
 		
+	}
+
+	@Override
+	public MateriaXestudiante findOne(Integer id) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return Repo.getOne(id);
 	} 
 
 }

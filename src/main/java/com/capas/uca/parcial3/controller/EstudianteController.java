@@ -69,6 +69,22 @@ public class EstudianteController {
 		return mav;
 	}
 
+	@RequestMapping("/editarMateriaAlumno")
+	public ModelAndView buscarMateriaAlumno(@RequestParam Integer id) {
+		ModelAndView mav = new ModelAndView();
+		MateriaXestudiante c = materiaxEstudianteService.findOne(id);
+		List<Materia> materiaLista = null;
+		try {
+			materiaLista = MateriaService.showSubjects();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		mav.addObject("materiaAlumno", c);
+		mav.addObject("materiaLista", materiaLista);
+		return mav;
+	}
+	
 	@RequestMapping("/estudiantesTable")
 	public String estudiantesTable() {
 		return "tablaExpediente";

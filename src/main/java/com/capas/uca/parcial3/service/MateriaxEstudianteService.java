@@ -18,4 +18,6 @@ public interface MateriaxEstudianteService {
 	Page<CursadasDTO> dtoCursadas(Integer code,Pageable page) throws DataAccessException;
 	 
 	public void insertAndUpdate(MateriaXestudiante materiaAlumno) throws DataAccessException;
+	
+	public MateriaXestudiante findOne(Integer id) throws DataAccessException;
 }
