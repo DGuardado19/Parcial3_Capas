@@ -25,6 +25,8 @@ public class MateriaxEstudianteServiceImpl implements MateriaxEstudianteService 
 
 	@Autowired
 	MateriaxEstudianteRepo Repo;
+	@Autowired
+	EstudianteRepo Repo2;
 
 	@Autowired
 	EstudianteRepo RepoE;
@@ -47,7 +49,7 @@ public class MateriaxEstudianteServiceImpl implements MateriaxEstudianteService 
 	@Override
 	public Page<ResutDTO> dtoPrueba(String nombre, String apellido, Pageable page) throws DataAccessException {
 		// TODO Auto-generated method stub
-		List<ResutDTO> estudiantes = Repo.pruebaDTO(nombre, apellido, page).stream().map(obj -> {
+		List<ResutDTO> estudiantes = Repo2.pruebaDTO(nombre, apellido, page).stream().map(obj -> {
 			ResutDTO e = new ResutDTO();
 			List<MateriaXestudiante> k = null;
 			k= Repo.mostrarUno(Integer.parseInt(obj[0].toString()));
@@ -62,17 +64,22 @@ public class MateriaxEstudianteServiceImpl implements MateriaxEstudianteService 
 				}
 				promedio += k.get(i).getNota();
 			}
+			float total = 0;
+			if((aprobado+reprobado) != 0) {
+				total = promedio/(aprobado+reprobado);
+			}
 			e.setId(Integer.parseInt(obj[0].toString()));
 			e.setNombre(obj[1].toString());
 			e.setApellido(obj[2].toString());
 			e.setAprobadas(aprobado);
 			e.setReprobadas(reprobado);
-			e.setProm(promedio/(aprobado+reprobado));
+			e.setProm(total);
 			return e;
 		}).collect(Collectors.toList());
 		Page<ResutDTO> page2 = new PageImpl<>(estudiantes);
 		return page2; 
 	}
+	
 	@Override
 	public Page<CursadasDTO> dtoCursadas(Integer code,Pageable page) throws DataAccessException {
 		// TODO Auto-generated method stub
@@ -81,18 +88,19 @@ public class MateriaxEstudianteServiceImpl implements MateriaxEstudianteService 
 			List<MateriaXestudiante> k = null;
 			k= Repo.mostrarUno(Integer.parseInt(obj[0].toString()));
 			
-			e.setIdestudiante(Integer.parseInt(obj[0].toString()));
-			e.setIdmateria(Integer.parseInt(obj[1].toString()));
-			e.setNombremateria(obj[2].toString());
-			e.setCiclo(Integer.parseInt(obj[3].toString()));
-			e.setAnio(Integer.parseInt(obj[4].toString()));
-			e.setNota(Float.parseFloat(obj[5].toString()));
+			e.setIdMateriaXestudiante(Integer.parseInt(obj[0].toString()));
+			e.setIdestudiante(Integer.parseInt(obj[1].toString()));
+			e.setIdmateria(Integer.parseInt(obj[2].toString()));
+			e.setNombremateria(obj[3].toString());
+			e.setCiclo(Integer.parseInt(obj[4].toString()));
+			e.setAnio(Integer.parseInt(obj[5].toString()));
+			e.setNota(Float.parseFloat(obj[6].toString()));
 			return e;
 		}).collect(Collectors.toList());
 		Page<CursadasDTO> page2 = new PageImpl<>(cursadas);
 		return page2;
 	}
-
+	
 	@Override
 	public void insertAndUpdate(MateriaXestudiante materiaAlumno) throws DataAccessException {
 		// TODO Auto-generated method stub

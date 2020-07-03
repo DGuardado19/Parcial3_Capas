@@ -3,13 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Registro</title>
+
+<!-- Hojas de estilo de bootstrap y propio -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
 	crossorigin="anonymous">
-
-	
 <link rel="stylesheet" href="css/style.css">
+
+<!-- Scripts -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -30,21 +33,21 @@
 		<h1 class="center">Registrar nuevo usuario</h1>
 		<form th:action="@{/ingresarUsuario}" th:object="${usuario}" method="post">
 			<div class="form-group">
-				<input type="hidden" class="form-control" id="id" th:value="${id}" name="idusuario"> 
+				<input type="hidden" class="form-control" id="id" th:field="*{idUsuario}"> 
 			</div>
 			<div class="row">
 				<div class="col-md">
 					<div class="form-group">
 						<label for="nombre">Nombre</label> <input type="text"
 							class="form-control" id="nombre" th:field="*{nombre}"> <span
-							th:errors="*{nombre}" style="color: #BF2121"></span>
+							th:errors="*{nombre}" style="color: yellow;"></span>
 					</div>
 				</div>
 				<div class="col-md">
 					<div class="form-group">
 						<label for="apellido">Apellido</label> <input type="text"
 							class="form-control" id="apellido" th:field="*{apellido}"> <span
-							th:errors="*{apellido}" style="color: #BF2121"></span>
+							th:errors="*{apellido}" style="color: yellow;"></span>
 					</div>
 				</div>
 			</div>
@@ -52,8 +55,8 @@
 				<div class="col-md">
 					<div class="form-group">
 						<label for="fecha">Fecha de nacimiento</label> <input type="date"
-							id="fecha" class="form-control" name="fechaNac"> <span
-							th:errors="*{fechaNac}" style="color: #BF2121"></span>
+							id="fecha" class="form-control" th:field="*{fechaNac}"> <span
+							th:errors="*{fechaNac}" style="color: yellow;"></span>
 					</div>
 				</div>
 				<div class="col-md">
@@ -73,7 +76,7 @@
 							<option th:each=item:${departamentoLista}
 								th:value="${item.idDepartamento}"
 								th:text="${item.nombreDepartamento}">
-						</select> <span th:if="${resultado == 1}" style="color: #BF2121">Debe
+						</select> <span th:if="${resultado == 1}" style="color: yellow;">Debe
 							seleccionar un departamento</span>
 					</div>
 				</div>
@@ -85,7 +88,7 @@
 							<option value="0">Seleccione una opción</option>
 							<option th:each=item:${municipioLista}
 								th:value="${item.idMunicipio}" th:text="${item.nombreMunicipio}">
-						</select> <span th:if="${resultado2 == 1}" style="color: #BF2121">Debe
+						</select> <span th:if="${resultado2 == 1}" style="color: yellow;">Debe
 							seleccionar un municipio</span>
 					</div>
 				</div>
@@ -95,14 +98,14 @@
 					residencia</label>
 				<textarea class="form-control" id="direccion"
 					rows="3" th:field="*{direccion}"></textarea>
-				<span th:errors="*{direccion}" style="color: #BF2121"></span>
+				<span th:errors="*{direccion}" style="color: yellow;"></span>
 			</div>
 			<div class="row">
 				<div class="col-md">
 					<div class="form-group">
 						<label for="nombreUser">Nombre de usuario</label> <input type="text"
 							class="form-control" id="nombreUser" th:field="*{nombreUser}"> <span
-							th:errors="*{nombreUser}" style="color: #BF2121"></span>
+							th:errors="*{nombreUser}" style="color: yellow;"></span>
 					</div>
 				</div>
 				<div class="col-md">
@@ -112,7 +115,7 @@
 							<option value="">Seleccione una opción</option>
 							<option value="0">Administrador</option>
 							<option value="1">Coordinador</option>
-						</select> <span th:if="${resultado3 == 1}" style="color: #BF2121">Debe
+						</select> <span th:if="${resultado3 == 1}" style="color: yellow;">Debe
 							seleccionar un tipo de usuario</span>
 					</div>
 				</div>
@@ -121,8 +124,8 @@
 				<div class="col-md">
 					<div class="form-group">
 						<label for="contra">Contraseña</label> <input type="password"
-							class="form-control" id="contra" name="contrasenia"> <span
-							th:errors="*{contrasenia}" style="color: #BF2121"></span>
+							class="form-control" id="contra" th:value="*{contrasenia}" name="contrasenia"> <span
+							th:errors="*{contrasenia}" style="color: yellow;"></span>
 					</div>
 				</div>
 				<div class="col-md">
@@ -132,7 +135,7 @@
 					</div>
 				</div>
 			</div>
-			<span th:if="${resultado4 == 1}" style="color: #BF2121">Las
+			<span th:if="${resultado4 == 1}" style="color: yellow;">Las
 				contraseñas no coinciden!</span>
 
 			<div class="form-check" th:if="${tipo == 1}">
@@ -148,9 +151,7 @@
 				</div>
 		</form>
 	</div>
-</body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	
+</body>	
 	<script type="text/javascript">
 		function calcularEdad(fecha) {
 		    var hoy = new Date();
@@ -203,34 +204,37 @@
 	$(document).ready(
 			function() {
 				$('#departamento').change(
-						function() {
-							var pri = document.getElementById("departamento").value;
-							$.ajax({
-								type : "POST",
-								"serverSide" : true,
-								url : "./cargarMunicipios",
-								data : {
-									draw : pri
-								},
-								success : function(r) {
-									$('#municipio').empty();
-									var select = document
-											.getElementById("municipio");
-									$("<option/>").val(0).text(
-											"Seleccione una opción").appendTo(
-											"#municipio");
-									$.each(r,
-											function(key, val) {
-												$("<option/>").val(r[key][0])
-														.text(r[key][1])
-														.appendTo("#municipio");
-											});
-								},
-								error : function(data) {
-									alert('error');
-								}
-							})
+						municipio
+				)
+			}
+	)
+	function municipio(){
+		var pri = document.getElementById("departamento").value;
+		$.ajax({
+			type : "POST",
+			"serverSide" : true,
+			url : "./cargarMunicipios",
+			data : {
+				draw : pri
+			},
+			success : function(r) {
+				$('#municipio').empty();
+				var select = document
+						.getElementById("municipio");
+				$("<option/>").val(0).text(
+						"Seleccione una opción").appendTo(
+						"#municipio");
+				$.each(r, 
+						function(key, val) {
+							$("<option/>").val(r[key][0])
+									.text(r[key][1])
+									.appendTo("#municipio");
 						});
-			})
+			},
+			error : function(data) {
+				alert('error');
+			}
+		})
+	}
 </script>
 </html>

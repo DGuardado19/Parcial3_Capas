@@ -117,6 +117,7 @@ public class UsuarioController {
 		
 		try {
 			departamentoLista = departamentoService.findAll();
+			municipioLista = MunicipioService.findDepartamento(usuarioLista.getDepartamento().getIdDepartamento());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -136,7 +137,22 @@ public class UsuarioController {
 		List<Usuario> listaUsuario = null;
 		List<Departamento> departamentoLista = null;
 		List<Municipio> municipioLista = null;
-		if(result.hasErrors() || usuario.getDepartamento() == null || usuario.getMunicipio() == null || !usuario.getContrasenia().equals(pass)) {
+		int bandera = 0;
+		if(usuario.getIdUsuario() != null) {
+			Usuario usuarioUno = usuarioService.findOne(usuario.getIdUsuario());
+			if(!usuario.getContrasenia().equals(usuarioUno.getContrasenia())) {
+				if (!usuario.getContrasenia().equals(pass)) {
+					bandera=1;
+				}
+			}
+			System.out.println(usuarioUno.getContrasenia());
+			System.out.println(usuario.getContrasenia());
+		} else {
+			if (!usuario.getContrasenia().equals(pass)) {
+				bandera=1;
+			}
+		}
+		if(result.hasErrors() || usuario.getDepartamento() == null || usuario.getMunicipio() == null || bandera == 1) {
 			if(usuario.getDepartamento() == null) {
 				mav.addObject("resultado", 1);
 			}
@@ -146,7 +162,7 @@ public class UsuarioController {
 			if(usuario.getTipoUsuario() == null) {
 				mav.addObject("resultado3", 1);
 			}
-			if(pass != usuario.getContrasenia()) {
+			if(bandera==1) {
 				mav.addObject("resultado4", 1);
 			}
 			departamentoLista = departamentoService.findAll();
@@ -161,7 +177,6 @@ public class UsuarioController {
 					usuario.setEstado(false);
 	            }
 				usuarioService.insertAndUpdate(usuario);
-				System.out.println(usuario.getDepartamento()); 
 				mav.setViewName("redirect:/tablaUsuario");
 			} catch (Exception e) {
 				e.printStackTrace();

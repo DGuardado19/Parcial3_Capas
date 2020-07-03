@@ -3,25 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Materias Cursadas</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<!-- Hojas de estilo de bootstrap y propio -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
 <link rel="stylesheet" href="css/style.css">
- <!-- Bootstrap core JavaScript-->
-   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Bootstrap core JavaScript-->
+<link href="css/fontawesome-free/css/all.min.css" rel="stylesheet"
+	type="text/css">
+<script src="js/bootstrap.bundle.min.js"></script>
 
-  <!-- Page level plugin JavaScript-->
-      <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-  <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+<!-- Page level plugin JavaScript-->
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script
+	src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="js/dataTables.bootstrap4.js"></script>
 
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin.min.js"></script>
-
-  <!-- Demo scripts for this page-->
-  <script src="js/demo/datatables-demo.js"></script>
 </head>
 <script type="text/javascript">	
 
@@ -53,24 +53,33 @@
 	    } );
 		$('#tablaClientes tbody').on( 'click', '#i2', function () {
 	        var data = table.row( $(this).parents('tr') ).data();
-	        	location.href = './editarMateriaAlumno?id=' + data[0];
+	        	location.href = './editarMateriaAlumno?id=' + val1 + "&id2="+data[0];
 	    } );
 	});
 	
 </script>
 <body class="tablas-ventana">
 
-	<nav class="navbar navbar-expand-lg navbar-dark bg-menu"> 
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"><img alt="" src="img/logo.jpeg"></span>
-	  </button>
-	  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-	    <ul class="navbar-nav">
-	      <li class="nav-item">
-	        <a class="nav-link" href="tablaExpediente">Regresar</a>
-	      </li>
-	    </ul>
-	  </div>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-menu">
+		<a class="navbar-brand" href="#"><img alt="" src="img/logo.jpeg"></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"><img alt=""
+				src="img/logo.jpeg"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavDropdown">
+			<ul class="navbar-nav">
+		      <li class="nav-item active">
+		        <a class="nav-link" href="RegresarTablaExpediente">Regresar</a>
+		      </li>
+		    </ul>
+		</div>
+		<div class="form-inline">
+			<a class="btn btn-secondary btn-light" type="button"
+				aria-haspopup="true" aria-expanded="false" href="/logout">
+				Cerrar Sesión </a>
+		</div>
 	</nav>
 	
 	

@@ -3,6 +3,7 @@ package com.capas.uca.parcial3.dto;
 public class CursadasDTO {
 	
 
+	public Integer idMateriaXestudiante;
 	public Integer idestudiante;
 	public Integer idmateria;
 	public String nombremateria;
@@ -70,5 +71,12 @@ public class CursadasDTO {
 			estado = false;
 		}
 		return estado ? "Aprobado":"Reprobado";
+	}
+	public Integer getIdMateriaXestudiante() {
+		return idMateriaXestudiante;
+	}
+
+	public void setIdMateriaXestudiante(Integer idMateriaXestudiante) {
+		this.idMateriaXestudiante = idMateriaXestudiante;
 	}
 }
