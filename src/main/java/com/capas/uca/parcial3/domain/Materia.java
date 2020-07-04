@@ -22,7 +22,8 @@ import javax.persistence.SequenceGenerator;
 public class Materia {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(generator = "materia_idmateria_seq",strategy=GenerationType.AUTO)
+	@SequenceGenerator(name = "materia_idmateria_seq", sequenceName = "materia_idmateria_seq", allocationSize = 1)
 	@Column(name="idMateria")
 	private Integer idMateria;
 	

@@ -25,7 +25,8 @@ import javax.persistence.SequenceGenerator;
 public class Usuario {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(generator = "usuario_idusuario_seq",strategy=GenerationType.AUTO)
+	@SequenceGenerator(name = "usuario_idusuario_seq", sequenceName = "usuario_idusuario_seq", allocationSize = 1)
 	@Column(name="idUsuario")
 	private Integer idUsuario;
 	
