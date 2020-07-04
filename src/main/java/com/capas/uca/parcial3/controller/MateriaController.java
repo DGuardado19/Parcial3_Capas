@@ -94,7 +94,7 @@ public class MateriaController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			mav.setViewName("redirect:/tablaMateria");
+			mav.setViewName("redirect:/tablaMaterias");
 		} else {
 			mav.setViewName("registroMateria");
 

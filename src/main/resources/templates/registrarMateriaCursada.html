@@ -23,7 +23,7 @@
 	<div class="container formularios alumnoFrm">
 		
 		<div class="form-group">
-			<label for="Input1">Nombre del alumno</label>
+			<label for="boton">Nombre del alumno</label>
 			<input type="text" th:field="${estu.nombre}" class="form-control" id="boton" readonly="readonly">
 			<!-- th:value="${id}" -->
 		</div>
@@ -45,12 +45,12 @@
 			</div>
 						
 			<div class="form-group">
-				<label for="Input1">Año</label>
+				<label for="anio">Año</label>
 				<input type="number" class="form-control" th:field="*{anio}" id="anio">
 				<span th:if="${resultado2 == 1}" style="color: yellow">Año minimo: 2005</span>
 			</div>
 			<div class="form-group">
-				<label for="Select1">Ciclo</label>
+				<label for="ciclo">Ciclo</label>
 				<select class="form-control" th:field="*{ciclo}" id="ciclo">
 					<option value="0">Seleccione una opción</option>
 					<option value="1">Ciclo 1</option>
@@ -60,7 +60,7 @@
 				<span th:if="${resultado3 == 1}" style = "color: yellow">Debe seleccionar una ciclo!</span>
 			</div>
 			<div class="form-group">
-				<label for="Input1">Nota</label>
+				<label for="nota">Nota</label>
 				<input type="number" class="form-control" th:field="*{nota}" id="nota" step="any">
 				<span th:if="${resultado4 == 1}" style = "color: yellow">La nota debe estar entre 0 y 10!</span>
 			</div>
