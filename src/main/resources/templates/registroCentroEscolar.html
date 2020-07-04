@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Registrar Centro Escolar</title>
+<title>Centro Escolar</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
@@ -24,7 +24,7 @@
 	 </nav>
 
 	<div class="container formularios materiaForm">
-		<h1 class="center">Registrar nuevo Centro Escolar</h1>
+		<h1 class="center">Formulario de Centro Escolar</h1>
 		<form th:action="@{/registroCentroEscolarProcesar}" th:object="${centroEscolar}" method="post">
 		<div class="form-group">
 				<input type="hidden"
@@ -41,7 +41,7 @@
 			</div>
 			<div class="form-group">
 				<label for="Select1">Municipio</label> 
-				<select class="form-control" id="Select1" th:field="*{municipio.idMunicipio}"> <!--  th:field="*{municipio.idMunicipio}"  -->
+				<select class="form-control" id="Select1" th:field="*{municipio}">
 					<option value="0">Seleccione una opción</option>
 					<option th:each=item:${municipioLista}
 									th:value="${item.idMunicipio}"

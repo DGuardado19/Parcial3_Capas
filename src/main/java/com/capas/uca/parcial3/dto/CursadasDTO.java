@@ -1,7 +1,6 @@
 package com.capas.uca.parcial3.dto;
 
 public class CursadasDTO {
-	
 
 	public Integer idMateriaXestudiante;
 	public Integer idestudiante;
@@ -12,7 +11,6 @@ public class CursadasDTO {
 	public float nota;
 	
 	public CursadasDTO() {
-		// TODO Auto-generated constructor stub
 		super();
 	}
 

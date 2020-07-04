@@ -25,7 +25,6 @@ import com.capas.uca.parcial3.domain.Estudiante;
 import com.capas.uca.parcial3.domain.Materia;
 import com.capas.uca.parcial3.domain.MateriaXestudiante;
 import com.capas.uca.parcial3.domain.Municipio;
-import com.capas.uca.parcial3.domain.Usuario;
 import com.capas.uca.parcial3.dto.CursadasDTO;
 import com.capas.uca.parcial3.dto.ResutDTO;
 import com.capas.uca.parcial3.dto.TablaDTO;
@@ -41,24 +40,20 @@ public class EstudianteController {
 
 	@Autowired
 	private EstudianteService estudianteService;
-
 	@Autowired
 	private MunicipioService MunicipioService;
-
 	@Autowired
 	private DepartamentoService departamentoService;
-
 	@Autowired
 	private MateriaxEstudianteService materiaxEstudianteService;
-
 	@Autowired
 	private CentroEscolarService CentroEscolarService;
-
 	@Autowired
 	private MateriaService MateriaService;
-
 	@Autowired
 	private MainController maincontroller;
+
+	/*--------------------------------------------------------------Vistas------------------------------------------------------------*/
 
 	@RequestMapping("/editarEstudiante")
 	public ModelAndView buscarEstudiante(@RequestParam Integer id) {
@@ -81,38 +76,6 @@ public class EstudianteController {
 		mav.setViewName("busquedaAlumno");
 		maincontroller.sesionCoordinador(request, mav);
 		return mav;
-	}
-
-	@RequestMapping("/cargarEstudiantes")
-	public @ResponseBody TablaDTO cargarEstudiante(@RequestParam Integer draw, @RequestParam Integer start,
-			@RequestParam Integer length, @RequestParam(value = "search[value]", required = false) String search,
-			@RequestParam String variable, @RequestParam String criterio) {
-
-		String val1 = "", val2 = "";
-
-		if (criterio.equals("1")) {
-			val1 = variable;
-		} else {
-			val2 = variable;
-		}
-
-		Page<ResutDTO> materia = materiaxEstudianteService.dtoPrueba(val1, val2,
-				PageRequest.of(start / length, length, Sort.by(Direction.ASC, "idestudiante")));
-
-		List<String[]> data = new ArrayList<>();
-
-		for (ResutDTO u : materia) {
-			data.add(new String[] { u.getId().toString(), u.getNombre().toString(), u.getApellido().toString(),
-					u.getAprobadas().toString(), u.getReprobadas().toString(), String.valueOf(u.getProm()) });
-		}
-		TablaDTO dto = new TablaDTO();
-
-		dto.setData(data);
-		dto.setDraw(draw);
-		dto.setRecordsFiltered(estudianteService.countAlumno(val1, val2));
-		dto.setRecordsTotal(estudianteService.countAlumno(val1, val2));
-
-		return dto;
 	}
 
 	@RequestMapping("/tablaExpediente2")
@@ -164,82 +127,6 @@ public class EstudianteController {
 		return mav;
 	}
 
-	@RequestMapping("/registroEstudiante")
-	public ModelAndView alumno(@Valid @ModelAttribute Estudiante estudiante, BindingResult result) {
-		ModelAndView mav = new ModelAndView();
-		if (result.hasErrors() || estudiante.getMunicipio() == null || estudiante.getDepartamento() == null
-				|| estudiante.getCentroEscolar() == null) {
-			erroraxo(estudiante, mav);
-			mostrarComboBoxRegistro(mav);
-		} else {
-			try {
-				mostrarComboBoxBusqueda(mav);
-				estudianteService.insertAndUpdate(estudiante);
-				mav.addObject("estudiante", estudiante);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return mav;
-	}
-
-	public void erroraxo(@ModelAttribute Estudiante estudiante, ModelAndView mav) {
-		if (estudiante.getDepartamento() == null) {
-			mav.addObject("resultado", 1);
-		}
-		if (estudiante.getMunicipio() == null) {
-			mav.addObject("resultado1", 1);
-		}
-		if (estudiante.getCentroEscolar() == null) {
-			mav.addObject("resultado2", 1);
-
-		}
-	}
-
-	public void mostrarComboBoxBusqueda(ModelAndView mav) {
-
-		List<Departamento> departamentoLista = null;
-		List<Municipio> municipioLista = null;
-		List<CentroEscolar> centroescolar = null;
-
-		try {
-			centroescolar = CentroEscolarService.findAll();
-			departamentoLista = departamentoService.findAll();
-			municipioLista = MunicipioService.findAll();
-
-			mav.addObject("departamentoLista", departamentoLista);
-			mav.addObject("municipioLista", municipioLista);
-			mav.addObject("centro", centroescolar);
-
-			mav.setViewName("busquedaAlumno");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	public void mostrarComboBoxRegistro(ModelAndView mav) {
-
-		List<Departamento> departamentoLista = null;
-		List<Municipio> municipioLista = null;
-		List<CentroEscolar> centroescolar = null;
-
-		try {
-			centroescolar = CentroEscolarService.findAll();
-			departamentoLista = departamentoService.findAll();
-			municipioLista = MunicipioService.findAll();
-
-			mav.addObject("departamentoLista", departamentoLista);
-			mav.addObject("municipioLista", municipioLista);
-			mav.addObject("centro", centroescolar);
-
-			mav.setViewName("registroAlumno");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
 	@RequestMapping("/materiasCursadas")
 	public ModelAndView materiasCursadasTable(@RequestParam Integer id, HttpSession request) {
 		ModelAndView mav = new ModelAndView();
@@ -272,40 +159,63 @@ public class EstudianteController {
 		return mav;
 	}
 
-	@RequestMapping("/insertarMateriaAlumno")
-	public ModelAndView insertarMateriaAlumno(@Valid @ModelAttribute MateriaXestudiante materiaAlumno,
-			BindingResult result, @RequestParam Integer id2) {
+	@RequestMapping("/editarMateriaAlumno")
+	public ModelAndView buscarMateriaAlumno(@RequestParam Integer id, @RequestParam Integer id2) {
 		ModelAndView mav = new ModelAndView();
 
 		List<Materia> materiaLista = null;
 		Estudiante estu = null;
-		if (result.hasErrors() || materiaAlumno.getMateria() == null) {
-			if (materiaAlumno.getMateria() == null) {
-				mav.addObject("resultado", 1);
-			}
-			System.out.println(materiaAlumno.getAnio());
-			System.out.println(materiaAlumno.getCiclo());
-			mav.setViewName("registrarMateriaCursada");
-		} else {
-			try {
-				estu = estudianteService.findOne(id2);
-				materiaAlumno.setEstudiante(estu);
-				System.out.println(materiaAlumno.getAnio());
-				System.out.println(materiaAlumno.getCiclo());
-				System.out.println(materiaAlumno.getEstudiante().getIdEstudiante());
-				System.out.println(materiaAlumno.getMateria().getIdMateria());
-				System.out.println(materiaAlumno.getNota());
-				materiaxEstudianteService.insertAndUpdate(materiaAlumno);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			mav.setViewName("busquedaAlumno");
+		MateriaXestudiante materiaAlumno = null;
+		try {
+
+			materiaLista = MateriaService.showSubjects();
+			estu = estudianteService.findByName2(id);
+			materiaAlumno = materiaxEstudianteService.findOne(id2);
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		materiaLista = MateriaService.showSubjects();
+
 		mav.addObject("estu", estu);
+		mav.addObject("id2", id2);
 		mav.addObject("materiaLista", materiaLista);
 		mav.addObject("materiaAlumno", materiaAlumno);
+		mav.setViewName("registrarMateriaCursada");
 		return mav;
+	}
+
+	/*-----------------------------------------------------------Cargar Tablas o select------------------------------------------------------------*/
+
+	@RequestMapping("/cargarEstudiantes")
+	public @ResponseBody TablaDTO cargarEstudiante(@RequestParam Integer draw, @RequestParam Integer start,
+			@RequestParam Integer length, @RequestParam(value = "search[value]", required = false) String search,
+			@RequestParam String variable, @RequestParam String criterio) {
+
+		String val1 = "", val2 = "";
+
+		if (criterio.equals("1")) {
+			val1 = variable;
+		} else {
+			val2 = variable;
+		}
+
+		Page<ResutDTO> materia = materiaxEstudianteService.dtoPrueba(val1, val2,
+				PageRequest.of(start / length, length, Sort.by(Direction.ASC, "idestudiante")));
+
+		List<String[]> data = new ArrayList<>();
+
+		for (ResutDTO u : materia) {
+			data.add(new String[] { u.getId().toString(), u.getNombre().toString(), u.getApellido().toString(),
+					u.getAprobadas().toString(), u.getReprobadas().toString(), String.valueOf(u.getProm()) });
+		}
+		TablaDTO dto = new TablaDTO();
+
+		dto.setData(data);
+		dto.setDraw(draw);
+		dto.setRecordsFiltered(estudianteService.countAlumno(val1, val2));
+		dto.setRecordsTotal(estudianteService.countAlumno(val1, val2));
+
+		return dto;
 	}
 
 	@RequestMapping("/cargarMateriasCursadas")
@@ -333,31 +243,6 @@ public class EstudianteController {
 		return dto;
 	}
 
-	@RequestMapping("/editarMateriaAlumno")
-	public ModelAndView buscarMateriaAlumno(@RequestParam Integer id, @RequestParam Integer id2) {
-		ModelAndView mav = new ModelAndView();
-
-		List<Materia> materiaLista = null;
-		Estudiante estu = null;
-		MateriaXestudiante materiaAlumno = null;
-		try {
-
-			materiaLista = MateriaService.showSubjects();
-			estu = estudianteService.findByName2(id);
-			materiaAlumno = materiaxEstudianteService.findOne(id2);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		mav.addObject("estu", estu);
-		mav.addObject("id2", id2);
-		mav.addObject("materiaLista", materiaLista);
-		mav.addObject("materiaAlumno", materiaAlumno);
-		mav.setViewName("registrarMateriaCursada");
-		return mav;
-	}
-
 	@RequestMapping("/cargarCentroEscolar")
 	public @ResponseBody List<String[]> cargarCentroEscolar(@RequestParam Integer draw) {
 		List<CentroEscolar> centro = null;
@@ -373,5 +258,125 @@ public class EstudianteController {
 			data.add(new String[] { u.getIdCentroEscolar().toString(), u.getNombre() });
 		}
 		return data;
+	}
+
+	/*--------------------------------------------------------------Funciones------------------------------------------------------------*/
+
+	@RequestMapping("/registroEstudiante")
+	public ModelAndView alumno(@Valid @ModelAttribute Estudiante estudiante, BindingResult result) {
+		ModelAndView mav = new ModelAndView();
+		if (result.hasErrors() || estudiante.getMunicipio() == null || estudiante.getDepartamento() == null
+				|| estudiante.getCentroEscolar() == null || estudiante.getFechaNac() == null) {
+			erroraxo(estudiante, mav);
+			mostrarComboBoxRegistro(mav, estudiante);
+		} else {
+			try {
+				estudianteService.insertAndUpdate(estudiante);
+				mav.addObject("estudiante", estudiante);
+				mav.setViewName("redirect:/busquedaAlumno");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return mav;
+	}
+
+	public void erroraxo(@ModelAttribute Estudiante estudiante, ModelAndView mav) {
+		if (estudiante.getDepartamento() == null) {
+			mav.addObject("resultado", 1);
+		}
+		if (estudiante.getMunicipio() == null) {
+			mav.addObject("resultado1", 1);
+		}
+		if (estudiante.getCentroEscolar() == null) {
+			mav.addObject("resultado2", 1);
+
+		}
+		if (estudiante.getFechaNac() == null) {
+			mav.addObject("resultado3", 1);
+		}
+	}
+
+	public void mostrarComboBoxRegistro(ModelAndView mav, Estudiante estudiante) {
+		List<Departamento> departamentoLista = null;
+		List<Municipio> municipioLista = null;
+		List<CentroEscolar> centroescolar = null;
+
+		try {
+			departamentoLista = departamentoService.findAll();
+			if (estudiante.getDepartamento() != null) {
+				municipioLista = MunicipioService.findDepartamento(estudiante.getDepartamento().getIdDepartamento());
+				if (estudiante.getMunicipio() != null) {
+					centroescolar = CentroEscolarService.findCentroEscolar(estudiante.getMunicipio().getIdMunicipio());
+				}
+			}
+
+			mav.addObject("departamentoLista", departamentoLista);
+			mav.addObject("municipioLista", municipioLista);
+			mav.addObject("centro", centroescolar);
+
+			mav.setViewName("registroAlumno");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@RequestMapping("/insertarMateriaAlumno")
+	public ModelAndView insertarMateriaAlumno(@Valid @ModelAttribute MateriaXestudiante materiaAlumno,
+			BindingResult result, @RequestParam Integer id2, @RequestParam Integer id) {
+		ModelAndView mav = new ModelAndView();
+
+		List<Materia> materiaLista = null;
+		Estudiante estu = null;
+		estu = estudianteService.findOne(id2);
+		materiaLista = MateriaService.showSubjects();
+		int bandera = 0;
+		int bandera2 = 0;
+		if(materiaAlumno.getNota() == null) {
+			bandera = 1;
+		} else {
+			if(materiaAlumno.getNota() > 10 || materiaAlumno.getNota() < 0) {
+				mav.addObject("resultado4", 1);
+			}
+		}
+		if(materiaAlumno.getAnio() == null) {
+			bandera2 = 1;
+		} else {
+			if(materiaAlumno.getAnio() < 2005) {
+				bandera2=1;
+			}
+		}
+		if (result.hasErrors() || materiaAlumno.getMateria() == null || materiaAlumno.getCiclo() == 0 || bandera2 == 1
+				|| bandera == 1) {
+			if (materiaAlumno.getMateria() == null) {
+				mav.addObject("resultado", 1);
+			}
+			if(materiaAlumno.getCiclo() == 0) {
+				mav.addObject("resultado3", 1);
+			}
+			if(bandera2 == 1) {
+				mav.addObject("resultado2", 1);
+			}
+			if(bandera == 1) {
+				mav.addObject("resultado4", 1);
+			}
+			mav.addObject("estu", estu);
+			mav.setViewName("registrarMateriaCursada");
+		} else {
+			try {
+				materiaAlumno.setEstudiante(estu);
+				materiaxEstudianteService.insertAndUpdate(materiaAlumno);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			mav.setViewName("busquedaAlumno");
+		}
+		materiaLista = MateriaService.showSubjects();
+		mav.addObject("estu", estu);
+		mav.addObject("id2", id);
+		mav.addObject("materiaLista", materiaLista);
+		mav.addObject("materiaAlumno", materiaAlumno);
+		return mav;
 	}
 }

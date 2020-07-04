@@ -49,12 +49,6 @@ public class CentroEscolarServiceImpl implements CentroEscolarService{
 	}
 
 	@Override
-	public Long countAll() {
-		// TODO Auto-generated method stub
-		return Repo.count();
-	}
-
-	@Override
 	public List<CentroEscolar> findCentroEscolar(Integer centro) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return Repo.findD(centro);

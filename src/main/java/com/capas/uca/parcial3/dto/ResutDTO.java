@@ -61,8 +61,4 @@ public class ResutDTO {
 		this.prom = prom;
 	}
 	
-	
-	
-	
-	
 }

@@ -5,13 +5,10 @@ import java.util.List;
 public class TablaDTO {
 	
 	private Integer draw;
-	
 	private Integer recordsTotal;
-	
 	private Integer recordsFiltered;
-	
 	private List<String[]> data;
-
+	
 	public Integer getDraw() {
 		return draw;
 	}

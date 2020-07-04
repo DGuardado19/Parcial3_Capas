@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Registrar materia cursada</title>
+<title>Materia cursada</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -41,28 +41,28 @@
 				    <option th:each=item:${materiaLista}
 				    		th:value="${item.idMateria}" th:text="${item.nombre}"></option>
 				</select>
-				<span th:if="${resultado == 1}" style = "color: yellow">Debe seleccionar una materia</span>
+				<span th:if="${resultado == 1}" style = "color: yellow">Debe seleccionar una materia!</span>
 			</div>
 						
 			<div class="form-group">
 				<label for="Input1">Año</label>
-				<input type="text" class="form-control" th:field="*{anio}" id="anio">
+				<input type="number" class="form-control" th:field="*{anio}" id="anio">
 				<span th:if="${resultado2 == 1}" style="color: yellow">Año minimo: 2005</span>
 			</div>
 			<div class="form-group">
 				<label for="Select1">Ciclo</label>
-				<select class="form-control" th:field="*{ciclo}" id="Select1">
+				<select class="form-control" th:field="*{ciclo}" id="ciclo">
 					<option value="0">Seleccione una opción</option>
 					<option value="1">Ciclo 1</option>
 					<option value="2">Ciclo 2</option>
 					<option value="3">Ciclo 3</option>
 				</select>
-				<span th:if="${resultado3 == 1}" style = "color: yellow">Debe seleccionar una ciclo</span>
+				<span th:if="${resultado3 == 1}" style = "color: yellow">Debe seleccionar una ciclo!</span>
 			</div>
 			<div class="form-group">
 				<label for="Input1">Nota</label>
-				<input type="number" class="form-control" th:field="*{nota}" id="nota">
-				<span th:if="${resultado4 == 1}" style = "color: yellow"></span>
+				<input type="number" class="form-control" th:field="*{nota}" id="nota" step="any">
+				<span th:if="${resultado4 == 1}" style = "color: yellow">La nota debe estar entre 0 y 10!</span>
 			</div>
 			<div class="btn-center">
 					<a class="btn color-btnSesion" id="regresar">Regresar</a>
@@ -71,7 +71,6 @@
 				</div>
 		</form>
 	</div>
-
 </body>
 
 	<script type="text/javascript">
@@ -84,9 +83,9 @@
 			document.getElementById("limpiar").style.display="none";	
 		}
 		function limpiar(){
-			document.getElementById("anio").value = "";
-			document.getElementById("ciclo").value = "";
-			document.getElementById("nota").value = "";
+			document.getElementById("anio").value = "0";
+			document.getElementById("ciclo").options[0].selected = true;
+			document.getElementById("nota").value = "0.0";
 			document.getElementById("Select1").options[0].selected = true;
 		}
 	</script>

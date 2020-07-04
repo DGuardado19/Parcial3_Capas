@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Registro alumno</title>
+<title>Alumno</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
@@ -43,8 +43,8 @@
 				<div class="col-md">
 					<div class="form-group">
 						<label for="fecha">Fecha de nacimiento</label> <input type="date"
-							id="fecha" class="form-control" th:field="*{fechaNac}"> <span
-							th:errors="*{fechaNac}" style="color: yellow"></span>
+							id="fecha" class="form-control" th:field="*{fechaNac}"> </span>
+							<span th:if="${resultado3 == 1}"  style="color: yellow;">Debe seleccionar una fecha!</span>
 					</div>
 				</div>
 				<div class="col-md">
@@ -85,7 +85,7 @@
 								th:value="${item.idDepartamento}"
 								th:text="${item.nombreDepartamento}">
 						</select>
-						<span th:if="${resultado == 1}" style = "color: yellow">Debe seleccionar un departamento</span>
+						<span th:if="${resultado == 1}" style = "color: yellow">Debe seleccionar un departamento!</span>
 					</div>
 				</div>
 				<div class="col-md">
@@ -97,7 +97,7 @@
 							<option th:each=item:${municipioLista}
 								th:value="${item.idMunicipio}" th:text="${item.nombreMunicipio}">
 						</select>
-						<span th:if="${resultado1 == 1}" style = "color: yellow">Debe seleccionar un municipio</span>
+						<span th:if="${resultado1 == 1}" style = "color: yellow">Debe seleccionar un municipio!</span>
 					</div>
 				</div>
 				<div class="col-md">
@@ -109,7 +109,7 @@
 							<option th:each=item:${centro}
 								th:value="${item.idCentroEscolar}" th:text="${item.nombre}">
 						</select>
-						<span th:if="${resultado2 == 1}" style = "color: yellow">Debe seleccionar un centro escolar</span>
+						<span th:if="${resultado2 == 1}" style = "color: yellow">Debe seleccionar un centro escolar!</span>
 					</div>
 				</div>
 			</div>

@@ -20,57 +20,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.capas.uca.parcial3.domain.Materia;
-import com.capas.uca.parcial3.domain.MateriaXestudiante;
-import com.capas.uca.parcial3.domain.Usuario;
-import com.capas.uca.parcial3.dto.ResutDTO;
 import com.capas.uca.parcial3.dto.TablaDTO;
 import com.capas.uca.parcial3.service.MateriaService;
-import com.capas.uca.parcial3.service.MateriaxEstudianteService;
 
 @Controller
 public class MateriaController {
-	
+
 	@Autowired
-	private MateriaService MateriaService;	
-	
-	@Autowired
-	private MateriaxEstudianteService MateriaxE;	
-	
+	private MateriaService MateriaService;
 	@Autowired
 	private MainController maincontroller;
-	
+
+	/*--------------------------------------------------------------Vistas------------------------------------------------------------*/
+
 	@RequestMapping("/tablaMaterias")
-    public ModelAndView clientesTable(HttpSession request){
+	public ModelAndView clientesTable(HttpSession request) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("tablaMateria");
-		maincontroller.sesionAdmin(request, mav); 
-        return mav;
-    }
-	
-	@RequestMapping("/cargarclientes")
-    public @ResponseBody TablaDTO cargarUsuario(@RequestParam Integer draw,
-		@RequestParam Integer start, @RequestParam Integer length, 
-			@RequestParam(value="search[value]", required = false) String search) {
+		maincontroller.sesionAdmin(request, mav);
+		return mav;
+	}
 
-		Page<Materia> materia = MateriaService.findAll(search.toLowerCase(), PageRequest.of(start/length, length, Sort.by(Direction.ASC, "idMateria")));
-
-		List<String[]> data = new ArrayList<>();
-
-		for(Materia u : materia) {
-				data.add(new String[] {u.getIdMateria().toString(), u.getIdMateria().toString(), u.getNombre(), 
-						u.getDescripicion(),u.getDelegateEstado()});
-		}
-		TablaDTO dto = new TablaDTO();
-		dto.setData(data);
-		dto.setDraw(draw);
-		dto.setRecordsFiltered(MateriaService.countAll(search.toLowerCase()));
-		dto.setRecordsTotal(MateriaService.countAll(search.toLowerCase()));	
-
-		return dto;
-    }
-	
- 
- @RequestMapping("/editarMateria")
+	@RequestMapping("/editarMateria")
 	public ModelAndView buscar(@RequestParam Integer id) {
 		ModelAndView mav = new ModelAndView();
 		Materia c = MateriaService.findOne(id);
@@ -78,32 +49,57 @@ public class MateriaController {
 		mav.setViewName("registroMateria");
 		return mav;
 	}
- 
- @RequestMapping("/registroMateria")
+
+	@RequestMapping("/registroMateria")
 	public ModelAndView registroMateria(HttpSession request) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("materia", new Materia());
 		mav.setViewName("registroMateria");
-		maincontroller.sesionAdmin(request, mav); 
+		maincontroller.sesionAdmin(request, mav);
 		return mav;
 	}
-	
+
+	/*--------------------------------------------------------------Cargar Tabla------------------------------------------------------------*/
+
+	@RequestMapping("/cargarclientes")
+	public @ResponseBody TablaDTO cargarUsuario(@RequestParam Integer draw, @RequestParam Integer start,
+			@RequestParam Integer length, @RequestParam(value = "search[value]", required = false) String search) {
+
+		Page<Materia> materia = MateriaService.findAll(search.toLowerCase(),
+				PageRequest.of(start / length, length, Sort.by(Direction.ASC, "idMateria")));
+
+		List<String[]> data = new ArrayList<>();
+
+		for (Materia u : materia) {
+			data.add(new String[] { u.getIdMateria().toString(), u.getIdMateria().toString(), u.getNombre(),
+					u.getDescripicion(), u.getDelegateEstado() });
+		}
+		TablaDTO dto = new TablaDTO();
+		dto.setData(data);
+		dto.setDraw(draw);
+		dto.setRecordsFiltered(MateriaService.countAll(search.toLowerCase()));
+		dto.setRecordsTotal(MateriaService.countAll(search.toLowerCase()));
+
+		return dto;
+	}
+
+	/*--------------------------------------------------------------Funciones------------------------------------------------------------*/
+
 	@RequestMapping("/insertarMateria")
 	public ModelAndView insertarMateria(@Valid @ModelAttribute Materia materia, BindingResult result) {
 		ModelAndView mav = new ModelAndView();
-		if(!result.hasErrors()) {
+		if (!result.hasErrors()) {
 			try {
 				MateriaService.insertAndUpdate(materia);
-			} catch(Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			mav.setViewName("redirect:/tablaMateria");
-		}
-		else {
+		} else {
 			mav.setViewName("registroMateria");
 
 		}
 		return mav;
 	}
-	
+
 }

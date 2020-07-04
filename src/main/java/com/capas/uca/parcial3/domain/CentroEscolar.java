@@ -28,8 +28,8 @@ public class CentroEscolar {
 	private Integer idCentroEscolar;
 	
 	@Column(name="nombre")
-	@Size(max=20, message="El campo sobrepasa la cantidad de 20 caracteres")
-	@NotEmpty(message="No puede ir vacio")
+	@Size(max=100, message="El campo sobrepasa la cantidad de 100 caracteres!")
+	@NotEmpty(message="No puede ir vacio!")
 	private String nombre;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -40,12 +40,11 @@ public class CentroEscolar {
 	private Integer fkMunicipio;
 	
 	@Column(name="descripcion")
-	@Size(max=100, message="El campo sobrepasa la cantidad de 1000 caracteres")
-	@NotEmpty(message="No puede ir vacio")
+	@Size(max=100, message="El campo sobrepasa la cantidad de 100 caracteres!")
+	@NotEmpty(message="No puede ir vacio!")
 	private String descripcion;
 	
 	@Column(name="estado")
-	@NotNull(message = "Seleccione un campo")
 	private Boolean estado;
 	
 	@OneToMany(mappedBy="centroEscolar",fetch=FetchType.LAZY)

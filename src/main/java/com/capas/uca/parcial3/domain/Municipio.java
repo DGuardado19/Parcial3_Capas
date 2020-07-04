@@ -42,7 +42,6 @@ public class Municipio {
 	@OneToMany(mappedBy="municipio",fetch=FetchType.LAZY)
 	private List<Estudiante> estudiante;
 	
-	
 	public Municipio() {
 		
 	}

@@ -25,7 +25,6 @@ import javax.persistence.SequenceGenerator;
 @Table(schema="public",name="materiaXestudiante")
 public class MateriaXestudiante {
 	
-	
 	@Id
 	@Column(name="idMateriaXestudiante")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,7 +52,7 @@ public class MateriaXestudiante {
 	private int ciclo;
 	
 	@Column(name="nota")
-	private Float nota;
+	private float nota;
 	
 	public MateriaXestudiante() {
 		
@@ -62,8 +61,6 @@ public class MateriaXestudiante {
 	public Integer getId() {
 		return id;
 	}
-
-
 
 	public void setId(Integer id) {
 		this.id = id;

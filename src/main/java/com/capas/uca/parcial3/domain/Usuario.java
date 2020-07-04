@@ -15,6 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -27,19 +30,18 @@ public class Usuario {
 	private Integer idUsuario;
 	
 	@Column(name="nombre")
-	@Size(max=25, message="El campo sobrepasa la cantidad de 25 caracteres")
-	@NotEmpty(message="No puede ir vacio")
+	@Size(max=25, message="El campo sobrepasa la cantidad de 25 caracteres!")
+	@NotEmpty(message="No puede ir vacio!")
 	private String nombre;
 	
 	@Column(name="apellido")
-	@Size(max=25, message="El campo sobrepasa la cantidad de 25 caracteres")
-	@NotEmpty(message="No puede ir vacio")
+	@Size(max=25, message="El campo sobrepasa la cantidad de 25 caracteres!")
+	@NotEmpty(message="No puede ir vacio!")
 	private String apellido;
 	
 	@Column(name="fechaNac")
 	private Date fechaNac;
 	
-	//Campo nuevo
 	@Column(name="edad")
 	private Integer edad;
 	
@@ -58,18 +60,18 @@ public class Usuario {
 	private Integer fkDepartamento;
 	
 	@Column(name="direccion")
-	@Size(max=100, message="El campo sobrepasa la cantidad de 100 caracteres")
-	@NotEmpty(message="No puede ir vacio")
+	@Size(max=100, message="El campo sobrepasa la cantidad de 100 caracteres!")
+	@NotEmpty(message="No puede ir vacio!")
 	private String direccion;
 	
 	@Column(name="nombreUser")
-	@Size(max=25, message="El campo sobrepasa la cantidad de 25 caracteres")
-	@NotEmpty(message="No puede ir vacio")
+	@Size(max=25, message="El campo sobrepasa la cantidad de 25 caracteres!")
+	@NotEmpty(message="No puede ir vacio!")
 	private String nombreUser;
 	
 	@Column(name="contrasenia")
-	@Size(max=25, message="El campo sobrepasa la cantidad de 25 caracteres")
-	@NotEmpty(message="No puede ir vacio")
+	@Size(max=25, message="El campo sobrepasa la cantidad de 25 caracteres!")
+	@NotEmpty(message="No puede ir vacio!")
 	private String contrasenia;
 	
 	@Column(name="tipoUsuario")

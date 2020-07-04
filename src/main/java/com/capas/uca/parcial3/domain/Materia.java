@@ -27,17 +27,15 @@ public class Materia {
 	private Integer idMateria;
 	
 	@Column(name="nombre")
-	@Size(max=40, message="El campo sobrepasa la cantidad de 40 caracteres")
-	@NotEmpty(message="No puede ir vacio")
+	@Size(max=25, message="El campo sobrepasa la cantidad de 25 caracteres!")
+	@NotEmpty(message="No puede ir vacio!")
 	private String nombre;
 	
 	@Column(name="descripcion")
-	@Size(max=150, message="El campo sobrepasa la cantidad de 150 caracteres")
-	@NotEmpty(message="No puede ir vacio")
+	@Size(max=100, message="El campo sobrepasa la cantidad de 100 caracteres!")
+	@NotEmpty(message="No puede ir vacio!")
 	private String descripicion;
 	
-	
-	@NotNull(message = "Seleccione un campo")
 	@Column(name="estado")
 	private Boolean estado;
 	
@@ -47,7 +45,6 @@ public class Materia {
 	public Materia() {
 		
 	}
-
 
 	public Integer getIdMateria() {
 		return idMateria;

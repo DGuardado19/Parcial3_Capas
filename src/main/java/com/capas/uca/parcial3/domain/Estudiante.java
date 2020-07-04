@@ -28,30 +28,29 @@ public class Estudiante {
 	private Integer idEstudiante;
 	
 	@Column(name="nombre")
-	@Size(max=20, message="El campo sobrepasa la cantidad de 20 caracteres")
-	@NotEmpty(message="No puede ir vacio")
+	@Size(max=20, message="El campo sobrepasa la cantidad de 20 caracteres!")
+	@NotEmpty(message="No puede ir vacio!")
 	private String nombre;
 	
 	@Column(name="apellido")
-	@Size(max=20, message="El campo sobrepasa la cantidad de 20 caracteres")
-	@NotEmpty(message="No puede ir vacio")
+	@Size(max=20, message="El campo sobrepasa la cantidad de 20 caracteres!")
+	@NotEmpty(message="No puede ir vacio!")
 	private String apellido;
 	
 	@Column(name="carnet")
-	@Size(max=9, message="El campo sobrepasa la cantidad de 9 caracteres")
-	@NotEmpty(message="No puede ir vacio")
+	@Size(max=9, message="El campo sobrepasa la cantidad de 9 caracteres!")
+	@NotEmpty(message="No puede ir vacio!")
 	private String carnet;
 	
 	@Column(name="fechaNac")
 	private Date fechaNac;
 	
-	//Campo nuevo
 	@Column(name="edad")
 	private Integer edad;
 	
 	@Column(name="direccion")
-	@Size(max=100, message="El campo sobrepasa la cantidad de 100 caracteres")
-	@NotEmpty(message="No puede ir vacio")
+	@Size(max=100, message="El campo sobrepasa la cantidad de 100 caracteres!")
+	@NotEmpty(message="No puede ir vacio!")
 	private String direccion;
 
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -69,13 +68,13 @@ public class Estudiante {
 	private Integer fkDepartamento;
 	
 	@Column(name="telefonoFijo")
-	@Size(max=8, message="El campo sobrepasa la cantidad de 8 caracteres")
-	@NotEmpty(message="No puede ir vacio")
+	@Size(max=8, message="El campo sobrepasa la cantidad de 8 caracteres!")
+	@NotEmpty(message="No puede ir vacio!")
 	private String telefonoFijo;
 	
 	@Column(name="telefonoMovil")
-	@Size(max=8, message="El campo sobrepasa la cantidad de 8 caracteres")
-	@NotEmpty(message="No puede ir vacio")
+	@Size(max=8, message="El campo sobrepasa la cantidad de 8 caracteres!")
+	@NotEmpty(message="No puede ir vacio!")
 	private String telefonoMovil;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -86,12 +85,12 @@ public class Estudiante {
 	private Integer fkCentroEscolar;
 	
 	@Column(name="nombrePadre")
-	@Size(max=50, message="El campo sobrepasa la cantidad de 50 caracteres")
+	@Size(max=50, message="El campo sobrepasa la cantidad de 50 caracteres!")
 	@NotEmpty(message="No puede ir vacio")
 	private String nombrePadre;
 	
 	@Column(name="nombreMadre")
-	@Size(max=50, message="El campo sobrepasa la cantidad de 50 caracteres")
+	@Size(max=50, message="El campo sobrepasa la cantidad de 50 caracteres!")
 	@NotEmpty(message="No puede ir vacio")
 	private String nombreMadre;
 	
