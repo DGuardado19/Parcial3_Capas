@@ -11,9 +11,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -42,15 +47,12 @@ public class MateriaXestudiante {
 	private Integer idEstudiante;
 	
 	@Column(name="anio")
-	@NotNull(message="No puede ir vacio")
-	private Integer anio;
+	private int anio;
 	
 	@Column(name="ciclo")
-	@NotNull(message="No puede ir vacio")
-	private Integer ciclo;
+	private int ciclo;
 	
 	@Column(name="nota")
-	@NotNull(message="No puede ir vacio")
 	private Float nota;
 	
 	public MateriaXestudiante() {

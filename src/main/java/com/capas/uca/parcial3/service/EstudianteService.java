@@ -25,4 +25,6 @@ public interface EstudianteService {
 	public Long countAll();
 	
 	public Estudiante findByName2(Integer id) throws DataAccessException;
+	
+	public Integer countAlumno(String cadena, String cadena2) throws DataAccessException;
 }

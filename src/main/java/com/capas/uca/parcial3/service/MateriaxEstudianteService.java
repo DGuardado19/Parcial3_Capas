@@ -20,4 +20,6 @@ public interface MateriaxEstudianteService {
 	public void insertAndUpdate(MateriaXestudiante materiaAlumno) throws DataAccessException;
 	
 	public MateriaXestudiante findOne(Integer id) throws DataAccessException;
+	
+	public Integer countMateriaAlumno(Integer id) throws DataAccessException;
 }

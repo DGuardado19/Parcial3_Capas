@@ -51,7 +51,6 @@ public class CentroEscolar {
 	@OneToMany(mappedBy="centroEscolar",fetch=FetchType.LAZY)
 	private List<Estudiante> estudiante;
 	
-	
 	public CentroEscolar() {
 		
 	}

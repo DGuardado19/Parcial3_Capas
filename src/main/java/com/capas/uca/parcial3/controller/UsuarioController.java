@@ -39,19 +39,13 @@ public class UsuarioController {
 	private MunicipioService MunicipioService;
 	@Autowired
 	private DepartamentoService departamentoService;
+	@Autowired
+	private MainController maincontroller;
 		
 	@RequestMapping("/tablaUsuario")
 	public ModelAndView tablaUsuario(HttpSession request) {
-		ModelAndView mav = new ModelAndView();		
-		Usuario user = null;
-		if(request.getAttribute("user") != null) {
-			user = (Usuario) request.getAttribute("user");
-			if(user.getTipoUsuario() == true) {
-				mav.setViewName("redirect:/busquedaAlumno");
-			} 
-		} else {
-			mav.setViewName("redirect:/index");
-		}
+		ModelAndView mav = new ModelAndView();
+		maincontroller.sesionAdmin(request, mav); 
 		return mav;
 	}
 	
@@ -87,29 +81,19 @@ public class UsuarioController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
-		String cart = (String)request.getAttribute("Hola");
-		System.out.println(cart); 
 		mav.addObject("departamentoLista", departamentoLista);
 		mav.addObject("municipioLista", municipioLista);
 		mav.addObject("usuario",usuarioLista);
 		mav.addObject("tipo", tipo);
 		mav.setViewName("registroUsuario");
-		/*if(tipo == 1) {
-			Usuario user = null;
-			if(request.getAttribute("user") != null) {
-				user = (Usuario) request.getAttribute("user");
-				if(user.getTipoUsuario() == true) {
-					mav.setViewName("redirect:/busquedaAlumno");
-				} 
-			} else {
-				mav.setViewName("redirect:/index");
-			}
-		} */
+		if(tipo == 1) {
+			maincontroller.sesionAdmin(request, mav); 
+		}
 		return mav;
 	}
 	
 	@RequestMapping("/editarUsuario")
-	public ModelAndView editarUsuario(@RequestParam Integer tipo, @RequestParam Integer id) {
+	public ModelAndView editarUsuario(@RequestParam Integer tipo, @RequestParam Integer id, HttpSession request) {
 		ModelAndView mav = new ModelAndView();
 		List<Departamento> departamentoLista = null;
 		List<Municipio> municipioLista = null;
@@ -128,11 +112,16 @@ public class UsuarioController {
 		mav.addObject("tipo", tipo);
 		mav.addObject("id", id);
 		mav.setViewName("registroUsuario");
+
+		if(tipo == 1) {
+			maincontroller.sesionAdmin(request, mav); 
+		}
+		
 		return mav;
 	}
 	
 	@RequestMapping("/ingresarUsuario")
-	public ModelAndView ingresarUsuario(@RequestParam("pass") String pass,@Valid @ModelAttribute Usuario usuario, BindingResult result) {
+	public ModelAndView ingresarUsuario(@RequestParam("pass") String pass, @Valid @ModelAttribute Usuario usuario, BindingResult result) {
 		ModelAndView mav = new ModelAndView();
 		List<Usuario> listaUsuario = null;
 		List<Departamento> departamentoLista = null;

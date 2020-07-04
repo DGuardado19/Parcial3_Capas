@@ -112,6 +112,11 @@ public class MateriaxEstudianteServiceImpl implements MateriaxEstudianteService 
 	public MateriaXestudiante findOne(Integer id) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return Repo.getOne(id);
+	}
+
+	@Override
+	public Integer countMateriaAlumno(Integer id) throws DataAccessException {
+		return Repo.countMateria(id);
 	} 
 
 }

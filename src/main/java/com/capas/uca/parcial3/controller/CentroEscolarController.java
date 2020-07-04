@@ -36,20 +36,14 @@ public class CentroEscolarController {
 	@Autowired
 	private MunicipioService MunicipioService;
 	
+	@Autowired
+	private MainController maincontroller;
+	
 	@RequestMapping("/tablaCentroEscolar")
     public ModelAndView tablaCentroEscolar(HttpSession request){
 		ModelAndView mav = new ModelAndView();
-		Usuario user = null;
-		if(request.getAttribute("user") != null) {
-			user = (Usuario) request.getAttribute("user");
-			if(user.getTipoUsuario() == false) {
-				mav.setViewName("tablaCentroEscolar");
-			} else {
-				mav.setViewName("redirect:/busquedaAlumno");
-			}
-		} else {
-			mav.setViewName("redirect:/index");
-		}
+		mav.setViewName("tablaCentroEscolar");
+		maincontroller.sesionAdmin(request, mav); 
         return mav;
     }
  @RequestMapping("/cargarCentrosEscolares")
@@ -78,7 +72,6 @@ public class CentroEscolarController {
 	public ModelAndView editarCentroEscolar(@RequestParam Integer id) {
 		ModelAndView mav = new ModelAndView();
 		List<Municipio> municipioLista = null;
-		// List<Usuario> usuarioLista = null;
 		try {
 			municipioLista = MunicipioService.findAll();
 
@@ -96,26 +89,17 @@ public class CentroEscolarController {
 @RequestMapping("/registroCentroEscolar")
 public ModelAndView registroCentroEscolar(HttpSession request) {
 	ModelAndView mav = new ModelAndView();
-	Usuario user = null;
-	if(request.getAttribute("user") != null) {
-		user = (Usuario) request.getAttribute("user");
-		if(user.getTipoUsuario() == false) {
-			List<Municipio> municipioLista = null;
-			try {
-				municipioLista = MunicipioService.findAll();
-				// usuarioLista = usuarioService.findAll();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			mav.addObject("centroEscolar", new CentroEscolar());
-			mav.addObject("municipioLista", municipioLista);
-			mav.setViewName("registroCentroEscolar");
-		} else {
-			mav.setViewName("redirect:/busquedaAlumno");
-		}
-	} else {
-		mav.setViewName("redirect:/index");
+	List<Municipio> municipioLista = null;
+	try {
+		municipioLista = MunicipioService.findAll();
+		// usuarioLista = usuarioService.findAll();
+	} catch (Exception e) {
+		e.printStackTrace();
 	}
+	mav.addObject("centroEscolar", new CentroEscolar());
+	mav.addObject("municipioLista", municipioLista);
+	mav.setViewName("registroCentroEscolar");
+	maincontroller.sesionAdmin(request, mav); 
 	return mav;
 }
 

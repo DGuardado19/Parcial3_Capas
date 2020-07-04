@@ -22,4 +22,8 @@ public interface EstudianteRepo extends JpaRepository<Estudiante, Integer> {
 			+ "     es.nombre LIKE ?1% and es.apellido LIKE ?2%")
 	public List<Object[]> pruebaDTO(String nombre, String apellido, Pageable page) throws DataAccessException;
 	
+	@Query(nativeQuery = true, value = "select COUNT(es.idestudiante) from public.estudiante es where "
+			+ "     es.nombre LIKE ?1% and es.apellido LIKE ?2%")
+	public Integer counAlumno(String nombre, String apellido) throws DataAccessException;
+	
 }

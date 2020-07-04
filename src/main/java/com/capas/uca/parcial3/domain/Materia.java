@@ -25,6 +25,7 @@ public class Materia {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="idMateria")
 	private Integer idMateria;
+	
 	@Column(name="nombre")
 	@Size(max=40, message="El campo sobrepasa la cantidad de 40 caracteres")
 	@NotEmpty(message="No puede ir vacio")

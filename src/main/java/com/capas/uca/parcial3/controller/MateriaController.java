@@ -36,20 +36,14 @@ public class MateriaController {
 	@Autowired
 	private MateriaxEstudianteService MateriaxE;	
 	
+	@Autowired
+	private MainController maincontroller;
+	
 	@RequestMapping("/tablaMaterias")
     public ModelAndView clientesTable(HttpSession request){
 		ModelAndView mav = new ModelAndView();
-		Usuario user = null;
-		if(request.getAttribute("user") != null) {
-			user = (Usuario) request.getAttribute("user");
-			if(user.getTipoUsuario() == false) {
-				mav.setViewName("tablaMateria");
-			} else {
-				mav.setViewName("redirect:/busquedaAlumno");
-			}
-		} else {
-			mav.setViewName("index");
-		}
+		mav.setViewName("tablaMateria");
+		maincontroller.sesionAdmin(request, mav); 
         return mav;
     }
 	
@@ -88,18 +82,9 @@ public class MateriaController {
  @RequestMapping("/registroMateria")
 	public ModelAndView registroMateria(HttpSession request) {
 		ModelAndView mav = new ModelAndView();
-		Usuario user = null;
-		if(request.getAttribute("user") != null) {
-			user = (Usuario) request.getAttribute("user");
-			if(user.getTipoUsuario() == false) {
-				mav.addObject("materia", new Materia());
-				mav.setViewName("registroMateria");
-			} else {
-				mav.setViewName("redirect:/busquedaAlumno");
-			}
-		} else {
-			mav.setViewName("redirect:/index");
-		}
+		mav.addObject("materia", new Materia());
+		mav.setViewName("registroMateria");
+		maincontroller.sesionAdmin(request, mav); 
 		return mav;
 	}
 	

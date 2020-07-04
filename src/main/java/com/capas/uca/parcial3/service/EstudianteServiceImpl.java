@@ -84,6 +84,12 @@ public class EstudianteServiceImpl implements EstudianteService {
 		return Repo.getOne(id);
 	}
 
+
+	@Override
+	public Integer countAlumno(String cadena, String cadena2) throws DataAccessException {
+		return Repo.counAlumno(cadena, cadena2); 
+	}
+
 	
 
 
