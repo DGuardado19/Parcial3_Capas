@@ -141,8 +141,10 @@ function municipio(){
 		},
 		success : function(r) {
 			$('#municipio').empty();
-			var select = document
-					.getElementById("municipio");
+			$('#centroE').empty();
+			$("<option/>").val(0).text(
+			"Seleccione una opción").appendTo(
+			"#centroE");
 			$("<option/>").val(0).text(
 					"Seleccione una opción").appendTo(
 					"#municipio");

@@ -62,4 +62,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return Repo.getOne(id);
 	}
 	
+	@Override
+	public Integer userExiste(String id) throws DataAccessException {
+		return Repo.userExiste(id);
+	}
+	
 }

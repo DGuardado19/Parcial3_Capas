@@ -20,4 +20,7 @@ public interface UsuarioRepo extends JpaRepository<Usuario, Integer> {
 	
 	@Query(nativeQuery = true, value = "select COUNT(*) from usuario where LOWER(nombre) like ?1% OR LOWER(apellido) like ?1% OR LOWER(nombreuser) like ?1%")
 	public Integer countUser(String search) throws DataAccessException;
+	
+	@Query(nativeQuery = true, value = "select COUNT(*) from usuario where LOWER(nombreuser) = ?1")
+	public Integer userExiste(String search) throws DataAccessException;
 }

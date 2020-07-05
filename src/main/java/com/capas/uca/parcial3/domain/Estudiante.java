@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.persistence.SequenceGenerator;
 
@@ -68,12 +69,12 @@ public class Estudiante {
 	private Integer fkDepartamento;
 	
 	@Column(name="telefonoFijo")
-	@Size(max=8,min=8, message="El campo debe tener 8 caracteres!")
+	@Pattern(message="El campo debe tener el siguiente formato: 23412314" , regexp="[2]{1}[\\d]{7}")
 	@NotEmpty(message="No puede ir vacio!")
 	private String telefonoFijo;
 	
 	@Column(name="telefonoMovil")
-	@Size(max=8,min=8, message="El campo debe tener 8 caracteres!")
+	@Pattern(message="El campo debe tener el siguiente formato: 78124321 o 68124321" , regexp="[6-7]{1}[\\d]{7}")
 	@NotEmpty(message="No puede ir vacio!")
 	private String telefonoMovil;
 	
@@ -86,12 +87,12 @@ public class Estudiante {
 	
 	@Column(name="nombrePadre")
 	@Size(max=50, message="El campo sobrepasa la cantidad de 50 caracteres!")
-	@NotEmpty(message="No puede ir vacio")
+	@NotEmpty(message="No puede ir vacio!")
 	private String nombrePadre;
 	
 	@Column(name="nombreMadre")
 	@Size(max=50, message="El campo sobrepasa la cantidad de 50 caracteres!")
-	@NotEmpty(message="No puede ir vacio")
+	@NotEmpty(message="No puede ir vacio!")
 	private String nombreMadre;
 	
 	@OneToMany(mappedBy="estudiante",fetch=FetchType.LAZY)

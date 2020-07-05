@@ -24,5 +24,7 @@ public interface UsuarioService {
 	public Page<Usuario> mostrarTodo(String search, Pageable page) throws DataAccessException;
 	
 	public Usuario obtenerOne(Integer id) throws DataAccessException;
+
+	Integer userExiste(String id) throws DataAccessException;
 	
 }

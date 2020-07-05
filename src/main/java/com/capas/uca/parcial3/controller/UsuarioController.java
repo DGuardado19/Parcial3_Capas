@@ -38,7 +38,7 @@ public class UsuarioController {
 	private DepartamentoService departamentoService;
 	@Autowired
 	private MainController maincontroller;
-
+	
 	/*--------------------------------------------------------------Vistas------------------------------------------------------------*/
 	
 	@RequestMapping("/tablaUsuario")
@@ -63,7 +63,7 @@ public class UsuarioController {
 		mav.addObject("departamentoLista", departamentoLista);
 		mav.addObject("municipioLista", municipioLista);
 		mav.addObject("usuario", usuarioLista);
-		mav.addObject("tipo", tipo);
+		mav.addObject("tipoF", tipo);
 		mav.setViewName("registroUsuario");
 		if (tipo == 1) {
 			maincontroller.sesionAdmin(request, mav);
@@ -88,7 +88,7 @@ public class UsuarioController {
 		mav.addObject("departamentoLista", departamentoLista);
 		mav.addObject("municipioLista", municipioLista);
 		mav.addObject("usuario", usuarioLista);
-		mav.addObject("tipo", tipo);
+		mav.addObject("tipoF", tipo);
 		mav.addObject("id", id);
 		mav.setViewName("registroUsuario");
 
@@ -116,8 +116,7 @@ public class UsuarioController {
 		dto.setData(data);
 		dto.setDraw(draw);
 		dto.setRecordsFiltered(usuarioService.countUser(search.toLowerCase()));
-		dto.setRecordsTotal(usuarioService.countUser(search.toLowerCase()));
-
+		dto.setRecordsTotal(usuarioService.countUser(search.toLowerCase())); 
 		return dto;
 	}
 
@@ -125,11 +124,12 @@ public class UsuarioController {
 	
 	@RequestMapping("/ingresarUsuario")
 	public ModelAndView ingresarUsuario(@RequestParam("pass") String pass, @Valid @ModelAttribute Usuario usuario,
-			BindingResult result) {
+			BindingResult result, @RequestParam Integer tipoF) {
 		ModelAndView mav = new ModelAndView();
 		List<Departamento> departamentoLista = null;
 		List<Municipio> municipioLista = null;
 		int bandera = 0;
+		int bandera2 = 0;
 		if (usuario.getIdUsuario() != null) {
 			Usuario usuarioUno = usuarioService.findOne(usuario.getIdUsuario());
 			if (!usuario.getContrasenia().equals(usuarioUno.getContrasenia())) {
@@ -137,13 +137,23 @@ public class UsuarioController {
 					bandera = 1;
 				}
 			}
+			if (!usuario.getNombreUser().equals(usuarioUno.getNombreUser())) {
+				int verificar2 = usuarioService.userExiste(usuario.getNombreUser().toLowerCase());
+				if (verificar2 > 0) {
+					bandera2 = 1;
+				}
+			}
 		} else {
 			if (!usuario.getContrasenia().equals(pass)) {
 				bandera = 1;
 			}
 		}
+		int verificar = 0;
+		if(usuario.getIdUsuario() == null) {
+			verificar = usuarioService.userExiste(usuario.getNombreUser().toLowerCase());
+		}
 		if (result.hasErrors() || usuario.getDepartamento() == null || usuario.getMunicipio() == null || bandera == 1
-				|| usuario.getFechaNac() == null) {
+				|| usuario.getFechaNac() == null || verificar > 0 || bandera2 == 1) {
 			if (usuario.getDepartamento() == null) {
 				mav.addObject("resultado", 1);
 			} else {
@@ -161,9 +171,13 @@ public class UsuarioController {
 			if (usuario.getFechaNac() == null) {
 				mav.addObject("resultado5", 1);
 			}
+			if(verificar > 0 || bandera2 == 1) {
+				mav.addObject("resultado6", 1);
+			}
 			departamentoLista = departamentoService.findAll();
 			mav.addObject("departamentoLista", departamentoLista);
 			mav.addObject("municipioLista", municipioLista);
+			mav.addObject("tipoF", tipoF);
 			mav.setViewName("registroUsuario");
 		} else {
 			try {

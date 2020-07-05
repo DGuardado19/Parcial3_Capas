@@ -20,10 +20,7 @@
 	
 	<nav class="navbar navbar-expand-lg navbar-dark bg-menu2"> 
 	  <a class="navbar-brand" href="#"><img alt="" src="img/logo.jpeg"></a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"><img alt="" src="img/logo.jpeg"></span>
-	  </button>
-	  <div style="width: 100%;text-align: right" th:if="${tipo == 1}">
+	  <div style="width: 100%;text-align: right" th:if="${tipoF == 1}">
             <a class="btn btn-secondary btn-light" type="button" aria-haspopup="true" aria-expanded="false" href="/logout"> 
                     Cerrar Sesión
                   </a>
@@ -35,6 +32,9 @@
 		<form th:action="@{/ingresarUsuario}" th:object="${usuario}" method="post">
 			<div class="form-group">
 				<input type="hidden" class="form-control" id="id" th:field="*{idUsuario}"> 
+			</div>
+			<div class="form-group">
+				<input type="hidden" class="form-control" id="id" name="tipoF" th:value="${tipoF}"> 
 			</div>
 			<div class="row">
 				<div class="col-md">
@@ -63,7 +63,7 @@
 				<div class="col-md">
 					<div class="form-group">
 						<label for="edad">Edad</label> <input type="text"
-							class="form-control" id="edad" th:field="*{edad}" readonly="readonly">
+							class="form-control" id="edad" th:field="*{edad}" th:value="*{edad}" readonly="readonly">
 					</div>
 				</div>
 			</div>
@@ -107,6 +107,7 @@
 						<label for="nombreUser">Nombre de usuario</label> <input type="text"
 							class="form-control" id="nombreUser" th:field="*{nombreUser}"> <span
 							th:errors="*{nombreUser}" style="color: yellow;"></span>
+							<span th:if="${resultado6 == 1}" style="color: yellow;">Usuario repetido, seleccione otro!</span>
 					</div>
 				</div>
 				<div class="col-md">
@@ -139,7 +140,7 @@
 			<span th:if="${resultado4 == 1}" style="color: yellow;">Las
 				contraseñas no coinciden!</span>
 
-			<div class="form-check" th:if="${tipo == 1}">
+			<div class="form-check" th:if="${tipoF == 1}">
 				<input class="form-check-input" type="checkbox" th:value="true"
 					id="estado" th:field="*{estado}"> <label
 					class="form-check-label" for="estado"> Activado </label>

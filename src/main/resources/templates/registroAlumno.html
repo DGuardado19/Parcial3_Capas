@@ -11,9 +11,16 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	</nav>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-menu2"> 
+		<a class="navbar-brand" href="#"><img alt="" src="img/logo.jpeg"></a>
+	  <div style="width: 100%;text-align: right">
+            <a class="btn btn-secondary btn-light" type="button" aria-haspopup="true" aria-expanded="false" href="/logout"> 
+                    Cerrar Sesión
+                  </a>
+	  </div>
+	 </nav>
 	<div class="container formularios">
-		<h1 class="center">Registrar nuevo Alumno</h1>
+		<h1 class="center">Formulario de Alumno</h1>
 		<form th:action="@{/registroEstudiante}" th:object="${estudiante}" method="post">
 			<div class="form-group">
 				<input type="hidden"
@@ -51,7 +58,7 @@
 				<div class="col-md">
 					<div class="form-group">
 						<label for="edad">Edad</label> <input type="text"
-							class="form-control" id="edad" th:field="*{edad}" readonly="readonly">
+							class="form-control" id="edad" th:field="*{edad}" th:value="*{edad}" readonly="readonly">
 					</div>
 				</div>
 			</div>

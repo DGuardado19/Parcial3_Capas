@@ -11,9 +11,6 @@
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-menu2" style="margin-bottom: 30px;"> 
 		<a class="navbar-brand" href="#"><img alt="" src="img/logo.jpeg"></a>
-	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-	    <span class="navbar-toggler-icon"><img alt="" src="img/logo.jpeg"></span>
-	  </button>
 	  <div style="width: 100%;text-align: right">
             <a class="btn btn-secondary btn-light" type="button" aria-haspopup="true" aria-expanded="false" href="/logout"> 
                     Cerrar Sesión
@@ -31,7 +28,7 @@
 	</div>
 
 	<div class="container formularios materiaForm">
-		<h1 class="center">Materia cursada</h1> 
+		<h1 class="center">Formulario de Materia cursada</h1> 
 		<form th:action="@{/insertarMateriaAlumno}" th:object="${materiaAlumno}" method="post">
 			<input type="hidden" th:value="${estu.idEstudiante}" class="form-control" name="id2" id="boton2">
 			<input type="hidden" th:value="${id2}" class="form-control" name="id" id="boton3">
