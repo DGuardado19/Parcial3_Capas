@@ -1,6 +1,8 @@
 package com.capas.uca.parcial3.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -71,8 +73,15 @@ public class EstudianteController {
 	}
 
 	@RequestMapping("/busquedaAlumno")
-	public ModelAndView busquedaAlumno(HttpSession request) {
+	public ModelAndView busquedaAlumno(HttpSession request, @RequestParam(required = false) Integer msg) {
 		ModelAndView mav = new ModelAndView();
+		if(msg != null) {
+			if(msg == 1) {
+				mav.addObject("agrego", 1);
+			} else if(msg == 2) {
+				mav.addObject("modifico", 1);
+			}
+		}
 		mav.setViewName("busquedaAlumno");
 		maincontroller.sesionCoordinador(request, mav);
 		return mav;
@@ -271,9 +280,13 @@ public class EstudianteController {
 			mostrarComboBoxRegistro(mav, estudiante);
 		} else {
 			try {
+				if(estudiante.getIdEstudiante() == null) {
+					mav.setViewName("redirect:/busquedaAlumno?msg=1");
+				} else {
+					mav.setViewName("redirect:/busquedaAlumno?msg=2");
+				}
 				estudianteService.insertAndUpdate(estudiante);
 				mav.addObject("estudiante", estudiante);
-				mav.setViewName("redirect:/busquedaAlumno");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -319,7 +332,6 @@ public class EstudianteController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@RequestMapping("/insertarMateriaAlumno")
@@ -343,7 +355,8 @@ public class EstudianteController {
 		if(materiaAlumno.getAnio() == null) {
 			bandera2 = 1;
 		} else {
-			if(materiaAlumno.getAnio() < 2005) {
+			Calendar cal= Calendar.getInstance();
+			if(materiaAlumno.getAnio() < 2005 || materiaAlumno.getAnio() > cal.get(Calendar.YEAR)) {
 				bandera2=1;
 			}
 		}
@@ -370,7 +383,7 @@ public class EstudianteController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			mav.setViewName("busquedaAlumno");
+			mav.setViewName("redirect:/materiasCursadas?id="+id2);
 		}
 		materiaLista = MateriaService.showSubjects();
 		mav.addObject("estu", estu);
