@@ -63,11 +63,14 @@ public class EstudianteController {
 		Estudiante c = estudianteService.findOne(id);
 		List<Departamento> d = departamentoService.findAll();
 		List<Municipio> m = MunicipioService.findDepartamento(c.getDepartamento().getIdDepartamento());
-		List<CentroEscolar> ce = CentroEscolarService.findCentroEscolar(c.getMunicipio().getIdMunicipio());
+		List<CentroEscolar> ce = CentroEscolarService.findCentroEscolar(c.getCentroEscolar().getMunicipio().getIdMunicipio());
+		List<Municipio> m2 = MunicipioService.findDepartamento(c.getCentroEscolar().getMunicipio().getDepartamento().getIdDepartamento());
 		mav.addObject("departamentoLista", d);
 		mav.addObject("municipioLista", m);
+		mav.addObject("municipioListTodo", m2);
 		mav.addObject("centro", ce);
 		mav.addObject("estudiante", c);
+		mav.addObject("departamentoListTodo", d);
 		mav.setViewName("registroAlumno");
 		return mav;
 	}
@@ -121,16 +124,17 @@ public class EstudianteController {
 	}
 
 	@RequestMapping("/registroAlumno")
-	public ModelAndView registroAlumno(@ModelAttribute Estudiante estudiante, HttpSession request) {
+	public ModelAndView registroAlumno(HttpSession request) {
 		ModelAndView mav = new ModelAndView();
 		List<Departamento> departamentoLista = null;
 		try {
 			departamentoLista = departamentoService.findAll();
 			mav.addObject("departamentoLista", departamentoLista);
+			mav.addObject("departamentoListTodo", departamentoLista);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mav.addObject("estudiante", estudiante);
+		mav.addObject("estudiante", new Estudiante());
 		mav.setViewName("registroAlumno");
 		maincontroller.sesionCoordinador(request, mav);
 		return mav;
@@ -275,7 +279,8 @@ public class EstudianteController {
 	public ModelAndView alumno(@Valid @ModelAttribute Estudiante estudiante, BindingResult result) {
 		ModelAndView mav = new ModelAndView();
 		if (result.hasErrors() || estudiante.getMunicipio() == null || estudiante.getDepartamento() == null
-				|| estudiante.getCentroEscolar() == null || estudiante.getFechaNac() == null) {
+				|| estudiante.getFechaNac() == null || estudiante.getCentroEscolar().getMunicipio().getDepartamento() == null
+				|| estudiante.getCentroEscolar().getMunicipio().getIdMunicipio() == null || estudiante.getCentroEscolar().getIdCentroEscolar() == null) {
 			erroraxo(estudiante, mav);
 			mostrarComboBoxRegistro(mav, estudiante);
 		} else {
@@ -301,7 +306,7 @@ public class EstudianteController {
 		if (estudiante.getMunicipio() == null) {
 			mav.addObject("resultado1", 1);
 		}
-		if (estudiante.getCentroEscolar() == null) {
+		if (estudiante.getCentroEscolar().getIdCentroEscolar() == null) {
 			mav.addObject("resultado2", 1);
 
 		}
@@ -313,20 +318,26 @@ public class EstudianteController {
 	public void mostrarComboBoxRegistro(ModelAndView mav, Estudiante estudiante) {
 		List<Departamento> departamentoLista = null;
 		List<Municipio> municipioLista = null;
+		List<Municipio> municipioListaTodo = null;
 		List<CentroEscolar> centroescolar = null;
 
 		try {
 			departamentoLista = departamentoService.findAll();
 			if (estudiante.getDepartamento() != null) {
 				municipioLista = MunicipioService.findDepartamento(estudiante.getDepartamento().getIdDepartamento());
-				if (estudiante.getMunicipio() != null) {
-					centroescolar = CentroEscolarService.findCentroEscolar(estudiante.getMunicipio().getIdMunicipio());
+			}
+			if(estudiante.getCentroEscolar().getMunicipio().getDepartamento() != null) {
+				municipioListaTodo = MunicipioService.findDepartamento(estudiante.getCentroEscolar().getMunicipio().getDepartamento().getIdDepartamento());
+				if (estudiante.getCentroEscolar().getMunicipio().getIdMunicipio() != null) {
+					centroescolar = CentroEscolarService.findCentroEscolar(estudiante.getCentroEscolar().getMunicipio().getIdMunicipio());
 				}
 			}
-
-			mav.addObject("departamentoLista", departamentoLista);
-			mav.addObject("municipioLista", municipioLista);
+			
 			mav.addObject("centro", centroescolar);
+			mav.addObject("departamentoLista", departamentoLista);
+			mav.addObject("departamentoListTodo", departamentoLista);
+			mav.addObject("municipioLista", municipioLista);
+			mav.addObject("municipioListTodo", municipioListaTodo);
 
 			mav.setViewName("registroAlumno");
 		} catch (Exception e) {

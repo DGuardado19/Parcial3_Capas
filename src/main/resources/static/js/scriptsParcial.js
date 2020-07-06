@@ -122,7 +122,10 @@ function combobox(bandera){
 						municipio
 				)
 				if(bandera == 1){
-					$('#municipio').change(
+					$('#departamentoCE').change(
+							municipio2
+					)
+					$('#municipioCE').change(
 							centroEscolar
 					)
 				}
@@ -141,10 +144,6 @@ function municipio(){
 		},
 		success : function(r) {
 			$('#municipio').empty();
-			$('#centroE').empty();
-			$("<option/>").val(0).text(
-			"Seleccione una opción").appendTo(
-			"#centroE");
 			$("<option/>").val(0).text(
 					"Seleccione una opción").appendTo(
 					"#municipio");
@@ -161,8 +160,39 @@ function municipio(){
 	})
 }
 
+function municipio2(){
+	var pri = document.getElementById("departamentoCE").value;
+	$.ajax({
+		type : "POST",
+		"serverSide" : true,
+		url : "./cargarMunicipios",
+		data : {
+			draw : pri
+		},
+		success : function(r) {
+			$('#municipioCE').empty();
+			$('#centroE').empty();
+			$("<option/>").val(0).text(
+			"Seleccione una opción").appendTo(
+			"#centroE");
+			$("<option/>").val(0).text(
+					"Seleccione una opción").appendTo(
+					"#municipioCE");
+			$.each(r, 
+					function(key, val) {
+						$("<option/>").val(r[key][0])
+								.text(r[key][1])
+								.appendTo("#municipioCE");
+					});
+		},
+		error : function(data) {
+			alert('error');
+		}
+	})
+}
+
 function centroEscolar(){
-	var pri = document.getElementById("municipio").value;
+	var pri = document.getElementById("municipioCE").value;
 	$.ajax({
 		type: "POST",
 		"serverSide": true,
@@ -171,7 +201,7 @@ function centroEscolar(){
 		success:function(r){
 			$('#centroE').empty();
 			var select = document.getElementById("centroE");
-			$("<option/>").val(0).text("Seleccione una opcion").appendTo("#centroE");
+			$("<option/>").val(0).text("Seleccione una opción").appendTo("#centroE");
 			$.each(r, function(key, val) {
 				$("<option/>").val(r[key][0]).text(r[key][1]).appendTo("#centroE");
 		    });
