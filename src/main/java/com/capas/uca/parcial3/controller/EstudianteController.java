@@ -207,9 +207,9 @@ public class EstudianteController {
 		String val1 = "", val2 = "";
 
 		if (criterio.equals("1")) {
-			val1 = variable;
+			val1 = variable.toLowerCase();
 		} else {
-			val2 = variable;
+			val2 = variable.toLowerCase();
 		}
 
 		Page<ResutDTO> materia = materiaxEstudianteService.dtoPrueba(val1, val2,
