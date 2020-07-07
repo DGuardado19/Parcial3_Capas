@@ -28,7 +28,7 @@ public class CentroEscolar {
 	private Integer idCentroEscolar;
 	
 	@Column(name="nombre")
-	@Size(max=100, message="El campo sobrepasa la cantidad de 100 caracteres!")
+	@Size(max=200, message="El campo sobrepasa la cantidad de 200 caracteres!")
 	@NotEmpty(message="No puede ir vacio!")
 	private String nombre;
 	
@@ -40,7 +40,7 @@ public class CentroEscolar {
 	private Integer fkMunicipio;
 	
 	@Column(name="descripcion")
-	@Size(max=100, message="El campo sobrepasa la cantidad de 100 caracteres!")
+	@Size(max=300, message="El campo sobrepasa la cantidad de 300 caracteres!")
 	@NotEmpty(message="No puede ir vacio!")
 	private String descripcion;
 	

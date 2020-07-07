@@ -28,12 +28,12 @@ public class Materia {
 	private Integer idMateria;
 	
 	@Column(name="nombre")
-	@Size(max=25, message="El campo sobrepasa la cantidad de 25 caracteres!")
+	@Size(max=200, message="El campo sobrepasa la cantidad de 200 caracteres!")
 	@NotEmpty(message="No puede ir vacio!")
 	private String nombre;
 	
 	@Column(name="descripcion")
-	@Size(max=100, message="El campo sobrepasa la cantidad de 100 caracteres!")
+	@Size(max=300, message="El campo sobrepasa la cantidad de 300 caracteres!")
 	@NotEmpty(message="No puede ir vacio!")
 	private String descripicion;
 	
